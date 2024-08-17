@@ -1,0 +1,9 @@
+mixin menuRutasIndex(rutas)
+    each tema in rutas
+        -const page = tema[0].toLowerCase().trim().split(' ').join('-')
+        details(class="container-cross-menu")
+            summary(class="title-menu")= tema[0]
+            ul(class="cross-menu")
+                each subtema in tema[1]
+                    li(class="cross-menu__item")
+                        a(class="cross-menu__link" href=`public/views/${page}/${subtema[0]}.html`)= subtema[1]
