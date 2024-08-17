@@ -28,6 +28,7 @@ Para comenzar a utilizar esta plantilla, sigue los siguientes pasos:
    package-lock.json
    package.json
    postcss.config.js
+   .gitattributes
    ```
 
 4. **Ejecución de la Plantilla:**
@@ -37,7 +38,16 @@ Para comenzar a utilizar esta plantilla, sigue los siguientes pasos:
    gulp
    ```
 
-5. **Documentación**
+5. **Error**  
+   Si obtenemos un error como este: in the working copy of 'archive.html', LF will be replaced by CRLF the next time Git touches it.
+   Tenemos que agregar los siguientes comandos
+
+   ```bash
+   git add --renormalize .
+   git commit -m "Renormalize all the line endings"
+   ```
+
+6. **Documentación**
    [Documentación Plantilla](https://gomezba.github.io/documentacion-plantilla/)
 
 ## Información del Autor
