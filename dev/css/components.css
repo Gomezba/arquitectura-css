@@ -108,14 +108,12 @@
 }
 
 .container-cross-menu[open] .title-menu {
+	position: sticky;
+	top: 0;
+	background-color: var(--menu-left-open);
 	color: var(--color-title-menu-hover) !important;
 	font-weight: var(--fw-700);
 	border-bottom: 1px solid rgba(221, 216, 216, 0.767);
-	@media (width < 500px) {
-		position: sticky;
-		top: 0;
-		background-color: var(--menu-left-open);
-	}
 
 	@media (width > 900px) {
 		padding: var(--pd-small);
