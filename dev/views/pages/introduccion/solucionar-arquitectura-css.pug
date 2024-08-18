@@ -5,13 +5,96 @@ append h1
 
 
 append content 
+    p Muchas veces escuchamos que "el CSS es difícil de mantener" o que "no hace lo que quiero". Estos problemas suelen surgir cuando no se tiene una estructura clara desde el principio. Al igual que en cualquier otro lenguaje de programación, la arquitectura que elijamos para nuestro CSS tiene un gran impacto en la escalabilidad y mantenibilidad del código.
+
+    p Uno de los primeros pasos para mejorar la organización de nuestro CSS es 
+        strong.ts-1 acordar un estándar de nomenclatura para las clases.
+        |   Esto no solo facilita la comprensión del código entre los miembros del equipo, sino que también ayuda a evitar problemas de especificidad, que a menudo resultan en el uso innecesario de !important. Incluso si usamos herramientas como CSS-in-JS o frameworks como Tailwind, necesitamos nombrar componentes de manera clara y consistente, ya que esto facilita su reutilización y modificación.
+
+    p Otro aspecto clave es la 
+        strong.ts-1 modularización.
+        |   Usar un preprocesador como SASS nos permite dividir nuestro CSS en archivos más pequeños y específicos, lo que facilita su localización, comprensión y mantenimiento.
+
+    p Finalmente, existen herramientas online como 
+        a(href="https://unused-css.com/" target="_blank").link Unused CSS
+        |, o soluciones como 
+        a(href="https://github.com/purifycss/purifycss" target="_blank").link PurifyCSS
+        |   que podemos incorporar en nuestros proyectos, que nos ayudan a identificar y eliminar código CSS no utilizado, manteniendo el proyecto limpio y eficiente. 
+
+
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 Inspección CSS de una web
+        p Cuando no contamos con una buena arquitectura CSS, mantener el control de nuestros estilos se vuelve complicado. Modificar un estilo específico puede convertirse en un desafío si no sabemos dónde encontrarlo. Si alguna vez te has hecho esta pregunta, es posible que tu arquitectura CSS no esté bien estructurada ni organizada.
+
+        p Es común que, por rapidez o conveniencia, optemos por comprar temas en línea en lugar de diseñar nuestra propia arquitectura CSS. Si bien esta opción puede ser válida, es importante tener en cuenta los problemas que podrían surgir a largo plazo. Muchos temas traen consigo reglas de estilo propias que no siempre están bien estructuradas, y a menudo incluyen una gran cantidad de estilos que no utilizaremos, lo que afecta negativamente el rendimiento de la web. Además, estos temas suelen venir con hojas de estilo prediseñadas que no es recomendable modificar directamente por si sale una nueva versión del tema; en su lugar, se proporciona un archivo llamado custom.css para personalizar los estilos.
+
+        p Esto nos puede llevar a utilizar técnicas CSS menos óptimas, como el uso de selectores demasiado específicos, para intentar adaptarnos a las limitaciones del tema.
+
+        p Tenemos una herramienta en línea 
+            a(href="https://unused-css.com/" target="_blank").link Unused CSS
+            |   que nos permite identificar de manera visual el código CSS que no estamos utilizando, destacándolo en rojo para facilitar su localización y eliminación.
+
+        figure: img(src="../../assets/img/1-css-lenguaje/1.png" alt="Unused ejemplo")
+
+        p Una herramienta como esta nos permite identificar cuándo una página no cuenta con una buena arquitectura CSS. Con una arquitectura bien diseñada, muchas tareas se simplifican, como el 
+            strong.ts-3 Code Splitting
+            | , ya que al tener todo modularizado, podemos cargar solo el CSS necesario en cada página específica.
+
+        p Por esta razón, utilizar herramientas o temas de terceros no siempre es la mejor opción, especialmente si el tema no está bien estructurado. Muchos de estos temas no siguen una coherencia en sus estilos; mezclan #id con clases y emplean !important reactivos, prácticas que deberíamos evitar. Esto nos lleva a adoptar estas mismas prácticas para conseguir los resultados deseados, lo que genera frustración y la percepción de que CSS es difícil de mantener y no se comporta como queremos.
+
+        p Pensemos en esto: en otros lenguajes de programación, mezclar estilos y emplear malas prácticas es algo que nunca consideraríamos. Entonces, ¿por qué en CSS muchas veces no se le da la misma importancia?
+
+        p En este curso, aprenderemos a mantener la coherencia en la nomenclatura de clases y a modularizar todo, lo que hará que trabajar con CSS sea mucho más fácil y agradable.
 
 
     article(id="2" class="content")
-        h2 Subtitulo 2    
+        h2 Code Splitting 
+        p.ts-1 En el desarrollo web, code splitting es una técnica utilizada para dividir el código en diferentes partes o 
+            strong.ts-2 "chunks"
+            |   que se pueden cargar de manera asíncrona o solo cuando sean necesarios. Esto mejora la carga inicial de la página y optimiza el rendimiento.
+        h3 Aplicación de Code Splitting en CSS
+        p Aunque el término 
+            strong "code splitting"
+            |   se asocia más comúnmente con JavaScript, el concepto también se puede aplicar a CSS, donde el objetivo es cargar solo los estilos que son necesarios para la vista actual del usuario.
+
+        p Maneras de aplicar Code Splitting: 
+
+        ul 
+            li 
+                strong.ts-3 CSS Condicional:
+                p Puedes cargar diferentes hojas de estilo dependiendo del entorno o la sección del sitio web que se esté visitando. Por ejemplo, una página de inicio puede tener una hoja de estilo distinta a una página de contacto, cargando solo la necesaria para cada vista.
+            li 
+                strong.ts-3 Carga Asíncrona de CSS:
+                p En lugar de cargar todo el CSS de una vez, puedes cargar hojas de estilo adicionales cuando el usuario navega a nuevas partes de la aplicación, usando técnicas como 
+                    strong loadCSS
+                    |   o 
+                    strong media queries
+                    |   para diferir la carga.
+            li 
+                strong.ts-3 CSS Modularizado:
+                p Al usar preprocesadores como SASS o herramientas como PostCSS, puedes dividir tu CSS en módulos o componentes y compilar solo lo que es necesario para una página o componente específico.
+            li 
+                strong.ts-3 Herramientas de Bundling:
+                p Herramientas como 
+                    strong Webpack
+                    |   permiten realizar code splitting de CSS, generando diferentes archivos CSS que solo se cargan cuando se necesitan.
+
+        h3 Beneficios del Code Splitting en CSS
+        ul 
+            li 
+                p 
+                    strong Mejor Rendimiento
+                    |: Menos CSS cargado inicialmente significa tiempos de carga más rápidos.
+            li 
+                p 
+                    strong Mejor Experiencia de Usuario
+                    |   : Los usuarios solo descargan el CSS que necesitan, lo que reduce el uso de ancho de banda y mejora la experiencia en dispositivos con conexiones lentas.
+            li 
+                p 
+                    strong Mantenibilidad
+                    |   : Al dividir el CSS en partes más pequeñas y específicas, es más fácil mantener y escalar el código.
+        p En resumen, aplicar code splitting en CSS implica optimizar cómo y cuándo se cargan las hojas de estilo para mejorar el rendimiento y la experiencia del usuario.   
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'Inspección CSS de una web'],[2,'Code Splitting']]
     +submenu(submenuLinks)
