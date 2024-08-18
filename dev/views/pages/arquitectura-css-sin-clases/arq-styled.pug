@@ -8,10 +8,12 @@ append content
     article(id="1" class="content")
         h2 Subtitulo 1
 
-
     article(id="2" class="content")
-        h2 Subtitulo 2    
+        h2 Subtitulo 2
+
+    article(id="3" class="content")
+        h2 Subtitulo 3        
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'Subtitulo 1'],[2,'Subtitulo 2'],[3,'Subtitulo 3']]
     +submenu(submenuLinks)
