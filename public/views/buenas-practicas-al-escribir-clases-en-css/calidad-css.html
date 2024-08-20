@@ -93,18 +93,51 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
-          </article>
-          <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Especificidad de selectores</h2>
+            <p>Una de las cosas importantes en una arquitectura CSS, es cuidar la especificidad de los selectores, es decir lo específico que son los selectores.</p>
+            <h3>Especificidad basica </h3>
+            <ul>
+              <li>
+                <p><strong class="ts-1">tags, ::pseudoelementos</strong></p>
+                <p>&#8594; 0&nbsp;, 0&nbsp;, 1 </p>
+              </li>
+              <li>
+                <p><strong class="ts-1">clases, :pseudoclases</strong></p>
+                <p>&#8594; 0&nbsp;, 1&nbsp;, 0 </p>
+              </li>
+              <li>
+                <p><strong class="ts-1">id</strong></p>
+                <p>&#8594; 1&nbsp;, 0&nbsp;, 0 </p>
+              </li>
+              <li>
+                <p><strong class="ts-1">Estilos en línea:</strong></p>
+                <p>&#8594; 1&nbsp;, 0&nbsp;, 0 &nbsp;, 0 </p>
+              </li>
+              <li>
+                <p><strong class="ts-1">!important</strong></p>
+                <p>&#8594; Gana a todo. </p>
+              </li>
+            </ul>
+            <p>Veamos el siguiente ejemplo: </p>
+            <figure><img src="../../assets/img/buenas-practicas/1.png" alt="Ejemplo expecificidad"></figure>
+            <p class="ts-1">Esto no hay que leerlo como un número, porque nos puede pasar lo siguiente aunque es muy poco común.</p>
+            <figure><img src="../../assets/img/buenas-practicas/2.png" alt="Ejemplo expecificidad 2"></figure>
+            <p class="ts-1">Porque si después de ese selector o antes, tenemos una clase <strong class="ts-3">.strong</strong> que afecta a ese mismo strong anidado, la clase siempre le va ganar. </p>
+            <figure><img src="../../assets/img/buenas-practicas/3.png" alt="Ejemplo expecificidad 3"></figure>
+            <p>Esto nos ayuda a identificar cuándo tenemos selectores excesivamente anidados y a entender cuál es más específico.</p>
+            <p>Además de la anidación, otros factores influyen en la especificidad, como <span class="ts-2">el orden de los elementos en el HTML (la cascada), los estilos en línea y el uso de !important.</span></p>
+            <p>Esta información resulta especialmente útil al refactorizar CSS existente. <span class="ts-4">Sin embargo, cuando estamos desarrollando nuevos estilos, es preferible utilizar selectores simples, principalmente clases, y evitar la anidación en la medida de lo posible. Esto facilita la lectura y comprensión del código. Asimismo, es recomendable colocar los selectores menos específicos al inicio de la hoja de estilos, reservando los más específicos, como anidaciones y !important, para el final.</span></p>
+            <p>Para analizar la especificidad de nuestros selectores, podemos utilizar herramientas como <a class="link" href="https://jonassebastianohlsson.com/specificity-graph/" target="_blank">Specificity Graph.</a> Lo ideal es obtener un resultado lo más plano posible, con cualquier aumento de especificidad hacia el final de la hoja de estilos.</p>
+            <figure><img src="../../assets/img/buenas-practicas/4.png" alt="Ejemplo expecificidad 4">
+              <figcaption>Podemos ver que lo normal es que nuestros graficos empiezen planos es decir poner al inicio los selectores menos específicos al inicio e ir subiendo hasta el final de nuestro archivo poniendo los selectores más específicos.</figcaption>
+            </figure>
+            <p>Si vemos picos muy altos eso no es bueno, tenemos que empezar a refactorizar por esos picos.</p>
+            <p>En conclusión esta herramienta nos ayuda a visualizar si nuestra web tiene una buena arquitectura CSS. </p>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
-          </ul>
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">Especificidad de selectores</a></li>
           </ul>
         </nav>
       </section>

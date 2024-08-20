@@ -2,3 +2,46 @@
 @import './layout.css';
 @import './components.css';
 @import './utilities.css';
+
+%btn {
+	display: inline-block;
+	padding: 0.5rem;
+}
+
+.btn-primary {
+	@extend %btn;
+
+	background: #289f5f;
+	color: #fff;
+}
+
+.btn-secundary {
+	@extend %btn;
+
+	background: #333;
+	color: #fff;
+}
+
+.btn-danger {
+	@extend %btn;
+
+	background: #b00101;
+	color: #fff;
+}
+
+%justified {
+	display: flex;
+	justify-content: space-between;
+}
+
+.hero {
+	@extend %justified;
+	background-color: #289f5f;
+	color: #fff;
+}
+
+.footer {
+	@extend %justified;
+	background-color: #333;
+	color: #fff;
+}

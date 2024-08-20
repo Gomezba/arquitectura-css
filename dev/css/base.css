@@ -291,6 +291,23 @@ div:has(pre code) {
 	}
 }
 
+div:has(pre code) + p {
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.2 !important;
+	max-width: 31ch;
+
+	@media (width > 900px) {
+		max-width: 70ch !important;
+		line-height: 1.3 !important;
+		border-radius: 0 !important;
+	}
+
+	@media (width > 1900px) {
+		max-width: 71.5ch !important;
+	}
+}
+
 @media (width < 390px) {
 	li:has(div pre) div {
 		max-width: 28ch;

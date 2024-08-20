@@ -93,18 +93,55 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
-          </article>
-          <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Entendiendo que es Single Reponsibility Principle en CSS</h2>
+            <p>En CSS, al igual que en cualquier otro lenguaje, es útil seguir principios como el de Responsabilidad Única (Single Responsibility Principle), que forma parte de la S de SOLID. La dificultad radica en definir cuál es la responsabilidad específica de cada clase.</p>
+            <p class="ts-1">Un ejemplo común en cualquier proyecto web es la necesidad de convertir una <strong>lista (ul)</strong> para eliminar las viñetas y los márgenes o rellenos predeterminados. Queremos mantener la estructura semántica de la lista, pero cambiar su apariencia para que no se vean esos estilos predeterminados.</p>
+            <p>Aquí es donde entra en juego el concepto de <strong class="ts-2">ui-list.</strong> En desarrollo web, <span class="ts-4">"ui-list" se refiere a una clase genérica utilizada para estilizar listas (ul) de manera consistente en toda la interfaz de usuario.</span> Una clase genérica es aquella que se puede aplicar a múltiples elementos en diferentes partes de un sitio web, sin estar vinculada a un contexto o componente específico. Su responsabilidad principal es eliminar las viñetas y los márgenes, dejando la lista preparada para su personalización en diferentes contextos.</p>
+            <p class="ts-1">Es crucial comunicar claramente esta responsabilidad a través del <strong>nombre de la clase.</strong> Dado que estamos trabajando con un ul, un nombre comúnmente utilizado es ui-list. Sin embargo, <span class="ts-2">es importante no mezclar propiedades que controlen el diseño <span class="ts-5">(como el layout)</span> con aquellas que afectan la apariencia <span class="ts-5">(theming)</span>, como los colores de fondo o el texto. Mezclar estas propiedades en la misma clase haría que perdiera su responsabilidad única.</span></p>
+            <p> <span class="ts-3">Clase correcta &#10003;</span></p>
+            <div>
+              <pre><code class="language-css"> .ui-list {
+     list-style-type: none;
+     padding-left: 0;
+     margin-top: 0;
+     margin-bottom: 0;
+}</code></pre>
+            </div>
+            <p class="ts-1">La clase ui-list esta teniendo su responsabilidad única que es resetear los estilos predeterminados de una lista.</p>
+            <p> <span class="ts-6">Clase incorrecta &#10007;</span></p>
+            <div>
+              <pre><code class="language-css"> .ui-list {
+     list-style-type: none;
+     padding-left: 0;
+     margin-top: 0;
+     margin-bottom: 0;
+     
+     position: sticky;
+     color: white;
+     background-color: lightcoral;
+}</code></pre>
+            </div>
+            <p class="ts-1">La clase ui-list esta perdiendo su responsabilidad única que es resetear los estilos predeterminados de una lista, al agregarle propiedades de posicionamiento y propiedades de theming.</p>
+            <h3>Contextos de responsabilidad única </h3>
+            <p>La responsabilidad única en CSS depende del contexto.</p>
+            <p>En el caso de un <strong>ul</strong>, como hemos mencionado, es habitual reutilizarlo en diferentes listas, por lo que evitamos mezclar propiedades de theming para mantener su responsabilidad única. </p>
+            <p>Sin embargo, en clases para elementos más específicos, como un <strong class="ts-3">header</strong>, podemos incluir propiedades de posicionamiento como sticky, tamaño (width), y theming en una misma clase. En este caso, la responsabilidad de la clase es estilizar el encabezado principal de nuestra aplicación, y eso incluye tanto su layout como su apariencia.</p>
+            <div>
+              <pre><code class="language-css"> .header{
+   width: 100%;
+   position: sticky;
+   top: 0;
+   left: 0;
+   background-color: lightblue;
+   color: #fff;
+}</code></pre>
+            </div>
+            <p class="ts-1">En el contexto de un .header si es válido el mezclar propieades de (layout) y (theming) ya que estamos estilando el header principal y sus estilos son únicos.</p>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
-          </ul>
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">Entendiendo que es Single Reponsibility Principle en CSS</a></li>
           </ul>
         </nav>
       </section>
