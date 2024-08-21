@@ -79,7 +79,7 @@ append content
             |}
 
 
-        div: p Al transiplar nuestro SCSS a CSS obtenemos lo siguiente
+        p Al transiplar nuestro SCSS a CSS obtenemos lo siguiente
         div: pre: code.language-css 
             |.btn-danger,
             |.btn-secundary,
@@ -102,7 +102,7 @@ append content
             |	background: #b00101;
             |	color: #fff;
             |}         
-        p.ts-1 Como podemos observar aquellas clases donde heredamos, estan agrupadas compartiendo las propiedades que definimos dentro de 
+        p.des-code Como podemos observar aquellas clases donde heredamos, estan agrupadas compartiendo las propiedades que definimos dentro de 
             code %btn
             | .
 
@@ -134,7 +134,7 @@ append content
             |    color: #333;    
             |}
 
-        div: p Transpilación a CSS 
+        p Transpilación a CSS 
 
         div: pre: code.language-css 
             |.hero,
@@ -159,7 +159,7 @@ append content
             |    color: #333;    
             |}   
 
-        div: p El problema surge cuando estos elementos no tienen relación entre sí. Al heredar propiedades como display: flex; y justify-content: space-between;, estamos alineando los elementos en la misma dirección, cuando en realidad cada uno podría necesitar una disposición diferente.
+        p El problema surge cuando estos elementos no tienen relación entre sí. Al heredar propiedades como display: flex; y justify-content: space-between;, estamos alineando los elementos en la misma dirección, cuando en realidad cada uno podría necesitar una disposición diferente.
 
         p Una solución podria ser un mixin de SASS.
 
@@ -191,7 +191,7 @@ append content
             |    color: #333;    
             |}    
 
-        div: p Transpilación a CSS 
+        p Transpilación a CSS 
         div: pre: code.language-css 
             |.hero{
             |    display: flex;
@@ -214,7 +214,7 @@ append content
             |    color: #333;    
             |}          
 
-        p.ts-1  A primera vista, parece que estamos duplicando código al copiar y pegar las propiedades del mixin en todas las clases. Sin embargo, lo que realmente estamos haciendo es generar clases independientes, componiendo estilos, aunque con cierta repetición.
+        p.des-code  A primera vista, parece que estamos duplicando código al copiar y pegar las propiedades del mixin en todas las clases. Sin embargo, lo que realmente estamos haciendo es generar clases independientes, componiendo estilos, aunque con cierta repetición.
 
         p En este punto, podría parecer que no hemos resuelto el problema y que seguimos repitiendo propiedades. Pero recordemos que al usar un mixin, estamos componiendo, y estos pueden recibir parámetros. Veamos el siguiente ejemplo.
 
@@ -245,7 +245,7 @@ append content
             |    color: #333;    
             |}
 
-        div: p Transpilación a CSS
+        p Transpilación a CSS
         div: pre: code.language-css 
             |.hero{
             |    display: flex;
@@ -271,7 +271,7 @@ append content
             |    color: #333;    
             |}
 
-        div: p Al agregar un parámetro a un mixin, ganamos más flexibilidad, ya que podemos definir ciertos estilos con valores específicos según nuestras necesidades.
+        p Al agregar un parámetro a un mixin, ganamos más flexibilidad, ya que podemos definir ciertos estilos con valores específicos según nuestras necesidades.
 
 
         p.ts-1 Sin embargo, con gran poder viene una gran responsabilidad. No debemos caer en la tentación de crear mixins con demasiados parámetros, ya que esto podría llevarnos de nuevo a aplicar propiedades de manera redundante. Es importante ser cuidadosos.
@@ -305,11 +305,11 @@ append content
             |	color: #fff;
             |}
 
-        div: p Lo que hacemos es poner las clases en el html, teniendo una clase padre por así decirlo (btn), y una clase secundaria que es la que se encarga de agregar el estilo contextual.
+        p Lo que hacemos es poner las clases en el html, teniendo una clase padre por así decirlo (btn), y una clase secundaria que es la que se encarga de agregar el estilo contextual.
         div: pre: code.language-html 
             | &lt;a class="btn btn-primary" href="/buy"&gt;Comprar&lt;/a&gt;
 
-        div: p Esta es una estrategia muy efectiva para mantener el CSS simple y semántico, especialmente si no deseas depender de preprocesadores. Al usar clases compuestas como btn btn-primary, garantizas que el estilo base y el contextual estén vinculados de manera coherente. Además, esto facilita la comprensión del código por parte de otros desarrolladores, ya que la relación entre las clases es clara y explícita.
+        p Esta es una estrategia muy efectiva para mantener el CSS simple y semántico, especialmente si no deseas depender de preprocesadores. Al usar clases compuestas como btn btn-primary, garantizas que el estilo base y el contextual estén vinculados de manera coherente. Además, esto facilita la comprensión del código por parte de otros desarrolladores, ya que la relación entre las clases es clara y explícita.
 
 append submenu 
     -submenuLinks = [[1,'El Dilema'],[2,'Extend SASS'],[3,'Mixin SCSS'],[4,'Composición en clases separadas']]

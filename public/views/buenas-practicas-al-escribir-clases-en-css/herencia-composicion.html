@@ -152,9 +152,7 @@
 	color: #fff;
 }</code></pre>
             </div>
-            <div>
-              <p>Al transiplar nuestro SCSS a CSS obtenemos lo siguiente</p>
-            </div>
+            <p>Al transiplar nuestro SCSS a CSS obtenemos lo siguiente</p>
             <div>
               <pre><code class="language-css"> .btn-danger,
 .btn-secundary,
@@ -178,7 +176,7 @@
 	color: #fff;
 }         </code></pre>
             </div>
-            <p class="ts-1">Como podemos observar aquellas clases donde heredamos, estan agrupadas compartiendo las propiedades que definimos dentro de <code>%btn</code>.</p>
+            <p class="des-code">Como podemos observar aquellas clases donde heredamos, estan agrupadas compartiendo las propiedades que definimos dentro de <code>%btn</code>.</p>
             <p>Hasta este punto, parece que hemos solucionado el problema de repetir propiedades, pero esto depende del contexto. Si utilizamos la herencia en SCSS en un escenario donde los elementos no tienen relación entre sí, podemos enfrentarnos a un nuevo problema.</p>
             <p>Veamos el siguiente ejemplo</p>
             <div>
@@ -205,9 +203,7 @@
    color: #333;    
 }</code></pre>
             </div>
-            <div>
-              <p>Transpilación a CSS </p>
-            </div>
+            <p>Transpilación a CSS </p>
             <div>
               <pre><code class="language-css"> .hero,
 .footer,
@@ -231,9 +227,7 @@
    color: #333;    
 }   </code></pre>
             </div>
-            <div>
-              <p>El problema surge cuando estos elementos no tienen relación entre sí. Al heredar propiedades como display: flex; y justify-content: space-between;, estamos alineando los elementos en la misma dirección, cuando en realidad cada uno podría necesitar una disposición diferente.</p>
-            </div>
+            <p>El problema surge cuando estos elementos no tienen relación entre sí. Al heredar propiedades como display: flex; y justify-content: space-between;, estamos alineando los elementos en la misma dirección, cuando en realidad cada uno podría necesitar una disposición diferente.</p>
             <p>Una solución podria ser un mixin de SASS.</p>
           </article>
           <article class="content" id="3">
@@ -263,9 +257,7 @@
    color: #333;    
 }    </code></pre>
             </div>
-            <div>
-              <p>Transpilación a CSS </p>
-            </div>
+            <p>Transpilación a CSS </p>
             <div>
               <pre><code class="language-css"> .hero{
    display: flex;
@@ -288,7 +280,7 @@
    color: #333;    
 }          </code></pre>
             </div>
-            <p class="ts-1"> A primera vista, parece que estamos duplicando código al copiar y pegar las propiedades del mixin en todas las clases. Sin embargo, lo que realmente estamos haciendo es generar clases independientes, componiendo estilos, aunque con cierta repetición.</p>
+            <p class="des-code"> A primera vista, parece que estamos duplicando código al copiar y pegar las propiedades del mixin en todas las clases. Sin embargo, lo que realmente estamos haciendo es generar clases independientes, componiendo estilos, aunque con cierta repetición.</p>
             <p>En este punto, podría parecer que no hemos resuelto el problema y que seguimos repitiendo propiedades. Pero recordemos que al usar un mixin, estamos componiendo, y estos pueden recibir parámetros. Veamos el siguiente ejemplo.</p>
             <div>
               <pre><code class="language-scss">/* Queremos que el parámetro vertical-align sea center por defecto*/
@@ -317,9 +309,7 @@
    color: #333;    
 }</code></pre>
             </div>
-            <div>
-              <p>Transpilación a CSS</p>
-            </div>
+            <p>Transpilación a CSS</p>
             <div>
               <pre><code class="language-css"> .hero{
    display: flex;
@@ -345,9 +335,7 @@
    color: #333;    
 }</code></pre>
             </div>
-            <div>
-              <p>Al agregar un parámetro a un mixin, ganamos más flexibilidad, ya que podemos definir ciertos estilos con valores específicos según nuestras necesidades.</p>
-            </div>
+            <p>Al agregar un parámetro a un mixin, ganamos más flexibilidad, ya que podemos definir ciertos estilos con valores específicos según nuestras necesidades.</p>
             <p class="ts-1">Sin embargo, con gran poder viene una gran responsabilidad. No debemos caer en la tentación de crear mixins con demasiados parámetros, ya que esto podría llevarnos de nuevo a aplicar propiedades de manera redundante. Es importante ser cuidadosos.</p>
             <p>En resumen, los mixins son más versátiles que el uso de @extend, pero es crucial utilizarlos con moderación y únicamente en patrones que se repitan con frecuencia y tengan un propósito claro.</p>
           </article>
@@ -375,15 +363,11 @@
 	color: #fff;
 }</code></pre>
             </div>
-            <div>
-              <p>Lo que hacemos es poner las clases en el html, teniendo una clase padre por así decirlo (btn), y una clase secundaria que es la que se encarga de agregar el estilo contextual.</p>
-            </div>
+            <p>Lo que hacemos es poner las clases en el html, teniendo una clase padre por así decirlo (btn), y una clase secundaria que es la que se encarga de agregar el estilo contextual.</p>
             <div>
               <pre><code class="language-html"> &lt;a class="btn btn-primary" href="/buy"&gt;Comprar&lt;/a&gt;</code></pre>
             </div>
-            <div>
-              <p>Esta es una estrategia muy efectiva para mantener el CSS simple y semántico, especialmente si no deseas depender de preprocesadores. Al usar clases compuestas como btn btn-primary, garantizas que el estilo base y el contextual estén vinculados de manera coherente. Además, esto facilita la comprensión del código por parte de otros desarrolladores, ya que la relación entre las clases es clara y explícita.</p>
-            </div>
+            <p>Esta es una estrategia muy efectiva para mantener el CSS simple y semántico, especialmente si no deseas depender de preprocesadores. Al usar clases compuestas como btn btn-primary, garantizas que el estilo base y el contextual estén vinculados de manera coherente. Además, esto facilita la comprensión del código por parte de otros desarrolladores, ya que la relación entre las clases es clara y explícita.</p>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
