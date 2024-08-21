@@ -2,31 +2,3 @@
 @import './layout.css';
 @import './components.css';
 @import './utilities.css';
-
-
-.btn{
-    display: inline-block;
-    padding: 0.5rem;
-}
-
-.btn-primary {
-	background: #289f5f;
-	color: #fff;
-}
-
-.btn-secundary {
-	background: #333;
-	color: #fff;
-}
-
-.btn-danger {
-	background: #b00101;
-	color: #fff;
-}
-
-
-<a 
-    class="btn btn-primary"
-    href="/buy">
-    Comprar
-</a>    
