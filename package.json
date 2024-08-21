@@ -5,11 +5,7 @@
 	"main": "app.js",
 	"type": "module",
 	"scripts": {
-		"build:css": "npm-run-all --parallel build:css:*",
-		"build:css:file1": "postcss dev/css/base.css --no-map -o public/css/base.css",
-		"build:css:file2": "postcss dev/css/layout.css --no-map -o public/css/layout.css",
-		"build:css:file3": "postcss dev/css/components.css --no-map -o public/css/components.css",
-		"build:css:file4": "postcss dev/css/utilities.css --no-map -o public/css/utilities.css"
+		"build:css": "postcss dev/css/main.css --no-map -o public/css/styles.min.css"
 	},
 	"keywords": [],
 	"author": "gomezba",
@@ -22,9 +18,9 @@
 		"gulp": "4.0.2",
 		"gulp-prettify": "^0.5.0",
 		"gulp-pug": "4.0.1",
-		"npm-run-all": "^4.1.5",
 		"postcss": "^8.4.41",
 		"postcss-cli": "^11.0.0",
+		"postcss-import": "^16.1.0",
 		"postcss-preset-env": "^10.0.1"
 	}
 }
