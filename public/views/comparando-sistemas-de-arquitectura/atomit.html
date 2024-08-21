@@ -93,18 +93,162 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>¿Qué es Atomic Design?</h2>
+            <p>Atomic Design es un método para crear sistemas de diseño propuesto por Brad Frost. Aunque está enfocado principalmente en el diseño, podemos aplicar sus conceptos para mejorar la organización y estructura de nuestro CSS.</p>
+            <p>Atomic Design se basa en la idea de que cualquier interfaz de usuario se puede descomponer en componentes más pequeños y manejables. Estos componentes se organizan en diferentes niveles, de menor a mayor complejidad:</p><a class="link" href="https://atomicdesign.bradfrost.com/table-of-contents/" target="_blank">Mas sobre Atomit Design </a>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Átomos</h2>
+            <p>Los átomos son las piezas más pequeñas y fundamentales de nuestro sistema de diseño. <span class="ts-4">Son elementos básicos y no divisibles que, por sí solos, no tienen un contexto completo y, por lo tanto, necesitan combinarse con otros elementos para tener un sentido más claro.</span></p>
+            <p>Ejemplos de átomos:</p>
+            <ul>
+              <li>
+                <p><strong class="ts-4">Botones: </strong></p>
+                <div>
+                  <pre><code class="language-html"> &lt;button class="btn"&gt;Enviar&lt;/button&gt;</code></pre>
+                </div>
+              </li>
+              <li>
+                <p><strong class="ts-4">Labels:</strong></p>
+                <div>
+                  <pre><code class="language-html"> &lt;label class="label"&gt;Nombre:&lt;/label&gt;</code></pre>
+                </div>
+              </li>
+              <li>
+                <p><strong class="ts-4">Títulos:</strong></p>
+                <div>
+                  <pre><code class="language-html"> &lt;h1 class="title"&gt;Bienvenido&lt;/h1&gt;</code></pre>
+                </div>
+              </li>
+              <li>
+                <p><strong class="ts-4">Campos de texto:</strong></p>
+                <div>
+                  <pre><code class="language-html"> &lt;input type="text" class="input-text" /&gt;</code></pre>
+                </div>
+              </li>
+            </ul>
+            <p>Estos elementos son reconocibles y esenciales, pero no tienen un propósito completo hasta que se usan en un contexto más amplio. </p>
+          </article>
+          <article class="content" id="3">
+            <h2>Moléculas</h2>
+            <p class="ts-1">Las moléculas son combinaciones de dos o más átomos que trabajan juntos para formar una unidad funcional más compleja. A diferencia de los átomos, las moléculas tienen un propósito claro y son más útiles por sí solas, aunque aún dependen de un contexto mayor para ser totalmente efectivas.</p>
+            <p>Ejemplos de moléculas:</p>
+            <ul>
+              <li>
+                <p><strong class="ts-1">Formulario simple: </strong></p>
+                <div>
+                  <pre><code class="language-html"> &lt;label class="label"&gt;Nombre:&lt;/label&gt;
+&lt;input type="text" class="input-text" /&gt;</code></pre>
+                </div>
+              </li>
+              <li>
+                <p><strong class="ts-1">Card: </strong></p>
+                <div>
+                  <pre><code class="language-html"> &lt;div class="card"&gt;
+ &lt;img src="imagen.jpg" alt="Imagen del producto" class="card__img" /&gt;
+ &lt;h3 class="card__title"&gt;Producto 1&lt;/h3&gt;
+ &lt;p class="card__description"&gt;Descripción breve del producto.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+              </li>
+            </ul>
+            <p>Estas moléculas combinan varios átomos para crear un componente que tiene sentido por sí mismo. </p>
+          </article>
+          <article class="content" id="4">
+            <h2>Organismos </h2>
+            <p class="ts-1">Los organismos son conjuntos más complejos que se forman al combinar varias moléculas y átomos. En este nivel, los organismos son componentes completamente funcionales e independientes, que tienen sentido completo incluso si se trasladan a otro lugar de la interfaz.</p>
+            <p>Ejemplos de organismos:</p>
+            <ul>
+              <li>
+                <p><strong class="ts-3">Header de una página:</strong></p>
+                <div>
+                  <pre><code class="language-html"> &lt;header class="header"&gt;
+ &lt;img src="logo.png" alt="Logo" class="header__logo" /&gt;
+ &lt;nav class="header__nav"&gt;
+   &lt;a href="/" class="header__link"&gt;Inicio&lt;/a&gt;
+   &lt;a href="/about" class="header__link"&gt;Sobre nosotros&lt;/a&gt;
+   &lt;a href="/contact" class="header__link"&gt;Contacto&lt;/a&gt;
+ &lt;/nav&gt;
+&lt;/header&gt;</code></pre>
+                </div>
+              </li>
+              <li>
+                <p><strong class="ts-3">Grid de productos con filtros:</strong></p>
+                <div>
+                  <pre><code class="language-html"> &lt;section class="product-grid"&gt;
+ &lt;aside class="filter-sidebar"&gt;
+   &lt;h2&gt;Filtros&lt;/h2&gt;
+   &lt;!-- Filtros aquí --&gt;
+ &lt;/aside&gt;
+ &lt;div class="product-list"&gt;
+   &lt;div class="card"&gt;
+     &lt;img src="producto1.jpg" alt="Producto 1" class="card__img" /&gt;
+     &lt;h3 class="card__title"&gt;Producto 1&lt;/h3&gt;
+     &lt;p class="card__description"&gt;Descripción del producto 1.&lt;/p&gt;
+   &lt;/div&gt;
+   &lt;!-- Más productos aquí --&gt;
+ &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+                </div>
+              </li>
+            </ul>
+            <p>Estos organismos son bloques de construcción independientes que, si los sacamos de un lugar y los ponemos en otro, siguen funcionando correctamente y tienen sentido por sí mismos. </p>
+          </article>
+          <article class="content" id="5">
+            <h2>Otros Componentes de Atomic Design</h2>
+            <p>Atomic Design también incluye los conceptos de templates y páginas, que son combinaciones de organismos para crear vistas completas de una interfaz. Sin embargo, en términos de CSS, rara vez definimos estilos directamente para estos niveles, ya que normalmente utilizamos los organismos y los combinamos en el HTML.</p>
+          </article>
+          <article class="content" id="6">
+            <h2>Ventajas de Atomic Design</h2>
+            <p>Al aplicar Atomic Design, creamos un lenguaje común entre los equipos de diseño y desarrollo frontend. Esto mejora la comunicación y la coherencia en el proyecto, ya que ambos equipos pueden hablar el mismo idioma al referirse a los componentes de la interfaz.</p>
+          </article>
+          <article class="content" id="7">
+            <h2>Estructura de carpetas</h2>
+            <div class="has-mb">
+              <pre><code> styles
+├── atoms
+│       ├── _button.scss
+│       ├── _image.scss
+│       └── _pill.scss
+├── molecules
+│       ├── _card.scss
+│       └── _form.scss
+├── organisms
+│       ├── _gallery.scss
+│       └── _header.scss
+└── index.scss</code></pre>
+            </div>
+          </article>
+          <article class="content" id="8">
+            <h2>Limitaciones</h2>
+            <p>Aunque Atomic Design es una excelente herramienta para estructurar nuestros estilos, tiene algunas limitaciones. Por ejemplo, no cubre dónde ubicar estilos como reset o normalize, box-sizing, o cómo añadir clases funcionales o de estructura, que también son importantes en el desarrollo de CSS.</p>
+            <p>Algo que podemos hacer es utilizar lo mejor que nos ofrece Atomit Design y combinarlo con otros métodos de organización.</p>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">¿Qué es Atomic Design?</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">Átomos</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#3">Moléculas</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#4">Organismos</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#5">Otros Componentes de Atomic Design</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#6">Ventajas de Atomic Design</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#7">Estructura de carpetas</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#8">Limitaciones</a></li>
           </ul>
         </nav>
       </section>

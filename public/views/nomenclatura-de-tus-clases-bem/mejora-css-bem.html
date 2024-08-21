@@ -93,18 +93,128 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>¿Qué es BEM?</h2>
+            <p>BEM (Block, Element, Modifier) es un sistema de nomenclatura de clases que aborda los principales desafíos al nombrar clases en CSS: minimiza el riesgo de colisión de nombres, reduce la necesidad de anidar selectores, y deja claro, tanto en el HTML como en el CSS, la relación jerárquica entre clases.</p>
+            <p>Enlaces BEM
+            <ul>
+              <li> <a class="link" href="https://www.smashingmagazine.com/2018/06/bem-for-beginners/" target="_blank">Bem para principiantes </a></li>
+              <li> <a class="link" href="https://bem-cheat-sheet.9elements.com" target="_blank">Bem documentación </a></li>
+              <li> <a class="link" href="https://www.smashingmagazine.com/2016/06/battling-bem-extended-edition-common-problems-and-how-to-avoid-them/" target="_blank">10 problemas comunes y como evitarlos</a></li>
+              <li> <a class="link" href="https://github.com/chris-pearce/css-guidelines#state-hooks" target="_blank">css-guidelines</a></li>
+            </ul>
+            </p>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Ejemplo básico </h2>
+            <div>
+              <pre><code class="language-html"> &lt;article class="card"&gt;
+&lt;img class="card__img" src="/arquitectura-css.png" alt="Imagen del curso de arquitectura CSS" /&gt;
+&lt;h3 class="card__title"&gt;Arquitectura CSS&lt;/h3&gt;
+&lt;strong class="card__meta"&gt;gomezba&lt;/strong&gt;
+&lt;p&gt;Aprende a crear layouts escalables y mantenibles en CSS...&lt;/p&gt;
+&lt;button class="button button--primary"&gt;Empezar curso&lt;/button&gt;
+&lt;/article&gt;</code></pre>
+            </div><br>
+            <div>
+              <pre><code class="language-scss"> .card {
+ &__img { /* Estilos para la imagen dentro de la card */ }
+ &__title { /* Estilos para el título de la card */ }
+ &__meta { /* Estilos para la meta información de la card */ }
+}
+.button {
+ &--primary { /* Estilos para el botón principal */ }
+}</code></pre>
+            </div>
+            <div>
+              <p>En este ejemplo, podemos observar cómo la clase card actúa como el bloque principal. Los elementos card__img, card__title, y card__meta están claramente relacionados con el bloque card (denotado por el doble guion bajo __), mientras que button--primary es un modificador de la clase button que en realidad es un bloque, indicando una variación específica de estilo. </p>
+            </div>
+          </article>
+          <article class="content" id="3">
+            <h2>Evitando Errores Comunes</h2>
+            <p>Uno de los errores más frecuentes al usar BEM es replicar la estructura del HTML dentro del CSS, lo que lleva a clases excesivamente largas y CSS estrechamente acoplado a la estructura del HTML:</p>
+            <div>
+              <pre><code class="language-html"> &lt;article class="card"&gt;
+ &lt;img class="card__img" src="/cursos/arquitectura-css.png" alt="Imagen del curso de arquitectura CSS" /&gt;
+ &lt;div class="card__info"&gt;
+   &lt;h3 class="card__info__title"&gt;Arquitectura CSS&lt;/h3&gt;
+   &lt;strong class="card__info__meta"&gt;gomezba&lt;/strong&gt;
+ &lt;/div&gt;
+ &lt;button class="button button--primary"&gt;Empezar curso&lt;/button&gt;
+&lt;/article&gt;</code></pre>
+            </div><br>
+            <div>
+              <pre><code class="language-scss"> .card {
+ &__info { }
+ &__info__title { } /* Error: exceso de anidación */
+ &__info__meta { } /* Error: exceso de anidación */
+}</code></pre>
+            </div>
+            <div>
+              <p>Este tipo de anidación no solo genera clases innecesariamente largas (card__info__title), sino que también acopla demasiado el CSS a la estructura del HTML, haciendo que sea menos flexible. En BEM, todos los elementos (element) deberían ser descendientes directos del bloque:</p>
+            </div>
+            <div class="has-mb">
+              <pre><code class="language-scss"> .card {
+ &__info { /* Estilos para la sección de información */ }
+ &__title { /* Estilos para el título */ }
+ &__meta { /* Estilos para la meta información */ }
+}</code></pre>
+            </div>
+          </article>
+          <article class="content" id="4">
+            <h2>Uso Correcto de Modificadores</h2>
+            <p>Otro error común es crear modificadores para elementos individuales cuando sería más lógico usar un modificador a nivel de bloque:</p>
+            <div>
+              <pre><code class="language-html"> &lt;article class="card card--dark"&gt;
+ &lt;img class="card__img" src="/cursos/arquitectura-css.png" alt="Imagen del curso de arquitectura CSS" /&gt;
+ &lt;h3 class="card__title card__title--dark"&gt;Arquitectura CSS&lt;/h3&gt;
+ &lt;strong class="card__meta card__meta--dark"&gt;gomezba&lt;/strong&gt;
+&lt;/article&gt;</code></pre>
+            </div><br>
+            <div>
+              <pre><code class="language-scss"> .card {
+ &--dark { /* Modifica todo el bloque para un tema oscuro */ }
+ &__title {
+   &--dark { } /* Error: redundante y poco escalable */
+ }
+ &__meta {
+   &--dark { } /* Error: redundante y poco escalable */
+ }
+}</code></pre>
+            </div>
+            <div>
+              <p>En este caso, estamos dispersando la responsabilidad de adaptar la tarjeta a un tema oscuro entre varios modificadores (card__title--dark, card__meta--dark), lo cual es innecesario y fragmenta el CSS. En su lugar, podemos agrupar la responsabilidad dentro del modificador del bloque:</p>
+            </div>
+            <div>
+              <pre><code class="language-scss"> .card {
+ &__img { /* Estilos para la imagen */ }
+ &__title { /* Estilos para el título */ }
+ &__meta { /* Estilos para la meta información */ }
+
+ &--dark {
+   /* Modificaciones de estilo para la versión oscura de la card */
+   .card__title { }
+   .card__meta { }
+ }
+}</code></pre>
+            </div>
+            <div>
+              <p>Conclusión</p>
+            </div>
+            <p>El uso correcto de BEM no solo ayuda a mantener el código CSS organizado y fácil de entender, sino que también mejora la mantenibilidad a largo plazo. Evitar la sobreanidación y usar modificadores a nivel de bloque cuando corresponda son claves para aprovechar al máximo este sistema. </p>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">¿Qué es BEM?</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">Ejemplo básico</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#3">Evitando Errores Comunes</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#4">Uso Correcto de Modificadores</a></li>
           </ul>
         </nav>
       </section>

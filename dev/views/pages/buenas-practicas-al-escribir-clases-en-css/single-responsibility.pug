@@ -6,12 +6,78 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 Entendiendo que es Single Reponsibility Principle en CSS
 
+        p En CSS, al igual que en cualquier otro lenguaje, es útil seguir principios como el de Responsabilidad Única (Single Responsibility Principle), que forma parte de la S de SOLID. La dificultad radica en definir cuál es la responsabilidad específica de cada clase.
 
-    article(id="2" class="content")
-        h2 Subtitulo 2    
+        p.ts-1 Un ejemplo común en cualquier proyecto web es la necesidad de convertir una 
+            strong lista (ul)
+            |   para eliminar las viñetas y los márgenes o rellenos predeterminados. Queremos mantener la estructura semántica de la lista, pero cambiar su apariencia para que no se vean esos estilos predeterminados.
+
+        p Aquí es donde entra en juego el concepto de 
+            strong.ts-2 ui-list.
+            |   En desarrollo web, 
+            span.ts-4 "ui-list" se refiere a una clase genérica utilizada para estilizar listas (ul) de manera consistente en toda la interfaz de usuario.
+            |   Una clase genérica es aquella que se puede aplicar a múltiples elementos en diferentes partes de un sitio web, sin estar vinculada a un contexto o componente específico. Su responsabilidad principal es eliminar las viñetas y los márgenes, dejando la lista preparada para su personalización en diferentes contextos.
+
+        p.ts-1 Es crucial comunicar claramente esta responsabilidad a través del 
+            strong nombre de la clase.
+            |   Dado que estamos trabajando con un ul, un nombre comúnmente utilizado es ui-list. Sin embargo, 
+            span.ts-2 es importante no mezclar propiedades que controlen el diseño 
+                span.ts-5 (como el layout)
+                |   con aquellas que afectan la apariencia 
+                span.ts-5 (theming)
+                | , como los colores de fondo o el texto. Mezclar estas propiedades en la misma clase haría que perdiera su responsabilidad única.
+
+        p 
+            span.ts-3 Clase correcta &#10003;
+        div: pre: code.language-css 
+            |.ui-list {
+            |      list-style-type: none;
+            |      padding-left: 0;
+            |      margin-top: 0;
+            |      margin-bottom: 0;
+            |}
+        p.des-code La clase ui-list esta teniendo su responsabilidad única que es resetear los estilos predeterminados de una lista.
+
+        p 
+            span.ts-6 Clase incorrecta &#10007;
+
+        div: pre: code.language-css 
+            |.ui-list {
+            |      list-style-type: none;
+            |      padding-left: 0;
+            |      margin-top: 0;
+            |      margin-bottom: 0;
+            |      
+            |      position: sticky;
+            |      color: white;
+            |      background-color: lightcoral;
+            |}
+        p.des-code La clase ui-list esta perdiendo su responsabilidad única que es resetear los estilos predeterminados de una lista, al agregarle propiedades de posicionamiento y propiedades de theming.
+
+        h3 Contextos de responsabilidad única         
+
+        p La responsabilidad única en CSS depende del contexto.
+        p En el caso de un 
+            strong ul
+            | , como hemos mencionado, es habitual reutilizarlo en diferentes listas, por lo que evitamos mezclar propiedades de theming para mantener su responsabilidad única. 
+
+        p Sin embargo, en clases para elementos más específicos, como un 
+            strong.ts-3 header
+            | , podemos incluir propiedades de posicionamiento como sticky, tamaño (width), y theming en una misma clase. En este caso, la responsabilidad de la clase es estilizar el encabezado principal de nuestra aplicación, y eso incluye tanto su layout como su apariencia.
+
+        div: pre: code.language-css 
+            | .header{
+            |    width: 100%;
+            |    position: sticky;
+            |    top: 0;
+            |    left: 0;
+            |    background-color: lightblue;
+            |    color: #fff;
+            |}
+        p.des-code En el contexto de un .header si es válido el mezclar propieades de (layout) y (theming) ya que estamos estilando el header principal y sus estilos son únicos.
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'Entendiendo que es Single Reponsibility Principle en CSS']]
     +submenu(submenuLinks)

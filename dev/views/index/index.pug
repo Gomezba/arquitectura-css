@@ -1,8 +1,50 @@
 extends ../templates/index-template
 
 append h1 
-    h1 Blog template
+    h1 Arquitectura CSS
 
 append content
     article.content 
-        p Introducción a tu tema.
+        p Este blog fue hecho de lo aprendido en 
+            a(href="https://pro.codely.com/library/arquitectura-css-64280/192138/path/" target="_blank").link Codely
+            |   utilizando los conocimientos adquiridos. El objetivo no es desmerecer el valor del curso original, sino tener una base de lo aprendido para recordarlo más fácilmente.
+        h2 Introducción
+        p La arquitectura CSS es la disciplina que se enfoca en organizar y estructurar el código CSS para que sea mantenible, escalable y reutilizable en proyectos de desarrollo web. A medida que los proyectos crecen en tamaño y complejidad, se vuelve esencial tener un enfoque estructurado para escribir CSS que evite la duplicación, los conflictos de estilos y el desorden general.
+
+        p Uno de los conceptos más relevantes en arquitectura CSS son las 
+            strong.ts-1 metodologías de nomenclatura
+            | , que ofrecen convenciones de nombres que facilitan la consistencia y claridad en el código. Un ejemplo de esto es 
+            strong.ts-4 BEM
+            |   (Block Element Modifier), que se basa en la idea de dividir la interfaz en bloques, elementos y modificadores. Los bloques son entidades independientes como un botón o un encabezado, los elementos son partes de un bloque que cumplen una función específica como el texto dentro de un botón, y los modificadores son variaciones que alteran la apariencia o el comportamiento de esos bloques o elementos.
+
+        p En cuanto a arquitecturas CSS, existen diferentes enfoques que proponen estructuras organizativas para dividir y gestionar el CSS en proyectos grandes. 
+            strong.ts-2 ITCSS
+            |   (Inverted Triangle CSS) es uno de estos enfoques, organizando el CSS en una estructura de triángulo invertido, donde las reglas más generales se colocan al principio y las más específicas al final. Esto incluye capas como configuraciones globales, herramientas de preprocesador, estilos genéricos, elementos HTML básicos, patrones de diseño reutilizables, componentes específicos de UI y estilos que sobrescriben otros estilos.
+
+        p Por otro lado, 
+            strong.ts-2 OOCSS
+            |   (Object-Oriented CSS) promueve la separación de la estructura de un componente de su apariencia, haciendo que el CSS para el diseño sea independiente de la estructura HTML y evitando que los contenedores afecten a sus contenidos en términos de estilo.
+
+        p Otro concepto relevante es el 
+            strong.ts-4 Atomic Design
+            | , una metodología que organiza los componentes de UI en una jerarquía clara. En este enfoque, los 
+            strong.ts-3 átomos
+            |   son las unidades más pequeñas de la UI, como botones o inputs; las 
+            strong.ts-3 moléculas
+            |   son combinaciones simples de átomos que forman unidades funcionales, como un campo de búsqueda; los 
+            strong.ts-3 organismos
+            |   son combinaciones más complejas de moléculas que forman secciones completas de la UI, como una barra de navegación; las plantillas son esquemas de página que consisten en organismos dispuestos en una estructura de layout, y las páginas son instancias de plantillas con contenido real, mostrando cómo se verá la UI final.
+
+        p La modularización en CSS se refiere a la práctica de dividir los estilos en módulos independientes que pueden combinarse para construir interfaces complejas. Los módulos encapsulan estilos para una parte específica de la UI y son autónomos, lo que significa que se pueden reutilizar en diferentes partes del proyecto sin afectar a otros módulos. Cuando estos módulos se combinan para formar partes más grandes de la UI, como ocurre en Atomic Design, se les llama organismos.
+
+        p Los preprocesadores y herramientas modernas como 
+            strong.ts-5 SASS/SCSS
+            |   y 
+            strong.ts-5 PostCSS
+            |   facilitan la implementación de principios de arquitectura CSS. SASS/SCSS permite utilizar variables, anidación, mixins y otras funcionalidades que hacen el CSS más potente y mantenible, mientras que PostCSS permite procesar CSS con plugins para añadir características como autoprefixing, nesting y otras transformaciones.  
+
+        p Finalmente, los frameworks CSS como 
+            strong.ts-6 Bootstrap
+            |   y 
+            strong.ts-6 Tailwind
+            |   también juegan un papel importante en la arquitectura CSS al proporcionar estilos y utilidades predefinidas que siguen ciertos principios arquitectónicos. Bootstrap, por ejemplo, sigue una estructura basada en componentes y un sistema de grillas para crear layouts responsivos, mientras que Tailwind CSS es un framework de utilidad-first que proporciona clases utilitarias para construir UI directamente en HTML, promoviendo un enfoque más modular y reutilizable. En conjunto, todos estos conceptos y herramientas forman la base de la arquitectura CSS, permitiendo desarrollar proyectos más coherentes, eficientes y fáciles de mantener.              

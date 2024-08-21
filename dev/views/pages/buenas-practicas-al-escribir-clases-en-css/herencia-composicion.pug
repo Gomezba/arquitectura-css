@@ -6,12 +6,311 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 El dilema 
+        p En el desarrollo frontend, nos enfrentamos a un dilema similar al que se presenta en la programación orientada a objetos: la decisión entre heredar o componer.
+
+        p ¿Pero por qué surge este problema?
+        p En primer lugar, el CSS siempre hereda propiedades de manera predeterminada. Por ejemplo, cuando estilizamos un enlace (a), este hereda el font-family del body, entre otras propiedades. Esto es algo inherente al CSS y debemos tenerlo en cuenta. Sin embargo, al organizar nuestras clases, podemos optar por una forma de herencia o por la composición, al igual que en otros lenguajes de programación. Aunque en la práctica, solemos preferir la composición porque simplifica mucho el trabajo.
+
+        p Consideremos el siguiente ejemplo:
+        div: pre: code.language-css
+            |    .btn-primary {
+            |    display: inline-block;
+            |    padding: 0.5rem;
+            |
+            |    background: #289f5f;
+            |    color: #fff;
+            |}
+            |
+            |.btn-secundary {
+            |    display: inline-block;
+            |    padding: 0.5rem;
+            |
+            |    background: #333;
+            |    color: #fff;
+            |}
+            |
+            |.btn-danger {
+            |    display: inline-block;
+            |    padding: 0.5rem;
+            |
+            |    background: #b00101;
+            |    color: #fff;
+            |}
+
+        p Tenemos varios botones, pero estamos repitiendo parte del código, como las propiedades 
+            strong display: inline-block;
+            |    y 
+            strong padding: 0.5rem;
+            | . Además, si queremos agregar un 
+            strong border-radius
+            | , tendríamos que añadir esa propiedad en todas las clases.
 
 
     article(id="2" class="content")
-        h2 Subtitulo 2    
+        h2 Extend SASS 
+        p Una solución al problema mencionado anteriormente es utilizar 
+            code @extend
+            |    de 
+            strong SASS
+            |   utilizando el place holder (%) para evitar que al transpilar el SCSS a CSS no genere la clase de la cual estamos heredando.
+        div: pre: code.language-scss 
+            |%btn{
+            |    display: inline-block;
+            |    padding: 0.5rem;
+            |}
+            |
+            |.btn-primary {
+            |	@extend %btn;   
+            |	background: #289f5f;
+            |	color: #fff;
+            |}
+            |
+            |.btn-secundary {
+            |    @extend %btn;
+            |	background: #333;
+            |	color: #fff;
+            |}
+            |
+            |.btn-danger {
+            |    @extend %btn;
+            |	background: #b00101;
+            |	color: #fff;
+            |}
+
+
+        p Al transiplar nuestro SCSS a CSS obtenemos lo siguiente
+        div: pre: code.language-css 
+            |.btn-danger,
+            |.btn-secundary,
+            |.btn-primary{
+            |    display: inline-block;
+            |    padding: 0.5rem;
+            |}
+            |
+            |.btn-primary {
+            |	background: #289f5f;
+            |	color: #fff;
+            |}
+            |
+            |.btn-secundary {
+            |	background: #333;
+            |	color: #fff;
+            |}
+            |
+            |.btn-danger {
+            |	background: #b00101;
+            |	color: #fff;
+            |}         
+        p.des-code Como podemos observar aquellas clases donde heredamos, estan agrupadas compartiendo las propiedades que definimos dentro de 
+            code %btn
+            | .
+
+        p Hasta este punto, parece que hemos solucionado el problema de repetir propiedades, pero esto depende del contexto. Si utilizamos la herencia en SCSS en un escenario donde los elementos no tienen relación entre sí, podemos enfrentarnos a un nuevo problema.
+
+        p Veamos el siguiente ejemplo
+
+        div: pre: code.language-scss
+            |    %justified{
+            |    display: flex;
+            |    justify-content: space-between;
+            |}
+            |
+            |.hero{
+            |    @extend %justified;
+            |    background-color: #289f5f;
+            |    color: #fff;
+            |}
+            |
+            |.footer{
+            |    @extend %justified;
+            |    background-color: #333;
+            |    color: #fff;    
+            |}
+            |
+            |.section{
+            |    @extend %justified;
+            |    background-color: #fff;
+            |    color: #333;    
+            |}
+
+        p Transpilación a CSS 
+
+        div: pre: code.language-css 
+            |.hero,
+            |.footer,
+            |.section{
+            |    display: flex;
+            |    justify-content: space-between;
+            |}
+            |
+            |.hero{
+            |    background-color: #289f5f;
+            |    color: #fff;
+            |}
+            |
+            |.footer{
+            |    background-color: #333;
+            |    color: #fff;    
+            |}
+            |
+            |.section{
+            |    background-color: #fff;
+            |    color: #333;    
+            |}   
+
+        p El problema surge cuando estos elementos no tienen relación entre sí. Al heredar propiedades como display: flex; y justify-content: space-between;, estamos alineando los elementos en la misma dirección, cuando en realidad cada uno podría necesitar una disposición diferente.
+
+        p Una solución podria ser un mixin de SASS.
+
+    article(id="3" class="content")    
+        h2 Mixin SCSS
+        p Un mixin nos acerca más al concepto de composición, pero es importante entender sus peculiaridades, ya que podría parecer que estamos volviendo al problema inicial de repetir propiedades.
+
+        div: pre: code.language-scss
+            |@mixin justify{
+            |    display: flex;
+            |    justify-content: space-between;
+            |}
+            |
+            |.hero{
+            |    @include justify;
+            |    background-color: #289f5f;
+            |    color: #fff;
+            |}
+            |
+            |.footer{
+            |    @include justify;
+            |    background-color: #333;
+            |    color: #fff;    
+            |}
+            |
+            |.section{
+            |    @include justify;
+            |    background-color: #fff;
+            |    color: #333;    
+            |}    
+
+        p Transpilación a CSS 
+        div: pre: code.language-css 
+            |.hero{
+            |    display: flex;
+            |    justify-content: space-between;
+            |    background-color: #289f5f;
+            |    color: #fff;
+            |}
+            |
+            |.footer{
+            |    display: flex;
+            |    justify-content: space-between;
+            |    background-color: #333;
+            |    color: #fff;    
+            |}
+            |
+            |.section{
+            |    display: flex;
+            |    justify-content: space-between;
+            |    background-color: #fff;
+            |    color: #333;    
+            |}          
+
+        p.des-code  A primera vista, parece que estamos duplicando código al copiar y pegar las propiedades del mixin en todas las clases. Sin embargo, lo que realmente estamos haciendo es generar clases independientes, componiendo estilos, aunque con cierta repetición.
+
+        p En este punto, podría parecer que no hemos resuelto el problema y que seguimos repitiendo propiedades. Pero recordemos que al usar un mixin, estamos componiendo, y estos pueden recibir parámetros. Veamos el siguiente ejemplo.
+
+        div: pre: code.language-scss
+            |/* Queremos que el parámetro vertical-align sea center por defecto*/
+            |@mixin justify($vertical-align: center){
+            |    display: flex;
+            |    justify-content: space-between;
+            |    align-items: $vertical-align;
+            |}
+            |
+            |.hero{
+            |    @include justify;
+            |    background-color: #289f5f;
+            |    color: #fff;
+            |}
+            |
+            |/* Es más flexible porque podemos cambiar el valor para elementos en particular */
+            |.footer{
+            |    @include justify($vertical-align: flex-start);
+            |    background-color: #333;
+            |    color: #fff;    
+            |}
+            |
+            |.section{
+            |    @include justify;
+            |    background-color: #fff;
+            |    color: #333;    
+            |}
+
+        p Transpilación a CSS
+        div: pre: code.language-css 
+            |.hero{
+            |    display: flex;
+            |    justify-content: space-between;
+            |    align-items: center;
+            |    background-color: #289f5f;
+            |    color: #fff;
+            |}
+            |
+            |.footer{
+            |    display: flex;
+            |    justify-content: space-between;
+            |    align-items: flex-start;
+            |    background-color: #333;
+            |    color: #fff;    
+            |}
+            |
+            |.section{
+            |    display: flex;
+            |    justify-content: space-between;
+            |    align-items: center;
+            |    background-color: #fff;
+            |    color: #333;    
+            |}
+
+        p Al agregar un parámetro a un mixin, ganamos más flexibilidad, ya que podemos definir ciertos estilos con valores específicos según nuestras necesidades.
+
+
+        p.ts-1 Sin embargo, con gran poder viene una gran responsabilidad. No debemos caer en la tentación de crear mixins con demasiados parámetros, ya que esto podría llevarnos de nuevo a aplicar propiedades de manera redundante. Es importante ser cuidadosos.
+
+
+        p En resumen, los mixins son más versátiles que el uso de @extend, pero es crucial utilizarlos con moderación y únicamente en patrones que se repitan con frecuencia y tengan un propósito claro.
+
+
+    article(id="4" class="content")  
+        h2 Composición en clases separadas  
+        p La mejor opción para compartir propiedades entre clases, y la que debería ser nuestra elección predeterminada, es componer utilizando clases separadas.    
+
+        div: pre: code.language-css 
+            |.btn{
+            |    display: inline-block;
+            |    padding: 0.5rem;
+            |}
+            |
+            |.btn-primary {
+            |	background: #289f5f;
+            |	color: #fff;
+            |}
+            |
+            |.btn-secundary {
+            |	background: #333;
+            |	color: #fff;
+            |}
+            |
+            |.btn-danger {
+            |	background: #b00101;
+            |	color: #fff;
+            |}
+
+        p Lo que hacemos es poner las clases en el html, teniendo una clase padre por así decirlo (btn), y una clase secundaria que es la que se encarga de agregar el estilo contextual.
+        div: pre: code.language-html 
+            | &lt;a class="btn btn-primary" href="/buy"&gt;Comprar&lt;/a&gt;
+
+        p Esta es una estrategia muy efectiva para mantener el CSS simple y semántico, especialmente si no deseas depender de preprocesadores. Al usar clases compuestas como btn btn-primary, garantizas que el estilo base y el contextual estén vinculados de manera coherente. Además, esto facilita la comprensión del código por parte de otros desarrolladores, ya que la relación entre las clases es clara y explícita.
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'El Dilema'],[2,'Extend SASS'],[3,'Mixin SCSS'],[4,'Composición en clases separadas']]
     +submenu(submenuLinks)

@@ -93,18 +93,95 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>CSS en combinación con HTML</h2>
+            <p>CSS, o Cascading Style Sheets, es un lenguaje utilizado para describir la presentación de un documento escrito en HTML o XML. Aunque por sí solo no se considera un lenguaje de programación completo como JavaScript o Python, en combinación con HTML, CSS puede ser visto como una parte fundamental del proceso de programación web, ya que juntos controlan el comportamiento visual y lógico de las interfaces de usuario en la web.</p>
+            <p>Un lenguaje de programación se define generalmente como un conjunto de instrucciones o secuencias de órdenes que controlan el comportamiento de un sistema informático. </p>
+            <p>Si bien CSS no tiene la capacidad de realizar operaciones lógicas complejas o manejar datos como lo haría un lenguaje de programación tradicional, sí permite definir cómo se presentan y organizan los elementos de una página web, lo que influye directamente en la experiencia del usuario y en cómo interactúa con el sistema.</p>
+            <p>En este sentido, CSS actúa como un "lenguaje de presentación" que complementa al HTML, definiendo estilos como colores, fuentes, márgenes, alineaciones y otros aspectos visuales que son cruciales para la interfaz de usuario. Juntos, HTML y CSS forman una base sólida para la construcción de sitios web, donde HTML estructura el contenido y CSS controla la apariencia y el diseño, guiando el comportamiento visual del sistema en respuesta a la interacción del usuario.</p>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>CSS turing complete</h2>
+            <p>Normalemente se dice que para que un lenguaje sea considearado como lenguaje de programación necesita ser <strong class="ts-3">Turing complete.</strong></p>
+            <p>CSS + HTML + entrada del usuario es Turing completo.</p>
+            <p>¡CSS es un lenguaje de programación , así que puedes aprender otros lenguajes vinculando nuevos conceptos con lo que ya sabes sobre CSS!</p>
+            <p>Este articulo <a class="link" href="https://notlaura.com/is-css-turing-complete/" target="_blank">CSS turing</a> nos muestra como CSS es considerado turing complete.</p>
+          </article>
+          <article class="content" id="3">
+            <h2>Juegos hechos con CSS sin JS</h2>
+            <ul>
+              <li><a class="link" href="https://codepen.io/jcoulterdesign/pen/NOMeEb" target="_blank">The mine</a></li>
+              <li><a class="link" href="https://github.com/propjockey/css-sweeper" target="_blank">Buscaminas</a></li>
+              <li><a class="link" href="https://codepen.io/collection/AKkZro?cursor=ZD0xJm89MSZwPTEmdj03" target="_blank">Juegos Codepen</a></li>
+            </ul>
+            <p>El desarrollador de Buscaminas muestra en su articulo como CSS es un lenguaje de programación gracias al truco Space Toggle.</p>
+            <ul>
+              <li>
+                <p>Si su --css-var contiene un espacio <strong class="ts-1">--toggler:&nbsp;&nbsp;&nbsp; ;</strong>, entonces se puede agregar a cualquier cosa (cualquier cantidad de veces) sin cambiar el valor</p>
+                <div>
+                  <pre><code class="language-css"> --toggler: ;
+--red-if-toggler: var(--toggler) red;
+background: var(--red-if-toggler, green); /* will be red! */</code></pre>
+                </div>
+              </li>
+              <li>
+                <p>Si su --css-var se mantiene <strong class="ts-1">initial</strong> <strong class="ts-1">--toggler: initial;</strong>, (o nunca se definió), entonces se puede agregar a cualquier cosa para forzar la reserva cuando se hace referencia a ella </p>
+                <div>
+                  <pre><code class="language-css">  --toggler: initial;
+ --red-if-toggler: var(--toggler) red;
+ background: var(--red-if-toggler, green); /* will be green! */</code></pre>
+                </div>
+              </li>
+              <li>
+                <p>Los conmutadores espaciales se pueden combinar para la lógica AND:</p>
+                <div>
+                  <pre><code class="language-css">   --red-if-togglersalltrue: var(--tog1) var(--tog2) var(--tog3) red;</code></pre>
+                </div>
+              </li>
+              <li>
+                <p>Los espacios se pueden combinar para la lógica OR:</p>
+                <div>
+                  <pre><code class="language-css">   --red-if-anytogglertrue: var(--tog1, var(--tog2, var(--tog3))) red;</code></pre>
+                </div>
+              </li>
+              <li>
+                <p>Los Checkboxes (and radio buttons) son una excelente fuente para alternar espacios</p>
+                <div>
+                  <pre><code class="language-css">   #common-css-var-area { /* default any "not" values to truthy */ --not-flagged: ; }
+  #mycheckbox:checked ~ #common-css-var-area { --flagged: ; --not-flagged: initial; }
+  #anotherbox:checked ~ #common-css-var-area { --open: ; }
+  #common-css-var-area {
+    --yellow-if-flagged-and-open: var(--open) var(--flagged) yellow;
+    --white-if-not-flagged-and-open: var(--open) var(--not-flagged) white;
+    --red-if-flagged: var(--flagged) red;
+    color: var(--yellow-if-flagged-and-open, var(--white-if-not-flagged-and-open, var(--red-if-flagged, black)))
+  }
+  /* color will be black if not flagged and not open */</code></pre>
+                </div>
+              </li>
+            </ul>
+            <div>
+              <pre><code class="language-css">   #common-css-var-area { /* default any "not" values to truthy */ --not-flagged: ; }
+  #mycheckbox:checked ~ #common-css-var-area { --flagged: ; --not-flagged: initial; }
+  #anotherbox:checked ~ #common-css-var-area { --open: ; }
+  #common-css-var-area {
+    --yellow-if-flagged-and-open: var(--open) var(--flagged) yellow;
+    --white-if-not-flagged-and-open: var(--open) var(--not-flagged) white;
+    --red-if-flagged: var(--flagged) red;
+    color: var(--yellow-if-flagged-and-open, var(--white-if-not-flagged-and-open, var(--red-if-flagged, black)))
+  }
+  /* color will be black if not flagged and not open */            </code></pre>
+            </div>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">CSS en combinación con HTML</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">CSS turing complete</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#3">Juegos hechos con CSS sin JS</a></li>
           </ul>
         </nav>
       </section>

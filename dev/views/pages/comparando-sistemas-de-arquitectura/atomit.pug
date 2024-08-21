@@ -6,12 +6,133 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 ¿Qué es Atomic Design?
+        p Atomic Design es un método para crear sistemas de diseño propuesto por Brad Frost. Aunque está enfocado principalmente en el diseño, podemos aplicar sus conceptos para mejorar la organización y estructura de nuestro CSS.
+        p Atomic Design se basa en la idea de que cualquier interfaz de usuario se puede descomponer en componentes más pequeños y manejables. Estos componentes se organizan en diferentes niveles, de menor a mayor complejidad:
+
+        a(href="https://atomicdesign.bradfrost.com/table-of-contents/" target="_blank").link Mas sobre Atomit Design 
 
 
     article(id="2" class="content")
-        h2 Subtitulo 2    
+        h2 Átomos
+
+        p Los átomos son las piezas más pequeñas y fundamentales de nuestro sistema de diseño. 
+            span.ts-4 Son elementos básicos y no divisibles que, por sí solos, no tienen un contexto completo y, por lo tanto, necesitan combinarse con otros elementos para tener un sentido más claro.
+
+        p Ejemplos de átomos:
+
+        ul 
+            li 
+                p: strong.ts-4 Botones: 
+                div: pre: code.language-html 
+                    |&lt;button class="btn"&gt;Enviar&lt;/button&gt;
+            li 
+                p: strong.ts-4 Labels:
+                div: pre: code.language-html 
+                    |&lt;label class="label"&gt;Nombre:&lt;/label&gt;
+            li 
+                p: strong.ts-4 Títulos:
+                div: pre: code.language-html 
+                    |&lt;h1 class="title"&gt;Bienvenido&lt;/h1&gt;
+            li 
+                p: strong.ts-4 Campos de texto:
+                div: pre: code.language-html 
+                    |&lt;input type="text" class="input-text" /&gt;
+
+        p Estos elementos son reconocibles y esenciales, pero no tienen un propósito completo hasta que se usan en un contexto más amplio.   
+
+    article(id="3" class="content")
+        h2 Moléculas
+        p.ts-1 Las moléculas son combinaciones de dos o más átomos que trabajan juntos para formar una unidad funcional más compleja. A diferencia de los átomos, las moléculas tienen un propósito claro y son más útiles por sí solas, aunque aún dependen de un contexto mayor para ser totalmente efectivas.
+
+        p Ejemplos de moléculas:
+        ul
+            li 
+                p: strong.ts-1 Formulario simple: 
+                div: pre: code.language-html 
+                    |&lt;label class="label"&gt;Nombre:&lt;/label&gt;
+                    |&lt;input type="text" class="input-text" /&gt;
+            li 
+                p: strong.ts-1 Card: 
+                div: pre: code.language-html 
+                    |&lt;div class="card"&gt;
+                    |  &lt;img src="imagen.jpg" alt="Imagen del producto" class="card__img" /&gt;
+                    |  &lt;h3 class="card__title"&gt;Producto 1&lt;/h3&gt;
+                    |  &lt;p class="card__description"&gt;Descripción breve del producto.&lt;/p&gt;
+                    |&lt;/div&gt;
+
+        p Estas moléculas combinan varios átomos para crear un componente que tiene sentido por sí mismo.            
+
+    article(id="4" class="content")
+        h2 Organismos 
+        p.ts-1 Los organismos son conjuntos más complejos que se forman al combinar varias moléculas y átomos. En este nivel, los organismos son componentes completamente funcionales e independientes, que tienen sentido completo incluso si se trasladan a otro lugar de la interfaz.
+
+        p Ejemplos de organismos:
+
+        ul 
+            li 
+                p: strong.ts-3 Header de una página:
+                div: pre: code.language-html 
+                    |&lt;header class="header"&gt;
+                    |  &lt;img src="logo.png" alt="Logo" class="header__logo" /&gt;
+                    |  &lt;nav class="header__nav"&gt;
+                    |    &lt;a href="/" class="header__link"&gt;Inicio&lt;/a&gt;
+                    |    &lt;a href="/about" class="header__link"&gt;Sobre nosotros&lt;/a&gt;
+                    |    &lt;a href="/contact" class="header__link"&gt;Contacto&lt;/a&gt;
+                    |  &lt;/nav&gt;
+                    |&lt;/header&gt;
+            li 
+                p: strong.ts-3 Grid de productos con filtros:
+                div: pre: code.language-html 
+                    |&lt;section class="product-grid"&gt;
+                    |  &lt;aside class="filter-sidebar"&gt;
+                    |    &lt;h2&gt;Filtros&lt;/h2&gt;
+                    |    &lt;!-- Filtros aquí --&gt;
+                    |  &lt;/aside&gt;
+                    |  &lt;div class="product-list"&gt;
+                    |    &lt;div class="card"&gt;
+                    |      &lt;img src="producto1.jpg" alt="Producto 1" class="card__img" /&gt;
+                    |      &lt;h3 class="card__title"&gt;Producto 1&lt;/h3&gt;
+                    |      &lt;p class="card__description"&gt;Descripción del producto 1.&lt;/p&gt;
+                    |    &lt;/div&gt;
+                    |    &lt;!-- Más productos aquí --&gt;
+                    |  &lt;/div&gt;
+                    |&lt;/section&gt;
+
+
+        p Estos organismos son bloques de construcción independientes que, si los sacamos de un lugar y los ponemos en otro, siguen funcionando correctamente y tienen sentido por sí mismos.      
+
+    article(id="5" class="content")
+        h2 Otros Componentes de Atomic Design
+        p Atomic Design también incluye los conceptos de templates y páginas, que son combinaciones de organismos para crear vistas completas de una interfaz. Sin embargo, en términos de CSS, rara vez definimos estilos directamente para estos niveles, ya que normalmente utilizamos los organismos y los combinamos en el HTML.
+
+    article(id="6" class="content")
+        h2 Ventajas de Atomic Design
+        p Al aplicar Atomic Design, creamos un lenguaje común entre los equipos de diseño y desarrollo frontend. Esto mejora la comunicación y la coherencia en el proyecto, ya que ambos equipos pueden hablar el mismo idioma al referirse a los componentes de la interfaz.
+
+    article(id="7" class="content")
+        h2 Estructura de carpetas
+        div.has-mb: pre: code 
+            |styles
+            | ├── atoms
+            | │       ├── _button.scss
+            | │       ├── _image.scss
+            | │       └── _pill.scss
+            | ├── molecules
+            | │       ├── _card.scss
+            | │       └── _form.scss
+            | ├── organisms
+            | │       ├── _gallery.scss
+            | │       └── _header.scss
+            | └── index.scss
+
+
+    article(id="8" class="content")
+        h2 Limitaciones
+        p Aunque Atomic Design es una excelente herramienta para estructurar nuestros estilos, tiene algunas limitaciones. Por ejemplo, no cubre dónde ubicar estilos como reset o normalize, box-sizing, o cómo añadir clases funcionales o de estructura, que también son importantes en el desarrollo de CSS.
+
+        p Algo que podemos hacer es utilizar lo mejor que nos ofrece Atomit Design y combinarlo con otros métodos de organización.
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'¿Qué es Atomic Design?'],[2,'Átomos'],[3,'Moléculas'],[4,'Organismos'],[5,'Otros Componentes de Atomic Design'],[6,'Ventajas de Atomic Design'],[7,'Estructura de carpetas'],[8,'Limitaciones']]
     +submenu(submenuLinks)

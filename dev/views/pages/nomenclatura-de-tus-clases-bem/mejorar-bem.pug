@@ -6,12 +6,62 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 BEM y la necesidad de utility classes
+        p Si seguimos estrictamente los principios de BEM (Block, Element, Modifier), cada vez que necesitemos cambiar el estilo de un bloque o elemento, tendríamos que crear un modifier específico. Sin embargo, existen casos que se repiten en toda nuestra aplicación, como centrar un texto, ponerlo en negrita, o aplicar un color rojo para indicar un error. Crear modifiers específicos para cada una de estas situaciones puede ser tedioso y difícil de mantener, ya que cualquier cambio en uno de estos estilos requeriría modificar múltiples puntos en la aplicación.
+
+        p Para estos casos, es útil combinar BEM con utility classes.
+
+        h3 ¿Qué es una clase de utilidad (utility class)?
+        p Una clase de utilidad, o utility class, es un tipo de clase CSS que sigue el principio de responsabilidad única (Single Responsibility Principle) de forma extrema. Está diseñada para cumplir una única función específica, como centrar un texto, ponerlo en negrita, o agregar un margen. Estas clases son genéricas y pueden aplicarse en cualquier parte de una aplicación.
+
+        p Por convención, las utility classes suelen estar acompañadas por un guion (-) en su nombre para indicar que son globales y aplicables en cualquier contexto de la aplicación. Además, suelen ubicarse al final de las hojas de estilo para asegurarse de que siempre se apliquen, ya que son más específicas y pueden llevar !important para garantizar que sus estilos prevalezcan sobre otros.
+
+        p Las utility classes son especialmente útiles cuando necesitamos aplicar estilos consistentes y reutilizables en diferentes partes de una aplicación, evitando la redundancia y facilitando el mantenimiento del código.
 
 
     article(id="2" class="content")
-        h2 Subtitulo 2    
+        h2 Ejemplo práctico 
+
+        div: pre: code.language-html 
+            |&lt;article class="card"&gt;
+            |  &lt;img class="card__img" src="/arquitectura-css.png" alt="" /&gt;
+            |  &lt;h3 class="card__title is-centered"&gt;Arquitectura CSS&lt;/h3&gt;
+            |  &lt;strong class="card__meta is-centered"&gt;gomezba&lt;/strong&gt;
+            |&lt;/article&gt;
+
+        div: pre: code.language-scss
+            |.card {
+            |  &__img { }
+            |  &__title { }
+            |  &__meta { }
+            |}
+            |
+            |.is-centered {
+            |  text-align: center;
+            |}
+
+        div: p Es crucial que la intención detrás de una utility class sea clara. Al utilizar un prefijo como 
+            strong.ts-2 is-
+            |   nos aseguramos de que la clase se entiende como una utilidad que modifica el estilo del elemento al que se aplica. 
+            span.ts-4 Estas clases deben ser muy específicas y, en la mayoría de los casos, no deberían contener más de una propiedad.
+            |   Además, dado que siempre queremos que la propiedad de la utility class se aplique sin excepción, tiene sentido agregar 
+            code !important
+            |    para asegurarnos de que prevalezca sobre otros estilos.
+
+
+        div.has-mb: pre: code.language-css    
+            |.is-centered {
+            |  text-align: center !important;
+            |}
+
+        p.note Es importante recordar que una clase de utilidad suele llevar un prefijo como 
+            strong is-
+            |   o 
+            strong has-
+            | , entre otros. Estas clases se colocan habitualmente al final de la hoja de estilos porque, al ser más específicas, queremos asegurarnos de que se apliquen sin excepción. Por esta razón, a menudo incluyen 
+            strong !important
+            |   para garantizar que sus estilos prevalezcan sobre otros.
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'BEM y la necesidad de utility classes'],[2,'Ejemplo práctico']]
     +submenu(submenuLinks)

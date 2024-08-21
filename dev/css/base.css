@@ -283,11 +283,48 @@ div:has(pre code) {
 	background-color: #282936;
 
 	@media (width > 900px) {
-		max-width: 100%;
+		max-width: 70ch;
 	}
 
 	@media (width > 1900px) {
 		max-width: 85%;
+	}
+}
+
+div:has(pre code) + p.des-code {
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.2 !important;
+	max-width: 31ch;
+	background-color: var(--bg-text-strong-1);
+	padding: var(--pd-highlight-text);
+
+	@media (width > 900px) {
+		max-width: 70ch !important;
+		line-height: 1.3 !important;
+		border-radius: 0 !important;
+	}
+
+	@media (width > 1900px) {
+		max-width: 71.5ch !important;
+	}
+}
+
+@media (width < 390px) {
+	li:has(div pre) div {
+		max-width: 28ch;
+	}
+}
+
+@media (width > 900px) {
+	li:has(div pre) div {
+		max-width: 66ch;
+	}
+}
+
+@media (width > 1900px) {
+	li:has(div pre) div {
+		max-width: 70ch;
 	}
 }
 
