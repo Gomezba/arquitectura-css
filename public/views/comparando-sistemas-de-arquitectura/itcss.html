@@ -144,6 +144,121 @@ $primary-color: #3498db;
 $font-stack: 'Helvetica Neue', Arial, sans-serif;
 $base-font-size: 16px;</code></pre>
             </div>
+            <h3>Aclaración que Settings no genera código CSS</h3>
+            <p>Algo que debemos aclarar para lo que es Settings y Tools, se supone que estas carpetas al transpilar a CSS no generan como tal código CSS. Es importante saber que la mayoria de arquitecturas fueron pensadas para aprovechar las ventajas de los preprocesadores y es por eso que la documentación de la estructura de carpetas de esta arquitectura (ITCSS) dice que estas carpetas no generan código CSS al transpilarse.</p>
+            <p>Para entender esto que estamos comentando es conocer la diferencia de las variables SCSS con las variables nativas de CSS, ya que las carpetas Setting y Tools guardan dentro variables, mixins y funciones.</p>
+            <h4>Diferencias entre Variables SCSS y Variables CSS Nativas:</h4>
+            <p><strong>Variables SCSS:</strong></p>
+            <ul>
+              <li>
+                <p>Las variables en SCSS se declaran sueltas, sin necesidad de estar dentro de un selector como :root{}.</p>
+              </li>
+              <li>
+                <p>Ejemplo:</p>
+                <div>
+                  <pre><code class="language-scss"> $primary-color: #3498db;
+$font-size: 16px;</code></pre>
+                </div>
+              </li>
+              <li>
+                <p>Estas variables no generan ningún output CSS por sí solas. Son reemplazadas en el código CSS durante el proceso de compilación. Es decir, cuando usas $primary-color en tu SCSS, el compilador lo reemplaza con #3498db en el archivo CSS final.</p>
+              </li>
+              <li>
+                <p>Estas variables no existiran como tales en el archivo CSS final. Solo los valores se integran en las reglas CSS. </p>
+              </li>
+            </ul>
+            <p><strong>Variables CSS Nativas:</strong></p>
+            <ul>
+              <li>
+                <p>Se declaran dentro de un selector, típicamente :root, para estar disponibles globalmente.</p>
+              </li>
+              <li>
+                <p>Ejemplo:</p>
+                <div>
+                  <pre><code class="language-scss"> :root {
+ --primary-color: #3498db;
+ --font-size: 16px;
+}</code></pre>
+                </div>
+              </li>
+              <li>
+                <p>Estas variables están disponibles en el archivo CSS final y pueden ser usadas en cualquier lugar donde se soporte CSS Variables.</p>
+              </li>
+            </ul>
+            <h4>Uso en ITCSS y Atomic Design:</h4>
+            <p>Cuando utilizas ITCSS en combinación con Atomic Design:</p>
+            <ul>
+              <li>
+                <p><strong>settings/</strong>: Aquí defines tus variables SCSS, como $primary-color, $font-size, etc.</p>
+              </li>
+              <li>
+                <p> <strong>tools/</strong>: Aquí defines tus mixins y funciones SCSS, que pueden utilizar las variables de settings.</p>
+              </li>
+            </ul>
+            <h4>Proceso de Compilación:</h4>
+            <ul>
+              <li>
+                <p>Cuando compilas SCSS a CSS, las variables SCSS no generan ningún código CSS por sí mismas. Son usadas internamente por SCSS para reemplazar valores en las reglas CSS.</p>
+              </li>
+              <li>
+                <p>El resultado final solo contiene CSS con valores fijos, no variables. Por ejemplo:</p>
+                <div>
+                  <pre><code class="language-scss"> .button {
+ background-color: $primary-color;
+ font-size: $font-size;
+}</code></pre>
+                </div>
+                <p>Se compila a:</p>
+                <div>
+                  <pre><code class="language-css"> .button {
+ background-color: #3498db;
+ font-size: 16px;
+}</code></pre>
+                </div>
+              </li>
+            </ul>
+            <h4>Variables nativas en ITCSS </h4>
+            <p>Actualmente el uso de preprocesadores está en decaida, ya que tenemos el uso de POSTCSS que nos da todas las ventajas de un procesador con plugins (postcss-mixins, postcss-preset-env) utilizando css nativo.</p>
+            <p>Nosotros podemos utilizar CSS nativo dentro de la arquitectura ITCSS, y en lo que cabe respecto a las carpetas Settings y Tools, la norma que nos dice que estas carpetas no generan código CSS ya que estan pensadas para utilizar variables SCSS y estan nunca existiran en nuestro archivo CSS transpilado, lo que pasará es que esa norma ya no se cumplirá ya que nosotros declaremos nuestras variables dentro de :root{} y al transipalarse a CSS estas si existiran.</p>
+            <p>Miremos como quedaria nuestra carpeta Settings</p>
+            <div class="ts-1">
+              <pre><code class="ts-1"> settings/
+│
+├── _colors.css         /* Variables para colores */
+├── _typography.css     /* Variables para tipografías */
+└── _layout.css         /* Variables para layout y espaciado */</code></pre>
+            </div>
+            <p>Contenido de cada archivo:</p>
+            <p>_colors.css</p>
+            <div>
+              <pre><code class="language-css">    :root {
+ --primary-color: #3498db;
+ --secondary-color: #2ecc71;
+ --background-color: #ecf0f1;
+}</code></pre>
+            </div>
+            <p>_typography.css:</p>
+            <div>
+              <pre><code class="language-css">    :root {
+ --font-family-primary: 'Helvetica, Arial, sans-serif';
+ --font-size-base: 16px;
+ --font-size-heading: 2rem;
+}</code></pre>
+            </div>
+            <p>_layout.css:</p>
+            <div>
+              <pre><code class="language-css">    :root {
+ --spacing-small: 8px;
+ --spacing-medium: 16px;
+ --spacing-large: 32px;
+}</code></pre>
+            </div>
+            <p>Luego, puedes importar estos archivos en tu archivo principal main.css o en cualquier otro archivo CSS que los necesite:</p>
+            <div class="has-mb">
+              <pre><code class="language-css">    @import 'settings/_colors.css';
+@import 'settings/_typography.css';
+@import 'settings/_layout.css';</code></pre>
+            </div>
           </article>
           <article class="content" id="4">
             <h2>Capa - Tools </h2>
@@ -165,7 +280,7 @@ $base-font-size: 16px;</code></pre>
  @return $px / $base-font-size * 1rem;
 }</code></pre>
             </div>
-            <p class="note">Los niveles Settings y Tools están orientados a la configuración y herramientas de preprocesadores como Sass o PostCSS. Aunque estos niveles no generan CSS directamente, son esenciales para la organización y el mantenimiento del código. Puedes combinar ambos niveles en una sola carpeta si lo prefieres, ya que tanto las variables como los mixins y funciones se utilizan en conjunto para construir el CSS final. </p>
+            <p class="note">Los niveles Settings y Tools están orientados a la configuración y herramientas de preprocesadores como Sass o PostCSS. Aunque estos niveles no generan CSS directamente (solo si utilizamos SCSS ya que si utilizamos CSS nativo si genera CSS directo), son esenciales para la organización y el mantenimiento del código. Puedes combinar ambos niveles en una sola carpeta si lo prefieres, ya que tanto las variables como los mixins y funciones se utilizan en conjunto para construir el CSS final. </p>
           </article>
           <article class="content" id="5">
             <h2>Capa - Generic </h2>
@@ -324,6 +439,8 @@ img {
               </li>
             </ul>
             <p>Esta separación te ayudará a mantener tu CSS bien organizado y fácil de mantener.</p>
+            <h3>Unir Generic - Elements</h3>
+            <p>Otra opcion que tenemos es unirlas ya que tienen sentido entre si y seria menos confuso, aqui mezclariamos los generic asignandole ahi mismo las caracteristicas de los elements.</p>
           </article>
           <article class="content" id="8">
             <h2>Objects</h2>
