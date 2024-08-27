@@ -128,7 +128,9 @@ append content
                     |}
 
         h4 Variables nativas en ITCSS 
-        p Actualmente el uso de preprocesadores está en decaida, ya que tenemos el uso de POSTCSS que nos da todas las ventajas de un procesador con plugins (postcss-mixins, postcss-preset-env) utilizando css nativo.
+        p Actualmente el uso de preprocesadores está en decaida, ya que tenemos el uso de POSTCSS que nos da todas las ventajas de un procesador con plugins 
+            strong (postcss-mixins, postcss-preset-env)
+            |   utilizando css nativo.
         p Nosotros podemos utilizar CSS nativo dentro de la arquitectura ITCSS, y en lo que cabe respecto a las carpetas Settings y Tools, la norma que nos dice que estas carpetas no generan código CSS ya que estan pensadas para utilizar variables SCSS y estan nunca existiran en nuestro archivo CSS transpilado, lo que pasará es que esa norma ya no se cumplirá ya que nosotros declaremos nuestras variables dentro de :root{} y al transipalarse a CSS estas si existiran.
 
         p Miremos como quedaria nuestra carpeta Settings

@@ -93,18 +93,276 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>Elements</h2>
+            <p>En esta capa empezamos a definir nuestros estilos. Aún no escribiremos ninguna clase, sino que definimos como se mostrarán los elementos. Lo más habitual será definir estilos de tipografía y enlaces.</p>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Estilos elements SCSS </h2>
+            <p>Ya hemos mencionado que las arquitecturas fueron creadas para aprovechar las ventajas de los preprocesadores como SASS o LESS, a continuación veremos como quedaria nuestra carpeta <strong>elements</strong> y nuestro <strong>main.css</strong> o <strong>index.css </strong></p>
+            <p><strong class="ts-1">_body.scss </strong></p>
+            <div>
+              <pre><code class="language-scss"> @use "../settings/variables";
+ 
+body {
+  color: variables.$text-color;
+  font-family: variables.$font-family;
+  font-size: variables.$fs-body;
+  line-height: 1.8;
+}  </code></pre>
+            </div>
+            <p><strong class="ts-1">_headings.scss </strong></p>
+            <div>
+              <pre><code class="language-scss"> @use "../settings/variables";
+ 
+h1,
+h2,
+h3 {
+  font-weight: 300;
+  line-height: 1.13;
+}
+ 
+h1 {
+  font-size: variables.$fs-title-l;
+}
+ 
+h2 {
+  font-size: variables.$fs-title-m;
+}
+ 
+h3 {
+  font-size: variables.$fs-title-s;
+}</code></pre>
+            </div>
+            <p><strong class="ts-1">_img.scss </strong></p>
+            <div>
+              <pre><code class="language-scss"> img {
+  display: block;
+  max-width: 100%;
+}</code></pre>
+            </div>
+            <p><strong class="ts-1">_links.scss </strong></p>
+            <div>
+              <pre><code class="language-scss"> @use "../settings/variables";
+ 
+a {
+  color: variables.$primary-color;
+  text-decoration: underline;
+ 
+  &:hover,
+  &:focus {
+    color: variables.$primary-dark-color;
+  }
+}</code></pre>
+            </div>
+            <h3>index.scss </h3>
+            <div>
+              <pre><code class="language-scss"> // Settings
+@use "settings/colors";
+@use "settings/layout";
+@use "settings/typography";
+@use "settings/z-index";
+ 
+// Tools
+@use "tools/justify";
+ 
+// Generic
+@use "generic/normalize";
+/*@use "generic/reset";*/
+@use "generic/box-sizing";
+ 
+// Elements
+@use "elements/body";
+@use "elements/headings";
+@use "elements/img";
+@use "elements/links";</code></pre>
+            </div>
+            <h3>Directica @use en SASS </h3>
+            <p>Cuando trabajamos con variables y mixins, es recomendable usar @use para que las variables solo sean accesibles en ese módulo de Sass, y no de forma global. Así siempre vemos claramente de donde salen las variables que estamos usando, y nos queda el código más modular y fácil de leer y mantener. <span class="ts-2">Sass esta desfavoreciendo el uso de <strong><small>@import</small></strong> y en los próximos años lo eliminará del lenguaje, por lo que es mejor acostumbrarnos a usar <strong>@use</strong> cuanto antes.</span></p>
+            <p>Principales Características de <strong>@use</strong></p>
+            <ul>
+              <li>
+                <p> <strong>Importación de Módulos con Espacio de Nombres:</strong>Al importar un archivo SASS con @use, las variables, funciones y mixins del archivo importado se acceden mediante un espacio de nombres, que es el nombre del archivo por defecto o uno personalizado que se puede especificar. </p>
+                <div>
+                  <pre><code class="language-scss"> // _colors.scss
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+ 
+// elements.scss
+@use '../settings/colors'; /*Ruta donde se encuentran nuestras variables*/
+ 
+/*Accedemos a la variable accediendo desde colors.$variable*/
+p {
+    color: colors.$primary-color; 
+}</code></pre>
+                </div>
+              </li>
+              <li>
+                <p> <strong>Evitar la Contaminación del Espacio de Nombres:</strong> A diferencia de @import, <strong>@use</strong> no inyecta automáticamente todo el contenido del archivo importado en el archivo que lo está utilizando. Esto previene conflictos de nombres y asegura que las variables y mixins solo se utilicen cuando se hace referencia explícita a su espacio de nombres.</p>
+              </li>
+              <li>
+                <p> <strong>Modificación de Variables con @use:</strong> Si necesitas personalizar las variables de un módulo antes de usarlas, puedes hacerlo utilizando la opción <strong>with</strong>. Esto te permite sobrescribir las variables de configuración en el módulo importado. </p>
+                <div>
+                  <pre><code class="language-scss"> // _colors.scss
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+ 
+// elements.scss
+@use '..settings/colors' with (
+    $primary-color: #e74c3c
+);
+ 
+p {
+    color: colors.$primary-color; // Utiliza el valor sobrescrito #e74c3c
+}</code></pre>
+                </div>
+              </li>
+              <li>
+                <p> <strong>Espacios de Nombres Personalizados</strong>: Puedes cambiar el espacio de nombres predeterminado utilizando la palabra clave <strong>as</strong>. </p>
+                <div>
+                  <pre><code class="language-scss"> @use 'colors' as c;
+
+body {
+   background-color: c.$primary-color;
+}</code></pre>
+                </div>
+                <p>Esto es útil si el nombre predeterminado es demasiado largo o si quieres evitar conflictos con otros módulos.</p>
+              </li>
+              <li>
+                <p> <strong>Reutilización de Módulos</strong>: <strong>@use</strong> permite reutilizar módulos SASS en diferentes partes de tu proyecto, manteniendo el código limpio y organizado. </p>
+              </li>
+            </ul>
+          </article>
+          <article class="content" id="3">
+            <h2>Estilos elements CSS nativo </h2>
+            <p>Anteriormente se enseñó la aplicación de de nuestros archivos de la carpeta <strong>elements</strong> pero con SASS.</p>
+            <p>Nosotros trataremos de utlizar CSS nativo, sin preprocesadores ya que actualmente tenemos POSTCSS lo cual podremos utilizar css nativo con las ventajas que tiene un preprocesador.</p>
+            <p>Así quedarian nuestros archivos dentro de la carpeta <strong>elements: </strong></p>
+            <p><strong class="ts-1">body.css </strong></p>
+            <div>
+              <pre><code class="language-css">  
+body {
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-size: var(--fs-body);
+  line-height: 1.8;
+}  </code></pre>
+            </div>
+            <p><strong class="ts-1">headings.css </strong></p>
+            <div>
+              <pre><code class="language-css">  
+h1,
+h2,
+h3 {
+  font-weight: 300;
+  line-height: 1.13;
+}
+ 
+h1 {
+  font-size: var(--fs-title-l);
+}
+ 
+h2 {
+  font-size: var(--fs-title-m);
+}
+ 
+h3 {
+  font-size: var(--fs-title-s);
+}</code></pre>
+            </div>
+            <p><strong class="ts-1">img.css </strong></p>
+            <div>
+              <pre><code class="language-css"> img {
+  display: block;
+  max-width: 100%;
+}    </code></pre>
+            </div>
+            <p>Así quedaría nuestro <strong>index.css </strong></p>
+            <div>
+              <pre><code class="language-css"> // Settings
+@import "settings/colors";
+@import "settings/layout";
+@import "settings/typography";
+@import "settings/z-index";
+ 
+// Tools
+@import "tools/justify";
+ 
+// Generic
+@import "generic/normalize";
+/*@import "generic/reset";*/
+@import "generic/box-sizing";
+ 
+// Elements
+@import "elements/body";
+@import "elements/headings";
+@import "elements/img";
+@import "elements/links";</code></pre>
+            </div>
+            <p>Una pequeña desventaja que tenemos al trabajar de manera pura, es que al momento de utilizar variables es que perdemos un poco de legibilidad al no tener la directiva <strong>@user</strong> de forma que no podemos saber de que archivo viene la variable.</p>
+            <p>Para poder leer variables que están en un archivo por aparte, en VSCODE tenemos la extensión <span class="ts-2">CSS Variable Autocomplete.</span></p>
+          </article>
+          <article class="content" id="4">
+            <h2>Diferencia de archivos _archivo.scss archivo.css </h2>
+            <p>Si nunca hemos trabajado con SASS puede que en lo que llevamos de este artículo nos hayamos hecho la pregunta de ¿Por qué los archivos scss tienen un <strong>( _ )</strong> al incio del nombre? </p>
+            <p class="ts-1">Archivos Parciales en SASS/SCSS:</p>
+            <ul>
+              <li>
+                <p> <strong>Guion Bajo (_) en el Nombre del Archivo</strong>: En SASS/SCSS, los archivos que comienzan con un guion bajo (_) se consideran archivos parciales, por ejemplo, <strong>_variables.scss</strong> o <strong>_mixins.scss</strong>. Este guion bajo es una señal para SASS/SCSS de que el archivo es parcial y no debe ser compilado en un archivo CSS independiente.</p>
+              </li>
+              <li>
+                <p> <strong>No se Compila Directamente</strong>: Cuando SASS/SCSS compila tus archivos, los parciales no generan archivos CSS por sí mismos. En cambio, deben ser importados en un archivo SCSS principal que se compilará en CSS. Por ejemplo, si tienes un archivo main.scss que importa varios archivos parciales, solo main.scss se compilará en CSS.</p>
+              </li>
+              <li>
+                <p> <strong>Uso de @import o @use</strong>: Para incluir el contenido de un archivo parcial en otro archivo SCSS, usas la directiva <small>@import</small> o <strong>@use</strong>. Por ejemplo:</p>
+                <div>
+                  <pre><code class="language-scss"> // Archivo main.scss
+@use 'variables';  // Utiliza _variables.scss
+@use 'mixins';     // Utiliza _mixins.scss</code></pre>
+                </div>
+                <p>Aquí no necesitas incluir el guion bajo ni la extensión .scss en el @import, ya que SASS/SCSS los reconoce automáticamente. </p>
+              </li>
+              <li>
+                <p> <strong>Ejemplo de uso: </strong></p>
+                <div>
+                  <pre><code class="language-scss"> // _variables.scss
+$primary-color: #3498db;
+$font-stack: 'Helvetica, sans-serif';
+ 
+// _mixins.scss
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ 
+// _base.scss
+body {
+  font-family: $font-stack;
+  color: $primary-color;
+}
+ 
+// main.scss
+@use 'variables';
+@use 'mixins';
+@use 'base';</code></pre>
+                </div>
+                <p>En este caso, main.scss es el archivo principal que importa todos los parciales (_variables.scss, _mixins.scss, _base.scss). Al compilar main.scss, se generará un solo archivo CSS que contiene todo el código de los parciales. </p>
+              </li>
+            </ul>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">Elements</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">Estilos elements SCSS</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#3">Estilos elements CSS nativo</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#4">Diferencia de archivos _archivo.scss archivo.css</a></li>
           </ul>
         </nav>
       </section>

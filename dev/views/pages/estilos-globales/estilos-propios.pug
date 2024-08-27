@@ -6,12 +6,315 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 Elements
+        p En esta capa empezamos a definir nuestros estilos. Aún no escribiremos ninguna clase, sino que definimos como se mostrarán los elementos. Lo más habitual será definir estilos de tipografía y enlaces.
+
 
 
     article(id="2" class="content")
-        h2 Subtitulo 2    
+        h2 Estilos elements SCSS 
+        p Ya hemos mencionado que las arquitecturas fueron creadas para aprovechar las ventajas de los preprocesadores como SASS o LESS, a continuación veremos como quedaria nuestra carpeta 
+            strong elements
+            |   y nuestro 
+            strong main.css
+            |   o 
+            strong index.css 
+        p
+            strong.ts-1 _body.scss    
+        div: pre: code.language-scss 
+            | @use "../settings/variables";
+            | 
+            | body {
+            |   color: variables.$text-color;
+            |   font-family: variables.$font-family;
+            |   font-size: variables.$fs-body;
+            |   line-height: 1.8;
+            | }  
+        p
+            strong.ts-1 _headings.scss    
+        div: pre: code.language-scss 
+            | @use "../settings/variables";
+            | 
+            | h1,
+            | h2,
+            | h3 {
+            |   font-weight: 300;
+            |   line-height: 1.13;
+            | }
+            | 
+            | h1 {
+            |   font-size: variables.$fs-title-l;
+            | }
+            | 
+            | h2 {
+            |   font-size: variables.$fs-title-m;
+            | }
+            | 
+            | h3 {
+            |   font-size: variables.$fs-title-s;
+            | }
+
+        p
+            strong.ts-1 _img.scss    
+        div: pre: code.language-scss 
+            | img {
+            |   display: block;
+            |   max-width: 100%;
+            | }
+
+        p
+            strong.ts-1 _links.scss    
+        div: pre: code.language-scss 
+            | @use "../settings/variables";
+            | 
+            | a {
+            |   color: variables.$primary-color;
+            |   text-decoration: underline;
+            | 
+            |   &:hover,
+            |   &:focus {
+            |     color: variables.$primary-dark-color;
+            |   }
+            | }
+
+        h3 index.scss    
+        div: pre: code.language-scss 
+            | // Settings
+            | @use "settings/colors";
+            | @use "settings/layout";
+            | @use "settings/typography";
+            | @use "settings/z-index";
+            | 
+            | // Tools
+            | @use "tools/justify";
+            | 
+            | // Generic
+            | @use "generic/normalize";
+            | /*@use "generic/reset";*/
+            | @use "generic/box-sizing";
+            | 
+            | // Elements
+            | @use "elements/body";
+            | @use "elements/headings";
+            | @use "elements/img";
+            | @use "elements/links";
+
+        h3 Directica @use en SASS 
+        p Cuando trabajamos con variables y mixins, es recomendable usar @use para que las variables solo sean accesibles en ese módulo de Sass, y no de forma global. Así siempre vemos claramente de donde salen las variables que estamos usando, y nos queda el código más modular y fácil de leer y mantener. 
+            span.ts-2 Sass esta desfavoreciendo el uso de 
+                strong
+                    small @import
+                |   y en los próximos años lo eliminará del lenguaje, por lo que es mejor acostumbrarnos a usar 
+                strong @use
+                |   cuanto antes.
+
+        p Principales Características de 
+            strong @use
+        ul 
+            li 
+                p 
+                    strong Importación de Módulos con Espacio de Nombres:
+                    | Al importar un archivo SASS con @use, las variables, funciones y mixins del archivo importado se acceden mediante un espacio de nombres, que es el nombre del archivo por defecto o uno personalizado que se puede especificar.            
+                div: pre: code.language-scss 
+                    | // _colors.scss
+                    | $primary-color: #3498db;
+                    | $secondary-color: #2ecc71;
+                    | 
+                    | // elements.scss
+                    | @use '../settings/colors'; /*Ruta donde se encuentran nuestras variables*/
+                    | 
+                    | /*Accedemos a la variable accediendo desde colors.$variable*/
+                    | p {
+                    |     color: colors.$primary-color; 
+                    | }
+            li  
+                p 
+                    strong Evitar la Contaminación del Espacio de Nombres:
+                    |   A diferencia de @import, 
+                    strong @use
+                    |   no inyecta automáticamente todo el contenido del archivo importado en el archivo que lo está utilizando. Esto previene conflictos de nombres y asegura que las variables y mixins solo se utilicen cuando se hace referencia explícita a su espacio de nombres.
+            li 
+                p 
+                    strong Modificación de Variables con @use:
+                    |   Si necesitas personalizar las variables de un módulo antes de usarlas, puedes hacerlo utilizando la opción 
+                    strong with
+                    | . Esto te permite sobrescribir las variables de configuración en el módulo importado.        
+                div: pre: code.language-scss 
+                    | // _colors.scss
+                    | $primary-color: #3498db;
+                    | $secondary-color: #2ecc71;
+                    | 
+                    | // elements.scss
+                    | @use '..settings/colors' with (
+                    |     $primary-color: #e74c3c
+                    | );
+                    | 
+                    | p {
+                    |     color: colors.$primary-color; // Utiliza el valor sobrescrito #e74c3c
+                    | }
+
+            li 
+                p 
+                    strong Espacios de Nombres Personalizados
+                    | : Puedes cambiar el espacio de nombres predeterminado utilizando la palabra clave 
+                    strong as
+                    | .        
+                div: pre: code.language-scss 
+                    | @use 'colors' as c;
+                    |
+                    | body {
+                    |    background-color: c.$primary-color;
+                    | }
+                p Esto es útil si el nombre predeterminado es demasiado largo o si quieres evitar conflictos con otros módulos.
+            li 
+                p 
+                    strong Reutilización de Módulos
+                    | : 
+                    strong @use
+                    |   permite reutilizar módulos SASS en diferentes partes de tu proyecto, manteniendo el código limpio y organizado.        
+
+    article(id="3" class="content")
+        h2 Estilos elements CSS nativo 
+        p Anteriormente se enseñó la aplicación de de nuestros archivos de la carpeta 
+            strong elements
+            |   pero con SASS.
+
+        p Nosotros trataremos de utlizar CSS nativo, sin preprocesadores ya que actualmente tenemos POSTCSS lo cual podremos utilizar css nativo con las ventajas que tiene un preprocesador.
+
+        p Así quedarian nuestros archivos dentro de la carpeta 
+            strong elements: 
+        p
+            strong.ts-1 body.css    
+        div: pre: code.language-css 
+            | 
+            | body {
+            |   color: var(--text-color);
+            |   font-family: var(--font-family);
+            |   font-size: var(--fs-body);
+            |   line-height: 1.8;
+            | }  
+        p
+            strong.ts-1 headings.css    
+        div: pre: code.language-css 
+            | 
+            | h1,
+            | h2,
+            | h3 {
+            |   font-weight: 300;
+            |   line-height: 1.13;
+            | }
+            | 
+            | h1 {
+            |   font-size: var(--fs-title-l);
+            | }
+            | 
+            | h2 {
+            |   font-size: var(--fs-title-m);
+            | }
+            | 
+            | h3 {
+            |   font-size: var(--fs-title-s);
+            | }
+
+        p
+            strong.ts-1 img.css    
+        div: pre: code.language-css 
+            | img {
+            |   display: block;
+            |   max-width: 100%;
+            | }    
+
+        p Así quedaría nuestro 
+            strong index.css 
+        div: pre: code.language-css 
+            | // Settings
+            | @import "settings/colors";
+            | @import "settings/layout";
+            | @import "settings/typography";
+            | @import "settings/z-index";
+            | 
+            | // Tools
+            | @import "tools/justify";
+            | 
+            | // Generic
+            | @import "generic/normalize";
+            | /*@import "generic/reset";*/
+            | @import "generic/box-sizing";
+            | 
+            | // Elements
+            | @import "elements/body";
+            | @import "elements/headings";
+            | @import "elements/img";
+            | @import "elements/links";
+
+        p Una pequeña desventaja que tenemos al trabajar de manera pura, es que al momento de utilizar variables es que perdemos un poco de legibilidad al no tener la directiva 
+            strong @user
+            |   de forma que no podemos saber de que archivo viene la variable.
+
+        p Para poder leer variables que están en un archivo por aparte, en VSCODE tenemos la extensión 
+            span.ts-2 CSS Variable Autocomplete.
+
+    article(id="4" class="content")
+        h2 Diferencia de archivos _archivo.scss archivo.css 
+        p Si nunca hemos trabajado con SASS puede que en lo que llevamos de este artículo nos hayamos hecho la pregunta de ¿Por qué los archivos scss tienen un 
+            strong ( _ )
+            |   al incio del nombre?          
+
+        p.ts-1 Archivos Parciales en SASS/SCSS:
+        ul 
+            li 
+                p 
+                    strong Guion Bajo (_) en el Nombre del Archivo
+                    | : En SASS/SCSS, los archivos que comienzan con un guion bajo (_) se consideran archivos parciales, por ejemplo, 
+                    strong _variables.scss
+                    |   o 
+                    strong _mixins.scss
+                    | . Este guion bajo es una señal para SASS/SCSS de que el archivo es parcial y no debe ser compilado en un archivo CSS independiente.
+            li 
+                p 
+                    strong No se Compila Directamente
+                    | : Cuando SASS/SCSS compila tus archivos, los parciales no generan archivos CSS por sí mismos. En cambio, deben ser importados en un archivo SCSS principal que se compilará en CSS. Por ejemplo, si tienes un archivo main.scss que importa varios archivos parciales, solo main.scss se compilará en CSS.
+            li 
+                p 
+                    strong Uso de @import o @use
+                    | : Para incluir el contenido de un archivo parcial en otro archivo SCSS, usas la directiva 
+                    small @import
+                    |   o 
+                    strong @use
+                    | . Por ejemplo:
+                div: pre: code.language-scss 
+                    | // Archivo main.scss
+                    | @use 'variables';  // Utiliza _variables.scss
+                    | @use 'mixins';     // Utiliza _mixins.scss
+                p Aquí no necesitas incluir el guion bajo ni la extensión .scss en el @import, ya que SASS/SCSS los reconoce automáticamente.    
+            li 
+                p 
+                    strong Ejemplo de uso: 
+                div: pre: code.language-scss 
+                    | // _variables.scss
+                    | $primary-color: #3498db;
+                    | $font-stack: 'Helvetica, sans-serif';
+                    | 
+                    | // _mixins.scss
+                    | @mixin center-content {
+                    |   display: flex;
+                    |   justify-content: center;
+                    |   align-items: center;
+                    | }
+                    | 
+                    | // _base.scss
+                    | body {
+                    |   font-family: $font-stack;
+                    |   color: $primary-color;
+                    | }
+                    | 
+                    | // main.scss
+                    | @use 'variables';
+                    | @use 'mixins';
+                    | @use 'base';
+                p En este caso, main.scss es el archivo principal que importa todos los parciales (_variables.scss, _mixins.scss, _base.scss). Al compilar main.scss, se generará un solo archivo CSS que contiene todo el código de los parciales.    
+
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'Elements'],[2,'Estilos elements SCSS'],[3,'Estilos elements CSS nativo'],[4,'Diferencia de archivos _archivo.scss archivo.css']]
     +submenu(submenuLinks)
