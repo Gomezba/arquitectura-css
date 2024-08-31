@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -265,22 +266,36 @@
               <pre><code class="ts-1"> styles
 ├── settings
 │       ├── _colors.scss
-│       └── _typography.scss
+|       └── _layout.css        
+|       └── _typography.css  
+|       └── _z-index.css  
 ├── tools
 │       └── _mixins.scss</code></pre>
             </div>
             <p>Aquí puedes aprovechar plugins como <strong>postcss-mixins</strong> para definir mixins o <strong>postcss-functions</strong> para funciones personalizadas. </p>
             <div>
               <pre><code class="language-css"> /* tools/_mixins.css */
-@define-mixin flex-center {
+@define-mixin justify {
  display: flex;
  justify-content: center;
  align-items: center;
 }
 /*Cuando ocupemos el mixin seria de la siguiente manera*/
 .container {
-   @mixin flex-center;
+   @mixin justify;
 }</code></pre>
+            </div>
+            <p>Nuestro <strong>main.css o index.css</strong> quedaria de la siguiente manera hasta este momento.</p>
+            <div>
+              <pre><code class="language-css"> // Settings
+@import "settings/colors.css";
+@import "settings/layout.css";
+@import "settings/typography.css";
+@import "settings/z-index.css";
+ 
+// Tools
+@import "tools/justify.css";
+ </code></pre>
             </div>
           </article>
         </section>

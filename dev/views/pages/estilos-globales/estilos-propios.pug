@@ -9,8 +9,6 @@ append content
         h2 Elements
         p En esta capa empezamos a definir nuestros estilos. Aún no escribiremos ninguna clase, sino que definimos como se mostrarán los elementos. Lo más habitual será definir estilos de tipografía y enlaces.
 
-
-
     article(id="2" class="content")
         h2 Estilos elements SCSS 
         p Ya hemos mencionado que las arquitecturas fueron creadas para aprovechar las ventajas de los preprocesadores como SASS o LESS, a continuación veremos como quedaria nuestra carpeta 
@@ -228,24 +226,24 @@ append content
             strong index.css 
         div: pre: code.language-css 
             | // Settings
-            | @import "settings/colors";
-            | @import "settings/layout";
-            | @import "settings/typography";
-            | @import "settings/z-index";
+            | @import "settings/colors.css";
+            | @import "settings/layout.css";
+            | @import "settings/typography.css";
+            | @import "settings/z-index.css";
             | 
             | // Tools
-            | @import "tools/justify";
+            | @import "tools/justify.css";
             | 
             | // Generic
-            | @import "generic/normalize";
-            | /*@import "generic/reset";*/
-            | @import "generic/box-sizing";
+            | @import "generic/normalize.css";
+            | /*@import "generic/reset.css";*/
+            | @import "generic/box-sizing.css";
             | 
             | // Elements
-            | @import "elements/body";
-            | @import "elements/headings";
-            | @import "elements/img";
-            | @import "elements/links";
+            | @import "elements/body.css";
+            | @import "elements/headings.css";
+            | @import "elements/img.css";
+            | @import "elements/links.css";
 
         p Una pequeña desventaja que tenemos al trabajar de manera pura, es que al momento de utilizar variables es que perdemos un poco de legibilidad al no tener la directiva 
             strong @user

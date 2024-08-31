@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -93,18 +94,355 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>Molecules</h2>
+            <p>Recordemos las moléculas en Atomic Design son conjuntos de elementos simples (átomos) que, al combinarse, forman un componente con más sentido y significado, aunque no son completamente independientes.</p>
+            <h3>Detalles a tener en cuenta en una molécula</h3>
+            <h4>Átomos ligados a una molécula</h4>
+            <p><strong class="ts-3">EJEMPLO 1</strong></p>
+            <p>En algunos casos, ciertos elementos de una molécula no se usarán en ningún otro lugar del proyecto. Por ejemplo, en una molécula de "video-thumbnail" (que podría ser una vista previa de video con un botón de reproducción), el botón de play es parte integral de esta molécula y no necesita ser definido como un átomo separado.</p>
+            <div class="has-mb">
+              <pre><code class="language-html"> &lt;div class="m-video-thumbnail"&gt;
+    &lt;img
+      alt="Vídeo introducción"
+      src="img/bg/cursos.png"
+      class="m-video-thumbnail__img"
+    /&gt;
+&lt;!-- Aquí tenemos nuestro boton de reproducción --&gt;
+    &lt;button
+      aria-label="Reproducir Vídeo introducción"
+      class="m-video-thumbnail__play m-video-thumbnail__play--large"
+    &gt;&lt;/button&gt;
+&lt;/div&gt; </code></pre>
+            </div>
+            <div>
+              <pre><code class="language-css"> /*File video-thumbnail.css*/
+.m-video-thumbnail {
+  position: relative;
+}
+ 
+.m-video-thumbnail__img {
+  display: block;
+  margin-bottom: 1.6rem;
+  border-radius: 0.5rem;
+}
+ 
+/* No consideramos el botón de "play" como un átomo independiente 
+porque está estrechamente vinculado al diseño específico de la portada 
+del video. Un átomo, por definición, debería ser reutilizable en diferentes 
+contextos, pero este botón en particular no tendría utilidad fuera de esta 
+situación específica. Por eso, no lo tratamos como un átomo separado. 
+En lugar de usar el prefijo a-, utilizamos m-, indicando 
+que este botón forma parte de la molécula m-video-thumbnail. 
+De esta manera, señalamos que el botón está 
+vinculado específicamente a esta molécula y no es un elemento reutilizable 
+en otros contextos.*/
+.m-video-thumbnail__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 5em;
+  height: 5em;
+  border: none;
+  background: var(--background-lighter-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+ 
+.m-video-thumbnail__play::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-width: 6px 0 6px 12px;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--background-dark-color);
+  margin-top: -5px;
+  margin-left: -4px;
+  content: "";
+}
+ 
+.m-video-thumbnail__play--large {
+  width: 7.4em;
+  height: 7.4em;
+}
+ 
+.m-video-thumbnail__play:hover {
+  box-shadow: 0 23px 40px rgba(0, 0, 0, 0.2);
+}</code></pre>
+            </div>
+            <p><strong class="ts-3">EJEMPLO 2</strong></p>
+            <div class="has-mb">
+              <pre><code class="language-html"> &lt;form class="m-form"&gt;
+   &lt;label for="name" class="m-form__label"&gt;Nombre:&lt;/label&gt;
+   &lt;input type="text" id="name" class="m-form__input-text"&gt;
+   &lt;button class="m-form__btn m-form__btn--primary"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            </div>
+            <div>
+              <pre><code class="language-css"> /*File form.css*/
+.m-form {
+   max-width: 400px;
+   margin: 0 auto;
+   padding: 20px;
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   background-color: #f9f9f9;
+}
+
+.m-form__label {
+   display: block;
+   margin-bottom: 8px;
+   font-weight: bold;
+}
+
+.m-form__input-text {
+   padding: 8px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   width: 100%;
+   box-sizing: border-box;
+   margin-bottom: 16px;
+}
+
+.m-form__input-text:focus {
+   border-color: #007BFF;
+   outline: none;
+}
+
+.m-form__btn {
+   padding: 10px 20px;
+   background-color: #007BFF;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+.m-form__btn--primary {
+   background-color: #007BFF;
+}
+
+.m-form__btn:hover {
+   background-color: #0056b3;
+}</code></pre>
+            </div>
+            <p><strong>Explicación de la Estructura:</strong></p>
+            <ul>
+              <li>
+                <p> <strong>m-form</strong>: La molécula completa del formulario, con estilos que afectan a la estructura global.</p>
+              </li>
+              <li>
+                <p> <strong>m-form__label, m-form__input-text, m-form__btn</strong>: Estos son elementos que pertenecen exclusivamente a la molécula <strong>m-form</strong>. El uso del prefijo m-form__ señala que estos estilos no están destinados a ser reutilizados fuera de esta molécula específica.</p>
+              </li>
+            </ul>
+            <p><strong>Modularidad vs. Especificidad:</strong></p>
+            <ul>
+              <li>
+                <p> <strong>Modularidad (Átomos Reutilizables)</strong>: Si los componentes como label, input, o button fueran a reutilizarse en otros formularios o partes de la UI, entonces deberías mantener los prefijos a- (por ejemplo, a-label, a-input-text, a-btn), asegurando que sean estilos genéricos y reutilizables.</p>
+              </li>
+              <li>
+                <p> <strong>Especificidad (Elementos Ligados a una Molécula)</strong>: Si esos elementos están diseñados solo para esta molécula, asignarles un prefijo m- (como en m-form__label) es una manera eficaz de indicar que pertenecen exclusivamente a esta estructura.</p>
+              </li>
+            </ul>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Selectores más específicos </h2>
+            <p>A este nivel del desarrollo, ya estamos cerca de la cima del triángulo invertido de ITCSS. Esto significa que es un buen momento para empezar a utilizar selectores más específicos, siempre respetando la regla de ir de lo menos específico a lo más específico.</p>
+            <p>Veamos la siguiente situación: </p>
+            <div class="has-mb">
+              <pre><code class="language-html"> &lt;div class="a-box m-cta-box"&gt;
+ &lt;h3 class="m-cta-box__title"&gt;
+   Suscripción mensual &lt;strong&gt;29€&lt;/strong&gt;
+ &lt;/h3&gt;
+ &lt;span class="m-cta-box__note"&gt;Sin permanencia mínima&lt;/span&gt;
+ &lt;ul class="o-ui-list m-cta-box__content"&gt;
+   &lt;li&gt;💻 Acceso a todos los cursos ya publicados&lt;/li&gt;
+   &lt;li&gt;
+     👌 Contenido de calidad impartido por profesionales con amplia
+     experiencia
+   &lt;/li&gt;
+   &lt;li&gt;🚀 Nuevo contenido cada semana&lt;/li&gt;
+   &lt;li&gt;🙌 Acceso a la comunidad&lt;/li&gt;
+   &lt;li&gt;🔖 Certificados al completar cursos&lt;/li&gt;
+ &lt;/ul&gt;
+ &lt;a
+   class="a-btn a-btn--primary m-cta-box__cta"
+   href="#"&gt;
+   &lt;span class="a-btn__text"&gt;👉 SUSCRÍBETE AHORA 👈&lt;/span&gt;
+ &lt;/a&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <p>Lo que pasa es el encontrar la manera de lograr estilar </p>
+            <div class="has-mb">
+              <pre><code class="language-css">/*File cta-box.css*/
+.m-cta-box {
+ position: relative;
+ padding-bottom: 4rem;
+}
+
+.m-cta-box__title {
+ padding-bottom: 1em;
+ border-bottom: 2px solid rgba(var(--border-inverted-color), 0.3);
+ margin: 0;
+ margin: 0.5em 0 1em;
+}
+
+/*Como ya estamos en la parte final de ITCSS ya podemos utilizar selectores 
+más específicos, por ejemplo en este caso hemos utilizando un 
+selector descendiente */
+.m-cta-box__title strong {
+ display: block;
+}
+
+.m-cta-box__note {
+ position: absolute;
+ top: 1.5rem;
+ right: 1.5rem;
+ font-size: var(--fs-pill);
+ text-transform: uppercase;
+}
+
+/*En este caso pudimos haber estilado tambien con 
+un selector descendiente tomando la molécula y descendiendo 
+hasta este botón, pero hemos optado por crear una 
+clase nueva como elemento de esa molécula que seria 
+.m-cta-box__cta*, hay que saber que no hay solución que siempre 
+sea la misma, la solución es muy subjetiva solo hay que tomar una 
+y a seguir para adelante.*/
+.m-cta-box__cta {
+ position: absolute;
+ right: 0;
+ bottom: 0;
+ left: 0;
+ border-top-left-radius: 0;
+ border-top-right-radius: 0;
+ text-align: center;
+}
+
+.m-cta-box__content > * {
+ margin-bottom: 0.5em;
+}</code></pre>
+            </div>
+          </article>
+          <article class="content" id="3">
+            <h2>Moléculas comunes </h2>
+            <p>Solo veremos otro tipo de moléculas comun como lo es un card.</p>
+            <div class="has-mb">
+              <pre><code class="language-html"> &lt;article class="m-card"&gt;
+ &lt;img
+   class="m-card__img"
+   alt="Vue 3: Novedades aplicadas al mundo real"
+   src="img/cursos/novedades-vue-3.jpg"
+ /&gt;
+
+ &lt;h4 class="m-card__title"&gt;
+   &lt;a href="#" target="_blank"&gt;
+     ✌️ Vue 3: Novedades aplicadas al mundo real
+   &lt;/a&gt;
+ &lt;/h4&gt;
+ &lt;strong class="m-card__meta"&gt;gomezba&lt;/strong&gt;
+ &lt;p&gt;
+   Veremos cómo exprimir las novedades de Vue 3 con ejemplos reales y
+   aplicando buenas prácticas.
+ &lt;/p&gt;
+ &lt;button class="a-btn a-btn--block a-btn--primary"&gt;Empezar curso&lt;/button&gt;
+&lt;/article&gt;</code></pre>
+            </div>
+            <div class="has-mb">
+              <pre><code class="language-css"> /*File card.css*/
+.m-card {
+ padding: 1rem;
+ background: var(--background-lighter-color);
+ border-radius: 5px;
+ box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+ color: var(--text-muted-color);
+}
+
+.m-card__img {
+ display: block;
+ width: calc(100% + 2rem);
+ max-width: none;
+ margin: -1rem -1rem 0;
+ border-radius: 5px 5px 0 0;
+}
+
+.m-card__title {
+ margin-bottom: 0.5rem;
+ font-size: var(--fs-lead);
+ font-weight: 400;
+ line-height: 1.3;
+}
+
+.m-card__title a {
+ text-decoration: none;
+}
+
+.m-card__meta {
+ display: block;
+ margin-bottom: 0.5rem;
+}</code></pre>
+            </div>
+          </article>
+          <article class="content" id="4">
+            <h2>Recomendaciones de estilo para moléculas </h2>
+            <p>Evita definir tamaños y márgenes directamente en las moléculas. Como las moléculas siempre se van a utilizar dentro de organismos (estructuras más grandes), es preferible que los tamaños y márgenes se definan a nivel de organismo. De lo contrario, si estableces, por ejemplo, un max-width en la molécula, puedes limitar su flexibilidad. Si en algún momento necesitas usar esa molécula en un contexto más grande, tendrás que modificar los estilos.</p>
+          </article>
+          <article class="content" id="5">
+            <h2>index.css</h2>
+            <p>Hasta este punto nuestro index.css quedaria de la siguiente manera.</p>
+            <div>
+              <pre><code class="language-css"> // Settings
+@import "settings/colors.css";
+@import "settings/layout.css";
+@import "settings/typography.css";
+@import "settings/z-index.css";
+
+// Tools
+@import "tools/justify.css";
+
+// Generic
+@import "generic/normalize.css";
+/*@import "generic/reset.css";*/
+@import "generic/box-sizing.css";
+
+// Elements
+@import "elements/body.css";
+@import "elements/headings.css";
+@import "elements/img.css";
+@import "elements/links.css";
+
+// Atoms
+@import "atoms/box.css";
+@import "atoms/btn.css";
+@import "atoms/cover-background.css";
+@import "atoms/typography.css";
+
+// Molecules
+@import "molecules/card.css";
+@import "molecules/cta-box.css";
+@import "molecules/video-thumbnail.css";
+@import "molecules/form.css";</code></pre>
+            </div>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">Molecules</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">Selectores más específicos</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#3">Moléculas comunes</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#4">Recomendaciones de estilo para moléculas</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#5">index.css</a></li>
           </ul>
         </nav>
       </section>

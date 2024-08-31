@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -279,24 +280,24 @@ h3 {
             <p>Así quedaría nuestro <strong>index.css </strong></p>
             <div>
               <pre><code class="language-css"> // Settings
-@import "settings/colors";
-@import "settings/layout";
-@import "settings/typography";
-@import "settings/z-index";
+@import "settings/colors.css";
+@import "settings/layout.css";
+@import "settings/typography.css";
+@import "settings/z-index.css";
  
 // Tools
-@import "tools/justify";
+@import "tools/justify.css";
  
 // Generic
-@import "generic/normalize";
-/*@import "generic/reset";*/
-@import "generic/box-sizing";
+@import "generic/normalize.css";
+/*@import "generic/reset.css";*/
+@import "generic/box-sizing.css";
  
 // Elements
-@import "elements/body";
-@import "elements/headings";
-@import "elements/img";
-@import "elements/links";</code></pre>
+@import "elements/body.css";
+@import "elements/headings.css";
+@import "elements/img.css";
+@import "elements/links.css";</code></pre>
             </div>
             <p>Una pequeña desventaja que tenemos al trabajar de manera pura, es que al momento de utilizar variables es que perdemos un poco de legibilidad al no tener la directiva <strong>@user</strong> de forma que no podemos saber de que archivo viene la variable.</p>
             <p>Para poder leer variables que están en un archivo por aparte, en VSCODE tenemos la extensión <span class="ts-2">CSS Variable Autocomplete.</span></p>

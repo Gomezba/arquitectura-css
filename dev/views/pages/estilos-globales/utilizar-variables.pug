@@ -208,7 +208,9 @@ append content
             |styles
             |├── settings
             |│       ├── _colors.scss
-            |│       └── _typography.scss
+            ||       └── _layout.css        
+            ||       └── _typography.css  
+            ||       └── _z-index.css  
             |├── tools
             |│       └── _mixins.scss
 
@@ -221,15 +223,30 @@ append content
 
         div: pre: code.language-css 
             |/* tools/_mixins.css */
-            |@define-mixin flex-center {
+            |@define-mixin justify {
             |  display: flex;
             |  justify-content: center;
             |  align-items: center;
             |}
             |/*Cuando ocupemos el mixin seria de la siguiente manera*/
             |.container {
-            |    @mixin flex-center;
+            |    @mixin justify;
             |}
+
+        p Nuestro 
+            strong main.css o index.css
+            |   quedaria de la siguiente manera hasta este momento.
+        div: pre: code.language-css 
+            | // Settings
+            | @import "settings/colors.css";
+            | @import "settings/layout.css";
+            | @import "settings/typography.css";
+            | @import "settings/z-index.css";
+            | 
+            | // Tools
+            | @import "tools/justify.css";
+            | 
+
 
 
 append submenu 
