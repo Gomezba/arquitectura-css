@@ -6,7 +6,7 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 Utilizando nuestra arquitectura para Styled Components
         p Si optamos por una solución CSS-in-JS, en este caso Styled Components, seguiremos una estructura muy parecida a la que hemos visto en el vídeo ATOMITCSS en aplicaciones JS. Las peculiaridades las encontraremos al usar JS en lugar de Sass o cualquier preprocesador.
 
         p Las variables de nuestra aplicación pueden seguir estando en la carpeta de estilos, pero tendremos que transformarlas a un objeto JavaScript (el plugin sass-extract-js nos permite hacerlo automáticamente). Pasando este objeto a ThemeProvider de Styled Components, nos permite que todos los componentes descendientes tengan acceso a las variables:

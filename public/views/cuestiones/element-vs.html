@@ -94,20 +94,10 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
-          </article>
-          <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <p>Veamos dos preguntas relacionadas sobre responsabilidades de clases: Responsabilidades de elementos vs. Layout y Clases de estructura y Clases de estilo. Si nuestra aplicación va a crecer y queremos que nuestros estilos sean escalables, conviene separar responsabilidades en clases distintas. Si, por ejemplo en un botón, quisiéramos añadir modifiers para añadir márgenes distintos, ancho 100% o no, etc, estaríamos añadiendo muchas casuísticas en un caso que debería ser simple. Separándolo en clases distintas, tanto la clase que estila el botón como la clase de layout que se encargue de añadir márgenes pasan a ser mucho más reutilizables y flexibles.</p>
+            <p>También vemos la pregunta sobre clases de theming, en caso de que nuestra app tenga varios modos de color, el clásico dark/light mode, ¿No se debería también ignorar los colores del header menu y pasarlos a otra clase que cubra el theming? En ese caso suele ser buena opción trabajar con variables CSS que nos permiten cambiar los colores fácilmente. También tenemos la opción de recurrir a utility classes si necesitamos mayor flexibilidad.</p>
           </article>
         </section>
-        <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
-          </ul>
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
-          </ul>
-        </nav>
       </section>
     </main>
     <script src="../../js/prism-whitespace.js"></script>
