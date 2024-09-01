@@ -94,18 +94,86 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>Arquitectura ITCSS + ATOMIT DESIGN en APPS JS</h2>
+            <p>La combinación de ITCSS + Atomic Design que hemos visto hasta ahora aplicada a aplicaciones tradicionales, es perfectamente aplicable a aplicaciones JavaScript. Las primeras capas de ITCSS las dejaremos como estilos globales, junto con la última, la capa de utilities, ya que son estilos que queremos que se apliquen en toda nuestra aplicación.</p>
+            <p>Veamos nuestra estructura utilizando Sass y utilizando componentes JS en Vue, pero es aplicado para cualquier libreria o framework.</p>
+            <figure> <img src="../../assets/img/app-js/estructuras.png" alt="vue js 1">
+              <figcaption>En el caso de nuestra app js, nuestas capas de ITCSS las tendriamos igual hasta el nivel de <strong>elements</strong>, o sea hasta que no escribimos ninguna clase estarian todos en <strong>assets/styles</strong>. </figcaption>
+            </figure>
+            <p>Las capas de objetos, átomos, moléculas y organismos las trataremos como componentes de nuestra aplicación (en el caso del ejemplo, componentes Vue). En estas capas sí que vemos varias peculiaridades.</p>
+            <figure> <img src="../../assets/img/app-js/components.png" alt="vue js 1">
+              <figcaption>Hemos puesto los átomos, las moléculas y los objetos en una carpeta <strong>ui</strong> porque estos son componentes que tienen cero lógica más alla de la lógica de estilo, por ejemplo, un input cuando debe mostrar un mensaje de error de invalid de eror de la información. Estos componentes no tienen lógica de programación. Estos podrian ser los componentes que extraemos en una libreria de diseño que incluso la instalamos aparte.</figcaption>
+            </figure>
+            <p>Quizás nos estemos preguntando y ¿Qué ha pasado con los organismos? ya que en la imagen vemos que no hay carpeta organismos, ¿En donde quedarón? </p>
+            <h3>¿Qué ha pasado con los organismos?</h3>
+            <p>Los organismos hemos visto que son clases que realmente no reutilizamos mucho por no decir nada, porque ya son como muy específicas de estar ligadas al contenido. Lo que hemos hecho es transformar estas clases (organismos), si hemos escuchado el tema de container vs components en aquitecturas de apps js, que los componentes son tontos y los container son los que tienen la lógica y tal. Entonces estos organismos los hemos dividos por responsabilidad, como los organismos common (comúnes) como el header, o el footer, cosas que podrian repetirse pero en distintas páginas de un sitio y no en una mismá página, por otro lado tenemos </p>
+            <figure> <img src="../../assets/img/app-js/components2.png" alt="vue js 1">
+              <figcaption>Ahora si podemos ver los componentes separados por responsabilidades como se habia mencionado. </figcaption>
+            </figure>
+            <p>Los componentes que son diferentes a los comúnes como en nuestro caso en los componentes de <strong>courses</strong>, collection.vue y hero.vue son los que contienen lógica de programación, aparte de contactar con la API y tiene algunos estilos que son básicamente de layout de montar el grid y poco más, y estos estilos podriamos llevarlos a un componente de layout y entonces lo pondriamos en objects, pero en este caso como es un layout que no vayamos a repetir pues lo hemos dejado aquí, pero al final son componentes con pocos estilos y que se encargan más de la lógica.</p><img src="../../assets/img/app-js/v1.png" alt="vue js 1"><img src="../../assets/img/app-js/v2.png" alt="vue js 1"><img src="../../assets/img/app-js/v3.png" alt="vue js 1">
+            <p>Estos son los organismos que no los ponemos en una carpeta organismos porque ya se entienden que forman parte de la lógica.</p>
+            <p>Esto ya es un estandar de equipo, donde todo el equipo decide si empezar a estructurar el código de esta manera, pero si queremos tener la carpeta organismos porque nos gusta ver todo ahí dentro, pues adelante, siempre será una decisión de equipo. </p>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>¿Hay algún cambio en la forma de aplicar las clases?</h2>
+            <p>Por ejemplo veamos los objetos</p>
+            <p>Los objetos recordemos que son clases de estructura sin theme, y que eran cosas como container, que se aplican a divs, section y tal pero al tratar con componentes, estamos ligando nuestros estilos a un markup (html) concreto. Antes podíamos aplicar la clase container a un div o a un section, lo que nos permitía mucha flexibilidad. En el caso de los componentes, si queremos esa flexibilidad tendremos que pasar por <strong>prop</strong> el <strong>tag</strong> que queremos renderizar. Si trabajamos con <strong>Styled Components</strong> esta funcionalidad ya la tenemos integrada, en otros casos tendremos que aplicarlo manualmente:</p>
+            <p>Veamos por ejemplo nuestro container como quedaría en un componente VUE de acuerdo a lo que hemos mencionado. </p>
+            <figure> <img src="../../assets/img/app-js/container.png" alt="vue js 1">
+              <figcaption>Podemos ver como pasamos por prop al componente el tag para así asegurarnos que estamos aplicando los estilos a un tag que estamos especificando y no a otro elemento como un div por ejemplo. Como por ejemplo los estilos de un botón que puede ser un link (a) o un elemento botón, podemos añadir algo como esto de pasar una prop al componente y así validamos que estos estilos sean aplicables a un botón y no aun div por ejemplo.</figcaption>
+            </figure>
+          </article>
+          <article class="content" id="3">
+            <h2>Estructura de carpetas finalizada </h2>
+            <div class="ts1">
+              <pre class="ts-1">     styles
+├── settings
+│       ├── _colors.scss
+│       └── _typography.scss
+├── tools
+│       └── _mixins.scss
+├── generic
+│       ├── _normalize.scss
+│       └── _box-sizing.scss
+├── elements
+│       ├── _headings.scss
+│       ├── _images.scss
+│       └── _links.scss
+├── utilities
+│       ├── _typography.scss 
+│       └── _error.scss
+└── index.scss
+
+components
+├── common
+│       ├── Header.vue
+│       └── Footer.vue
+├── courses
+│       ├── Hero.vue
+│       └── Gallery.vue
+└── ui
+      ├── objects
+      │       ├── Container.vue
+      │       └── UiList.vue
+      ├── atoms
+      │       ├── Button.vue
+      │       ├── Image.vue
+      │       └── Pill.vue
+      └── molecules
+              ├── Card.vue
+              └── Form.vue</pre>
+            </div>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">Arquitectura ITCSS + ATOMIT DESIGN en APPS JS</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">¿Hay algún cambio en la forma de aplicar las clases?</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#3">Estructura de carpetas finalizada </a></li>
           </ul>
         </nav>
       </section>
