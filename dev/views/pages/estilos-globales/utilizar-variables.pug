@@ -6,12 +6,249 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 Empezando a declarar variables
+        p En las capas de 
+            strong Settings
+            |   y 
+            strong Tools
+            |   dentro de nuestra arquitectura ITCSS, configuramos todas las variables y herramientas esenciales que usaremos en el proyecto. Esto incluye definir los colores, tipografías, mixins y funciones que nos ayudarán a mantener un código limpio y organizado.
 
+        p Si no somos imaginativos con los nombres de colores, podemos usar herramientas como Name that color:
+        p: a(href="https://chir.ag/projects/name-that-color/#6195ED" target="_blank").link Name that color 
+
+        p Diferenciando variables privadas y públicas:
+        ul 
+            li 
+                p 
+                    strong Variables privadas
+                    | : Se usan para definir valores fundamentales, pero no se aplican directamente en el CSS. Estas variables suelen llevar un guion bajo 
+                    strong(_)
+                    |   al principio del nombre, indicando que son para uso interno.
+            li 
+                p 
+                    strong Variables públicas
+                    | : Estas son las que aplicamos directamente en los estilos CSS. Se definen utilizando las variables privadas, lo que nos permite mantener un código más claro y flexible.    
+        p Para estos ejemplos utilizaremos CSS nativo 
+        div: pre: code.language-css         
+            |:root{
+            |/*Variables privadas*/    
+            |--_eucalyptus: #289f5f;
+            |--_green-pea: #19623b;
+            |--_baltic-sea: #282729;
+            |--_cod-gray: #181818;
+            |--_dove-gray: #666;
+            |--_boulder: #777;
+            |--_white: #fff;
+            |--_alabaster: #fafafa;
+            |--_gallery: #ececec;
+            |
+            |/*Estas variables privadas las usamos para definir las variables públicas:*/
+            |
+            |
+            |--primary-color: var(--_eucalyptus);
+            |--primary-dark-color: var(--_green-pea);
+            |
+            |--background-dark-color: var(--_baltic-sea);
+            |--background-darker-color: var(--_cod-gray);
+            |--background-light-color: var(--_alabaster);
+            |--background-lighter-color: var(--_white);
+            |
+            |--text-color: var(--_cod-gray);
+            |--text-muted-color: var(--_dove-gray);
+            |--text-inverted-color: var(--_white);
+            |
+            |--border-color: var(--_dove-gray);
+            |--border-inverted-color: var(--_gallery);
+            |}   
+
+        p: strong Explicación
+        p Definimos los colores base como variables privadas, tales como
+        div 
+            p  
+                code --_eucalyptus
+                |   o 
+                code --_cod-gray
+                | .
+        p A partir de estas, creamos variables públicas como 
+            div
+                code --primary-color: var(--_eucalyptus);
+            p   que se aplican directamente en los estilos.
 
     article(id="2" class="content")
-        h2 Subtitulo 2    
+        h2 Beneficios de esta práctica de utilizar variables 
+        ul 
+            li 
+                p 
+                    strong Reutilización y simplificación
+                    | : Podemos identificar y eliminar colores similares que cumplan la misma función, haciendo el código más eficiente.   
+            li 
+                p 
+                    strong Facilidad de cambio
+                    | : Si el equipo de diseño decide cambiar un color, al tener variables independientes para diferentes aplicaciones (como --background-darker-color y --text-color), podemos actualizar los valores fácilmente sin que el cambio afecte otros elementos del diseño.        
+
+    article(id="3" class="content")
+        h2 Facilidad de cambio práctico
+        p Supongamos que tienes las siguientes variables definidas:
+        div: pre: code.language-css 
+            |:root{
+            | /*Variables privadas (colores base):*/    
+            |--_eucalyptus: #289f5f;
+            |--_cod-gray: #181818;
+            |--_dove-gray: #666;
+            |--_white: #fff;
+            |
+            | /*Variables públicas (usadas en el CSS):*/
+            |--primary-color: var(--_eucalyptus);
+            |--background-darker-color: var(--_cod-gray);
+            |--text-color: var(--_cod-gray);
+            |--text-muted-color: var(--_dove-gray);
+            |--text-inverted-color: var(--_white);
+            |}
+
+        div 
+            p En este caso, tanto 
+            p
+                code --background-darker-color
+                |   como 
+                code --text-color
+                |   están usando el valor 
+                code --_cod-gray.    
+
+        p Supongamos que el equipo de diseño decide que el fondo oscuro 
+            strong.ts-4 (--background-darker-color)
+            |   debe ser de un tono más claro, pero el color del texto 
+            strong.ts-2 (--text-color)
+            |   debe permanecer igual.
+
+        p Dado que 
+            strong --background-darker-color
+            |   y 
+            strong --text-color
+            |   son variables independientes, puedes cambiar solo 
+            strong --background-darker-color
+            |   sin afectar el color del texto.    
+        div: pre: code.language-css 
+            |/* Nuevo valor para la variable privada*/
+            |--_charcoal-gray: #333; // Un tono más claro
+            |
+            |/* Actualización de la variable pública para el fondo*/
+            |--background-darker-color: var(--_charcoal-gray);
+            |
+            |/* Manteniendo el color del texto */
+            |--text-color: var(--_cod-gray);
+
+        p Ahora, tu fondo tiene un nuevo color (#333), pero el texto sigue usando el color anterior (#181818). Si hubieras usado la misma variable para ambos (fondo y texto), tendrías que modificar más lugares y quizás no podrías mantener el texto con el color original sin hacer ajustes adicionales.
+
+        p Conclusión: Este enfoque te permite cambiar una parte específica del diseño (como el fondo) sin afectar otras (como el texto), lo que facilita realizar ajustes precisos según las indicaciones del equipo de diseño.    
+
+        p Los mixins y funciones de Sass o Postcss es importante que se definan cuando vemos que sea necesario, y no definir demasiados de entrada, ya que estaríamos creando abstracciones prematuras.
+
+
+    article(id="4" class="content")
+        h2 Otras variables
+        p Nuestra carpeta Settings quedaria así
+        div.ts-1: pre: code.ts-1 
+            |settings/
+            |│
+            |├── _colors.css         /* Variables para colores */
+            |└── _layout.css         /* Variables para layout y espaciado */
+            |└── _typography.css     /* Variables para tipografías */
+            |└── _z-index.css     /* Variables para z-index */
+
+        p: strong layout.css
+        div: pre: code.language-css 
+            ||--max-width: 71.25rem;
+            ||
+            ||/* Spacing*/
+            ||--spacing-s: 1rem;
+            ||--spacing: 1.6rem;
+            ||--spacing-l: 3.25rem;
+        p: strong typography.css 
+        div: pre: code.language-css 
+            ||--font-family: "Open Sans", sans-serif;
+            ||
+            ||/* Typography scale */
+            ||--fs-base: 16;
+            ||
+            ||--_fs-9: 9 / var(--fs-base) + rem;
+            ||--_fs-12: 12 / var(--fs-base) + rem;
+            ||--_fs-14: 14 / var(--fs-base) + rem;
+            ||--_fs-19: 19 / var(--fs-base) + rem;
+            ||--_fs-25: 25 / var(--fs-base) + rem;
+            ||--_fs-33: 33 / var(--fs-base) + rem;
+            ||--_fs-44: 44 / var(--fs-base) + rem;
+            ||
+            ||/* Typography applications */
+            ||--fs-pill: var(--_fs-9);
+            ||--fs-btn: var(--_fs-12);
+            ||--fs-footer: var(--_fs-12);
+            ||--fs-menu: var(--_fs-14);
+            ||--fs-body: var(--_fs-14);
+            ||--fs-lead: var(--_fs-19);
+            ||--fs-title-s: var(--_fs-25);
+            ||--fs-title-m: var(--_fs-33);
+            ||--fs-title-l: var(--_fs-44);
+        p: strong z-index.css 
+        div: pre: code.language-css 
+            ||--_z1: 1;
+            ||--_z2: 2;
+            ||--_z3: 3;
+            ||--_z4: 4;
+            ||--_z5: 5;
+            ||--_z6: 6;
+            ||--_z7: 7;
+            ||--_z8: 8;
+            ||--_z9: 9;
+            ||--_z10: 10;
+            ||
+            ||--z-menu: $_z9;
+
+        p Nuestra carpeta Tools quedaria así
+        div.ts-1: pre: code.ts-1 
+            |styles
+            |├── settings
+            |│       ├── _colors.scss
+            ||       └── _layout.css        
+            ||       └── _typography.css  
+            ||       └── _z-index.css  
+            |├── tools
+            |│       └── _mixins.scss
+
+
+        p Aquí puedes aprovechar plugins como 
+            strong postcss-mixins
+            |   para definir mixins o 
+            strong postcss-functions
+            |   para funciones personalizadas.    
+
+        div: pre: code.language-css 
+            |/* tools/_mixins.css */
+            |@define-mixin justify {
+            |  display: flex;
+            |  justify-content: center;
+            |  align-items: center;
+            |}
+            |/*Cuando ocupemos el mixin seria de la siguiente manera*/
+            |.container {
+            |    @mixin justify;
+            |}
+
+        p Nuestro 
+            strong main.css o index.css
+            |   quedaria de la siguiente manera hasta este momento.
+        div: pre: code.language-css 
+            | // Settings
+            | @import "settings/colors.css";
+            | @import "settings/layout.css";
+            | @import "settings/typography.css";
+            | @import "settings/z-index.css";
+            | 
+            | // Tools
+            | @import "tools/justify.css";
+            | 
+
+
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'Empezando a declarar variables'],[2,'Beneficios de esta práctica de utilizar variables'],[3,'Facilidad de cambio práctico'],[4,'Otras variables']]
     +submenu(submenuLinks)

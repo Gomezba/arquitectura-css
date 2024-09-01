@@ -6,12 +6,93 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 Cosas a saber sobre configurar Tailwind para ser más custom
+
+        p Aunque usemos librerías con las que no necesitemos escribir CSS, como Tailwind, veremos que las capas que utilizamos en arquitectura tradicional siguen estando presentes de una forma u otra.
+
+        p La capa de Settings la encontramos en la propia configuración de Tailwind, donde añadimos nuestras variables de colores corporativos, tipografía, etc.
+
+        p Por la naturaleza de Tailwind no tendremos la capa de Tools como funciones y mixins, pero podemos agrupar repeticiones de clases en clases propias, lo que en nomenclatura Tailwind se consideran components:
+
+        div: pre: code.language-css 
+            |@layer components {
+            |  .flex-justified {
+            |    @apply flex flex-wrap items-center justify-between;
+            |  }
+            |  .flex-centered {
+            |    @apply flex flex-wrap items-center justify-center;
+            |  }
+            |}
+
+        p Tailwind ya incluye normalize, además de algunos resets propios, por lo que no será necesario añadirlo manualmente. La capa de estilos genéricos la añadiremos con la utilidad @layer base que nos ofrece Tailwind:
+
+        div: pre: code.language-css 
+            |@layer base {
+            |  h1,
+            |  h2,
+            |  h3 {
+            |    @apply font-light leading-tight;
+            |  }
+            |
+            |  h1 {
+            |    @apply text-5xl my-12;
+            |  }
+            |
+            |  h2 {
+            |    @apply text-4xl my-9;
+            |  }
+            |
+            |  h3 {
+            |    @apply text-2xl my-6;
+            |  }
+            |
+            |  a {
+            |    @apply underline text-green hover:text-green-dark transition-all;
+            |  }
+            |}
+
+        p Como Tailwind es una librería utility-first, en principio no necesitaremos añadir clases en la capa de utilidad, pero si necesitamos alguna opción que no esté en Tailwind podemos añadirla en la capa utilities:
+
+        div: pre: code.language-css 
+            |@layer utilities {
+            |  .basis-0 {
+            |    flex-basis: 0;
+            |  }
+            |  .basis-1\/2 {
+            |    flex-basis: 50%;
+            |  }
+            |  .flex-grow-max {
+            |    flex-grow: 9999;
+            |  }
+            |}
+
+        p Estas capas las podemos separar por archivos, pero si no crecen mucho también podemos incluirlas en el mismo index.css. La capa de componentes (objetos, átomos, moléculas y organismos) vemos que la tenemos exactamente igual que en la aplicación que vimos en el vídeo anterior, por lo que la estructura final nos quedaría así:
+
+        div: pre.ts-1 
+            |styles
+            |├── base.css
+            |├── components.css
+            |├── utilities.css
+            |└── index.css
+            |components
+            |├── common
+            |│       ├── Header.vue
+            |│       └── Footer.vue
+            |├── courses
+            |│       ├── Hero.vue
+            |│       └── Gallery.vue
+            |└── ui
+            |	   ├── objects
+            |	   │       ├── Container.vue
+            |	   │       └── UiList.vue
+            |	   ├── atoms
+            |	   │       ├── Button.vue
+            |	   │       ├── Image.vue
+            |	   │       └── Pill.vue
+            |	   └── molecules
+            |	           ├── Card.vue
+            |	           └── Form.vue
+            |tailwind.config.js
 
 
-    article(id="2" class="content")
-        h2 Subtitulo 2    
 
-append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
-    +submenu(submenuLinks)

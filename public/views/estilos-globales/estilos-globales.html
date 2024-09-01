@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -92,19 +93,202 @@
       <h1>Base CSS estilos globales</h1>
       <section class="main-info">
         <section class="info">
+          <p>Hasta este punto ya hemos seteado todas las variables y algun mixin que necesitemos, ahora empezaremos a meter un poco de estilo.</p>
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>Estilos Generic</h2>
+            <p>Ya sabemos que la capa Generic es la primera en la que empezamos a generar CSS real que se aplica a nuestro documento. En esta capa, se incluyen estilos generales que afectan a la mayoría de los elementos, como los resets o normalize de CSS, que eliminan los estilos predeterminados del navegador y establecen una base consistente para todos los navegadores. También es común definir propiedades globales como box-sizing. </p>
+            <p>En este punto suele haber divisiones ya que hay quienes suelen optar por un <strong>reset</strong> u otros por un <strong>normalize.css</strong></p>
+            <h3>¿Porque suele haber estas divisiones?</h3>
+            <p>Esto surge por el hecho de que los navegadores suelen tener sus propios estilos por defecto para cada elemento del navegador, pero esto ya depende de igual manera del sistema operativo que puede involucrar estilos por defecto dependiendo el navegador y así mismo con mac.</p>
+            <p>Aquí es donde entra en juego la división. Esto ya depende del enfoque que mejor se adapte a la forma de desarrollar un proyecto.</p>
+            <h4>Reset</h4>
+            <p>Un reset se encarga de eliminar por totalemente los estilos por defecto que asignan los navegadores, como es el <strong>padding</strong> y <strong>margin</strong> y las demás propiedades de cada etiqueta.</p>
+            <p>Es bueno dejar algunas propiedades ya que por algo se les asignan ciertos estilos a algunas etiquetas. </p>
+            <p>No es obligatorio seguir las normas de siempre aplicar un reset así de gordo, ya que un error muy común y muy mala práctica es quitarle los <strong>paddings</strong> y <strong>margins</strong> a todos los elementos. Esto es muy mala práctica ya que depués nos obliga a volver asignar los mismos estilos que reseteamos a cada elemento. </p>
+            <p>Podemos aplicar resets pequeños para etiquetas en concreto que verdaderamente necesitemos resetearlas, como la etiqueta <code>body</code> que se le suele resetar el <code>margin</code> a 0 para eliminar esos margenes que vienen por defecto, pero solo se lo aplicamos al body y no a todos los elementos.</p>
+            <p>A continuación veamos un reset muy masivo.</p>
+            <div>
+              <pre><code class="language-css"> html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+ 
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+ 
+body {
+  line-height: 1;
+}
+ 
+ol,
+ul {
+  list-style: none;
+}
+ 
+blockquote,
+q {
+  quotes: none;
+}
+ 
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+  content: none;
+}
+ 
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}    </code></pre>
+            </div>
+            <p class="des-code">Este es un reset demasiado gordo que elimina casi todos los estilos por defecto de los navegadores, esto suele ser muy mala práctica ya que después nos obliga a poner de nuevo los estilos que reseteamos como paddings y margins y ademas de eso se pierde la visualización semántica que deben tener las etiquetas, por ejemplo si queremos una lista vamos a querer que el usuario sepa que es una lista, un reset así de gordo nos obliga hacer un poco de doble trabajo. </p>
+            <h4>Normalize.css </h4>
+            <p>Un normalize de lo que se encarga es que nuestras páginas se visualizen de la misma forma en todos los navegadores, no aplica resets masivos solo los necesarios para que en todos los navgeadores se miren igual nuestros sitios.</p>
+            <p>Es mejor usar un <strong>normalize</strong> ya que partimos de una base.</p>
+            <p>Descargar hoja de estilos de normalize -> <a class="link" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" target="_blank">normalize.css </a></p>
+            <h4>Box-sizing </h4>
+            <p>En nuestra hoja de estilos de box-sizign quedaría de la siguiente manera:
+            <div>
+              <pre><code class="language-css"> *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}    </code></pre>
+            </div>
+            </p>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Estructura de carpetas Generic</h2>
+            <div class="ts-1">
+              <pre class="ts-1"> styles
+├── generic
+│       ├── _box-sizing.css
+│       └── _normalize.css
+│       └── _reset.css</pre>
+            </div>
+            <p>Nuestro <strong>main.css</strong> quedaria de la siguiente manera hasta este momento.</p>
+            <div>
+              <pre><code class="language-css"> // Settings
+@import "settings/colors.css";
+@import "settings/layout.css";
+@import "settings/typography.css";
+@import "settings/z-index.css";
+ 
+// Tools
+@import "tools/justify.css";
+ 
+// Generic
+@import "generic/normalize.css";
+/* Podemos dejar un reset para elementos en concreto */
+/*@import "generic/reset.css";*/
+@import "generic/box-sizing.css";</code></pre>
+            </div>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">Estilos Generic</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">Estructura de carpetas Generic</a></li>
           </ul>
         </nav>
       </section>

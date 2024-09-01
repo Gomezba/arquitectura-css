@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -93,20 +94,89 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
-          </article>
-          <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Cosas a saber sobre configurar Tailwind para ser más custom</h2>
+            <p>Aunque usemos librerías con las que no necesitemos escribir CSS, como Tailwind, veremos que las capas que utilizamos en arquitectura tradicional siguen estando presentes de una forma u otra.</p>
+            <p>La capa de Settings la encontramos en la propia configuración de Tailwind, donde añadimos nuestras variables de colores corporativos, tipografía, etc.</p>
+            <p>Por la naturaleza de Tailwind no tendremos la capa de Tools como funciones y mixins, pero podemos agrupar repeticiones de clases en clases propias, lo que en nomenclatura Tailwind se consideran components:</p>
+            <div>
+              <pre><code class="language-css"> @layer components {
+ .flex-justified {
+   @apply flex flex-wrap items-center justify-between;
+ }
+ .flex-centered {
+   @apply flex flex-wrap items-center justify-center;
+ }
+}</code></pre>
+            </div>
+            <p>Tailwind ya incluye normalize, además de algunos resets propios, por lo que no será necesario añadirlo manualmente. La capa de estilos genéricos la añadiremos con la utilidad @layer base que nos ofrece Tailwind:</p>
+            <div>
+              <pre><code class="language-css"> @layer base {
+ h1,
+ h2,
+ h3 {
+   @apply font-light leading-tight;
+ }
+
+ h1 {
+   @apply text-5xl my-12;
+ }
+
+ h2 {
+   @apply text-4xl my-9;
+ }
+
+ h3 {
+   @apply text-2xl my-6;
+ }
+
+ a {
+   @apply underline text-green hover:text-green-dark transition-all;
+ }
+}</code></pre>
+            </div>
+            <p>Como Tailwind es una librería utility-first, en principio no necesitaremos añadir clases en la capa de utilidad, pero si necesitamos alguna opción que no esté en Tailwind podemos añadirla en la capa utilities:</p>
+            <div>
+              <pre><code class="language-css"> @layer utilities {
+ .basis-0 {
+   flex-basis: 0;
+ }
+ .basis-1\/2 {
+   flex-basis: 50%;
+ }
+ .flex-grow-max {
+   flex-grow: 9999;
+ }
+}</code></pre>
+            </div>
+            <p>Estas capas las podemos separar por archivos, pero si no crecen mucho también podemos incluirlas en el mismo index.css. La capa de componentes (objetos, átomos, moléculas y organismos) vemos que la tenemos exactamente igual que en la aplicación que vimos en el vídeo anterior, por lo que la estructura final nos quedaría así:</p>
+            <div>
+              <pre class="ts-1"> styles
+├── base.css
+├── components.css
+├── utilities.css
+└── index.css
+components
+├── common
+│       ├── Header.vue
+│       └── Footer.vue
+├── courses
+│       ├── Hero.vue
+│       └── Gallery.vue
+└── ui
+	   ├── objects
+	   │       ├── Container.vue
+	   │       └── UiList.vue
+	   ├── atoms
+	   │       ├── Button.vue
+	   │       ├── Image.vue
+	   │       └── Pill.vue
+	   └── molecules
+	           ├── Card.vue
+	           └── Form.vue
+tailwind.config.js</pre>
+            </div>
           </article>
         </section>
-        <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
-          </ul>
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
-          </ul>
-        </nav>
       </section>
     </main>
     <script src="../../js/prism-whitespace.js"></script>

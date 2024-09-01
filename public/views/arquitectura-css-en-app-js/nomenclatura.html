@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -92,19 +93,38 @@
       <h1>Nomenclatura de clases en componentes JS</h1>
       <section class="main-info">
         <section class="info">
+          <p>Uno de los mayores desafíos en la programación es nombrar correctamente las cosas, y esto es especialmente cierto en el caso de nuestras clases en CSS.</p>
+          <p>El mayor problema en CSS surge de su scope global: si usamos el mismo nombre para dos clases, pueden surgir conflictos que afectan la presentación de nuestra aplicación.</p>
+          <p class="ts-1">Con la llegada de aplicaciones JavaScript modernas, como las Single Page Applications (SPA), que trabajan con componentes, parece que hemos resuelto mágicamente todos los problemas del CSS gracias al uso de estilos encapsulados (scoped). Los frameworks y librerías hacen esto agregando prefijos a las clases o traduciendo los nombres para evitar colisiones, o utilizando técnicas como el shadow DOM, que aísla completamente los estilos. Otros frameworks agregan parámetros únicos a cada elemento para asegurarse de que una clase solo afecte a ese elemento específico. Esto puede dar la impresión de que ya no necesitamos preocuparnos por los nombres de las clases y que podemos estilizar directamente los elementos sin problema.</p>
+          <p>Pero ¿es realmente así? No del todo. Aunque estos enfoques resuelven algunos problemas del CSS tradicional, todavía enfrentamos desafíos de nomenclatura en los componentes JavaScript. Si bien el problema puede no ser siempre el nombre de las clases en sí, la necesidad de nombrar adecuadamente persiste, ya sea en las propiedades de estilo, los temas, las variantes, o cualquier otro aspecto del diseño de los componentes.</p>
+          <p>En resumen, aunque las técnicas modernas han mitigado algunos problemas, la importancia de una buena nomenclatura sigue siendo clave para mantener un código claro y manejable.</p>
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>Nomenclatura BEM en componentes JavaScript</h2>
+            <p>Cuando trabajamos dentro de un componente JavaScript, como en Vue, podríamos pensar que aplicar BEM es innecesariamente largo. Después de todo, ya estamos en el contexto de un componente card, ¿realmente necesitamos repetir ese nombre en todos los elementos? Es cierto que, en estos casos, puede parecer redundante. Entonces, ¿deberíamos olvidarnos de BEM al trabajar en componentes JavaScript? No necesariamente. BEM todavía puede ser útil, aunque podemos ajustar su uso para evitar bloques demasiado grandes.</p><img src="../../assets/img/app-js/vue1.png" alt="vue1">
+            <p>Por ejemplo, en lugar de tener un solo bloque card con todos sus elementos, podríamos dividirlo en bloques más pequeños: card como un bloque, image como otro, y info como otro. En componentes muy pequeños, BEM puede parecer excesivo, pero se vuelve valioso cuando necesitamos aplicar modificadores o cuando el componente crece en complejidad, permitiéndonos mantener una estructura clara y organizada.</p><img src="../../assets/img/app-js/vue2.png" alt="vue2">
+            <p>Adoptar una convención de nomenclatura, como BEM, no es solo para mantener el código ordenado y evitar colisiones de clases; es crucial para el trabajo en equipo. Al tener una forma estandarizada de trabajar, cualquier miembro del equipo puede entender rápidamente la estructura y los estilos de un componente. Sin esta uniformidad, el trabajo se vuelve más desorganizado y difícil de manejar.</p>
+            <p>Además, al usar BEM en un entorno con estilos encapsulados (scoped), tenemos la ventaja de que las clases no necesitan ser tan largas, sino que pueden ser más cortas y fáciles de leer. Esto también nos ahorra la necesidad de prefijar las clases según su categoría (como -a para átomos o -m para moléculas). Los componentes ya están organizados en sus respectivas carpetas, lo que resulta en clases más legibles y manejables.</p>
+            <p>Aunque este ejemplo se basa en un componente Vue, el mismo principio se aplica si trabajamos en Angular, React, o cualquier otro framework basado en componentes. Si usamos CSS con clases, BEM sigue siendo una convención útil y aplicable en todos estos contextos.</p>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Nomenclatura sin clases "Tailwind"</h2>
+            <p>Incluso si optamos por soluciones como Tailwind, en el que nos libramos de tener que pensar en nombres de clases, seguiremos teniendo la necesidad de pensar en nomenclatura. Por ejemplo, si queremos cambiar el aspecto del componente card, pasando una prop theme, tendremos que pensar el nombre de los themes, y posiblemente crear un método para aplicar las clases de Tailwind. Tendremos que preocuparnos de que estos nombres comuniquen la intencionalidad del método, para que sea claro como y por qué se aplican.</p>
+            <p>También puede ser interesante separar visualmente las clases de Tailwind según su responsabilidad, para que sea más fácil de leer y entender el aspecto que tiene ese elemento:</p>
+            <div>
+              <pre><code class="language-html"> &lt;input
+ class="block w-full mt-1 px-4 py-3 | border border-gray-400 rounded shadow-sm
+   | transition ease-in-out duration-150 | focus:ring-2 focus:ring-blue-600"
+ type="text"
+/&gt;  </code></pre>
+            </div>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">Nomenclatura BEM en componentes JavaScript</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">Nomenclatura sin clases &quot;Tailwind&quot;</a></li>
           </ul>
         </nav>
       </section>

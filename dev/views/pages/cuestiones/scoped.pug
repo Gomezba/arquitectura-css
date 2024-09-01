@@ -6,12 +6,11 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        p Scopes en componentes, y su especificidad
 
+        p A1 poner los estilos de un componente vue con scope, no le estariamos subiendo mucho su especificidad, al punto de dificultar su edicion en componentes que lo utilicen ?
 
-    article(id="2" class="content")
-        h2 Subtitulo 2    
+        p Que tan buena practica puede ser usar scopes dentro de los componentes JS, vs el uso de la nomenclatura BEM dentro de los componentes JS sin usar el scope.
 
-append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
-    +submenu(submenuLinks)
+        p Respuesta:
+        p Efectivamente, si trabajamos con un framework y tenemos los estilos scoped, su especificidad será alta y sería complicado modificar sus estilos desde fuera del componente. Pero no deberíamos encontrarnos a menudo en la situación de tener que modificar componentes hijos, ya que entonces estaremos creando componentes acoplados que conocen detalles de implementación de unos a otros. Además, si trabajamos sin estilos scoped en una aplicación tipo jamstack, podemos encontrarnos con situaciones en las que la carga de los estilos cree un flash de estilo erróneo.

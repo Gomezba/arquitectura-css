@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -92,19 +93,116 @@
       <h1>Lo mejor de Atomit Design e ITCSS</h1>
       <section class="main-info">
         <section class="info">
+          <p>Ya hemos visto Atomit Design e ITCSS pero la pregunta es ¿Con de los dos nos quedamos?</p>
+          <p>Bueno la gracia de estos dos sitemas es que son bastantes compatibles</p>
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
+            <h2>Comparación de problemas encontrados </h2>
+            <h3>Atomit Design </h3>
+            <div class="ts-1">
+              <pre><code class="ts-1">styles
+├── atoms
+│       ├── _button.scss
+│       ├── _image.scss
+│       └── _pill.scss
+├── molecules
+│       ├── _card.scss
+│       └── _form.scss
+├── organisms
+│       ├── _gallery.scss
+│       └── _header.scss
+└── index.scss</code></pre>
+            </div>
+            <p>El problema que teniamos es que no sabiamos donde meter lo siguiente:</p>
+            <div class="ts-1">
+              <pre><code class="ts-1">&#10005; ui-list.scss  
+&#10005; normalize.scss  
+&#10005; container.scss  
+&#10005; box-sizing.scss  
+&#10005; error.scss  </code></pre>
+            </div>
+            <p>Esto se debia a que Atomit Design en realidad es un sitema enfocado a Diseño y no a Desarrollo Web </p>
+            <h3>ITCSS </h3>
+            <p>Pero a comparación de ITCSS este sistema si nos ofrece lugar para esos estilos.</p>
+            <div class="ts-1 has-mb">
+              <pre><code class="ts-1">styles
+├── settings
+│       ├── colors.scss
+│       └── typography.scss
+├── tools
+│       └── mixins.scss
+├── generic
+│       ├── &#10003; normalize.scss
+│       └── &#10003; box-sizing.scss
+├── elements
+│       ├── headings.scss
+│       ├── images.scss
+│       └── links.scss
+├── objects
+│       ├── &#10003; container.scss
+│       ├── grid.scss
+│       └── &#10003; ui-list.scss
+├── components
+│       ├── button.scss 
+│       ├── card.scss 
+│       ├── forms.scss
+│       ├── header.scss
+│       └── ...
+├── utilities
+│       ├── typography.scss 
+│       └── &#10003; error.scss
+└── index.scss    </code></pre>
+            </div>
+            <p>Pero el problema del ITCSS es que la carpeta de <strong>components</strong> puede llegar a crecer bastante, en cambio en Atomit Design vemos que es mas ordenadito.</p>
+            <figure> <img class="has-mb" src="../../assets/img/comparando/3.png" alt="Comparacion">
+              <figcaption>Hay que recordar que Atomit Design se basa en la idea de que cualquier interfaz de usuario se puede descomponer en componentes más pequeños y manejables. Aquí solo estamos comparando como es que se ve mejor Atomit Design que tener una carpeta components que puede crecer bastante.</figcaption>
+            </figure>
           </article>
           <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <h2>Fusión 1 </h2>
+            <p>Lo que podemos hacer es hacer una combinación de ambos y así nos queda un sistema mucho más ordenado.</p>
+            <figure> <img src="../../assets/img/comparando/4.png" alt="Combinación">
+              <figcaption>En lugar de tener la carpeta components hemos juntado el sistema de Atomit Design (que recordemos que se basa en componentes más pequeños y manejables), con el sistema de ITCSS. </figcaption>
+            </figure>
+          </article>
+          <article class="content" id="3">
+            <h2>Fusión 2 </h2>
+            <p>Tambien podemos llegar a juntar tools con settings y objects con atoms.</p>
+            <figure> <img src="../../assets/img/comparando/5.png" alt="fusion 2">
+              <figcaption>Esto lo podemos hacer según que aplicaciones porque serian demasiado pequeñas.</figcaption>
+            </figure>
+          </article>
+          <article class="content" id="4">
+            <h2>Fusión 1 más recomendable</h2><img src="../../assets/img/comparando/4.png" alt="Comparacion">
+            <p>Es recomendable mantener las carpetas separadas al principio porque los átomos en Atomic Design están directamente relacionados con el tema de la aplicación. Por ejemplo, podríamos tener un botón con la clase primary para el color principal, otro para errores, y otro para cancelar. Como estas variaciones están muy ligadas al tema, es mejor mantenerlas en su propia carpeta. Así, cuando el equipo de diseño nos entregue los elementos, sabremos que esos átomos específicos se guardan en esa carpeta. Mientras tanto, en la carpeta objects, colocaremos las clases que usamos para estructurar la aplicación, que no dependen del equipo de diseño.</p>
+            <p>Mantener estas carpetas separadas resulta en una estructura más escalable que utilizar cualquiera de las dos arquitecturas de forma independiente. Esto se debe a que nos beneficiamos de una mayor colaboración con el equipo de diseño, al mismo tiempo que mantenemos una organización clara sobre dónde colocar cada elemento dentro de ITCSS.</p>
+          </article>
+          <article class="content" id="5">
+            <h2>No hay que ser tan puristas </h2>
+            <p>Al final no tenemos que seguir un sistema de arquitectura ciegamente y seguirlo en un plan super purista ya que si nuestra aplicación no es demasiado grande, puede ser un poco overkill tener una estructura así, sino que tenemos que adaptarlo siempre a las necesidaes de nuestra aplicación, tenemos que valorar las necesidades de nuestros estilos y si lo vemos adecuado podemos juntar varios niveles: settings y tools, generic y elements, objetos y átomos como veiamos anteriormente. Nosotros dimos la recomendación de utilizar la fusión 1 pero ya depende.</p>
+            <p>Otra cosa, nosotros hemos combiando Atomit Design con ITCSS pero hay otros sistemas de arquitectura, que si el equipo está más acostumbrado a utilizar esas pues tiene mas sentido meter esas en lugar de Atomit Design, lo importante es tenerlo claro y discutirlo con el equipo.</p>
+            <p>Esto es un sistema de arquitectura que funciona bien, pero siempre es adaptarlo en función de nuestra aplicación.</p>
+            <p>Otros sistemas de arquitecturas </p>
+            <ul>
+              <li><a class="link" href="https://www.smashingmagazine.com/2011/12/an-introduction-to-object-oriented-css-oocss/" target="_blank">OOCSS</a></li>
+              <li><a class="link" href="http://smacss.com/" target="_blank">SMACSS</a></li>
+            </ul>
           </article>
         </section>
         <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#1">Comparación de problemas encontrados</a></li>
           </ul>
           <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
+            <li class="submenu__item"><a class="submenu__link" href="#2">Fusión 1</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#3">Fusión 2</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#4">Fusión 1 más recomendable</a></li>
+          </ul>
+          <ul class="submenu">
+            <li class="submenu__item"><a class="submenu__link" href="#5">No hay que ser tan puristas</a></li>
           </ul>
         </nav>
       </section>

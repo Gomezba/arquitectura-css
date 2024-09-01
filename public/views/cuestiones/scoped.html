@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -93,20 +94,13 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
-          </article>
-          <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <p>Scopes en componentes, y su especificidad</p>
+            <p>A1 poner los estilos de un componente vue con scope, no le estariamos subiendo mucho su especificidad, al punto de dificultar su edicion en componentes que lo utilicen ?</p>
+            <p>Que tan buena practica puede ser usar scopes dentro de los componentes JS, vs el uso de la nomenclatura BEM dentro de los componentes JS sin usar el scope.</p>
+            <p>Respuesta:</p>
+            <p>Efectivamente, si trabajamos con un framework y tenemos los estilos scoped, su especificidad será alta y sería complicado modificar sus estilos desde fuera del componente. Pero no deberíamos encontrarnos a menudo en la situación de tener que modificar componentes hijos, ya que entonces estaremos creando componentes acoplados que conocen detalles de implementación de unos a otros. Además, si trabajamos sin estilos scoped en una aplicación tipo jamstack, podemos encontrarnos con situaciones en las que la carga de los estilos cree un flash de estilo erróneo.</p>
           </article>
         </section>
-        <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
-          </ul>
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
-          </ul>
-        </nav>
       </section>
     </main>
     <script src="../../js/prism-whitespace.js"></script>

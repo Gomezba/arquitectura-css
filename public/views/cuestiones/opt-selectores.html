@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/prism-dracrula.css">
     <link rel="stylesheet" href="../../../dev/css/main.css">
-    <title>plantilla</title>
+    <title>Arquitectura CSS</title>
     <script src="../../js/app.js" type="module" defer> </script>
   </head>
   <body class="layout">
@@ -93,20 +94,28 @@
       <section class="main-info">
         <section class="info">
           <article class="content" id="1">
-            <h2>Subtitulo 1</h2>
-          </article>
-          <article class="content" id="2">
-            <h2>Subtitulo 2 </h2>
+            <p>Hay diferencias en performance según el tipo de selector, pero son muy poco significativas y no debemos escoger el selector en base a esto.</p>
+            <p>Aún así, vemos que los selectores menos performant suelen tener otro tipo de problemas: son más específicos, por lo que nuestro codigo se volvería más acoplado, complejo y difícil de mantener (tal y como veíamos en el video sobre especificidad en el curso -> Visualiza la calidad de tu CSS: Especificidad de los selectores), y además tienden a ser más complicados de leer y entender.</p>
+            <p>Class selectors vs ID selectors</p>
+            <p>En los capítulos se recomienda el uso de clases por encima de identificadores, existe el libro de Steve Souders de Event Faster Websites, que es verdad que entonces hablaba de CSS2, en el capitulo de Types of Selectors habla del orden de eficiencia de los selectores de los mas simples (least costly) a los mas complejos (most expensive) en el siguiente orden:</p>
+            <ul class="ts-4">
+              <li> <strong>ID Selectors (#example {})</strong></li>
+              <li> <strong>Class selectors (.example {})</strong></li>
+              <li> <strong>Type selectors (a {})</strong></li>
+              <li> <strong>Siblings (h1 + #example {})</strong></li>
+              <li> <strong>Child (#example > a {})</strong></li>
+              <li> <strong>Descendant (#example a {})</strong></li>
+              <li> <strong>Universal (* {})</strong></li>
+              <li> <strong>Atrributes ([href="#example"] {})</strong></li>
+              <li> <strong>Pseudo clases (a:hover {})</strong></li>
+            </ul>
+            <p>Dicho esto, él mismo realizaba esta hipótesis (2009)</p>
+            <p>For most web sites, the possible performance gains from optimizing CSS selectors will be small, and are not worth the costs. There are some types of CSS rules and interactions with JavaScript that can make a page noticeably slower. This is where the focus should be.</p>
+            <p>En 2013 Google Page Speed Insides eliminó también la regla de "Use efficient CSS selectors" y en 2017 escribian "Performance of CSS Selectors Is Still Irrelevant" </p>
+            <p>Lanzo la pregunta/abro debate:</p>
+            <p>¿Actualmente importa la performance de los selectores y tendríamos que tenerlo en cuenta a la hora de escribir (¿puedo decir programar? :)) nuestros CSS? ¿Priorizamos la semantica vs la performance? ¿Podemos conseguir ambas?</p>
           </article>
         </section>
-        <nav class="container-submenu" id="submenu"><img class="arrow" id="arrow" src="../../assets/icons/arrow-back.svg" alt="arrow back" />
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#1">Subtitulo 1</a></li>
-          </ul>
-          <ul class="submenu">
-            <li class="submenu__item"><a class="submenu__link" href="#2">Subtitulo 2</a></li>
-          </ul>
-        </nav>
       </section>
     </main>
     <script src="../../js/prism-whitespace.js"></script>

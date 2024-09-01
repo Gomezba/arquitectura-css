@@ -6,12 +6,337 @@ append h1
 
 append content 
     article(id="1" class="content")
-        h2 Subtitulo 1
+        h2 Objects
+        p Recordemos que los objetos vienen de ITCSS y como se mencionó antes, los objects son clases que no incluyen propiedades de estilo visual, como colores o fondos. Estas clases se crean para proporcionar estructura a nuestra aplicación, como contenedores o grids, pero generalmente no están directamente relacionadas con algo que el departamento de diseño haya entregado, sino que las creamos para organizar mejor el código. 
+        h3 ¿Qué cosas añadimos en esta carpeta?
+        p Normalmente se incluye un 
+            strong container.css
+            |   y 
+            strong ui-list.css
+            | , pero puede ir cualquier otra clase que se encargue de estructura como un grid y que sea reutilizable.
 
+        div.has-mb: pre: code.language-css     
+            | /*file container.css*/ 
+            | .container{
+            |    max-width: 90%;
+            |    padding: 3em;
+            |    margint-left: 0;
+            |    margin-rigth: 0;
+            |}
+
+        div: pre: code.language-css     
+            | /*file ui-list.css*/ 
+            | .ui-list{
+            |    padding: 0;
+            |    margin: 0;
+            |    list-style: none;
+            |}
+            | .ui-list--horizontal{
+            |    display:flex;
+            |    flex-wrap: wrap;
+            |    align-items: center;
+            |    gap: 1rem;
+            |   }
+
+        p Estas clases se enfocan únicamente en la estructura y son altamente reutilizables. Por ejemplo, si tenemos una lista y queremos que sea semánticamente correcta como tal, pero también deseamos cambiar su apariencia para mostrar emoticones en lugar de las viñetas tradicionales, estas clases nos permiten lograrlo sin modificar su semántica. De manera similar, la clase container se encarga de estructurar el contenido de nuestro sitio, manteniéndolo siempre centrado, con un ancho máximo definido y un padding adecuado para crear una separación visual.
+
+        p Es importante destacar que estas clases solo manejan la estructura del contenido y no su estilo visual o tema.
+
+        p.note Si una clase debe cambiar dependiendo de un dark-theme o light-theme eso ya no sería un objeto.
 
     article(id="2" class="content")
-        h2 Subtitulo 2    
+        h2 Atoms    
+        p Por otro lado, los átomos sí tienen propiedades visuales, como colores o tamaños, y son los bloques más pequeños en nuestra aplicación. Cuando usamos BEM, podemos agregar modificadores a estas clases, pero no deberiamos añadir elementos dentro un átomo. Esto se debe a que, por su naturaleza, los átomos ya son las partes más pequeñas y fundamentales de nuestra aplicación.
+
+        p En el marco de Atomic Design, un átomo es la unidad básica e indivisible de la interfaz de usuario. Estos son los componentes más pequeños y fundamentales, como botones, campos de entrada, etiquetas, o íconos, tipografía, boxes de decoración, cover-background (fondos de portada), que no se pueden dividir en partes más simples sin perder su funcionalidad básica.
+
+        h3 Características Principales:
+        ul 
+            li 
+                p 
+                    strong Indivisibilidad
+                    | : Un átomo no puede dividirse en partes más pequeñas desde la perspectiva del diseño de la interfaz. Aunque internamente un átomo puede estar compuesto por múltiples elementos HTML y CSS, en términos de diseño, se considera un único bloque.
+            li 
+                p 
+                    strong Reusabilidad
+                    | : Dado que son los elementos más básicos, 
+                    strong.ts-2 los átomos están diseñados para ser utilizados en múltiples contextos y combinaciones a lo largo de una interfaz
+                    |   Sin embargo, aunque un átomo es reutilizable, su verdadera utilidad y significado emergen cuando se coloca dentro de un contexto más amplio, como una molécula, un organismo, o una plantilla. Por ejemplo, un botón (a-btn) es un átomo que, por sí solo, tiene una función clara, pero su propósito específico se define realmente cuando se incorpora en un formulario (m-form), en una barra de navegación, o en una tarjeta de producto.
+
+            li 
+                p 
+                    strong Estilo Simple
+                    | : Normalmente, los estilos aplicados a un átomo son sencillos y específicos, lo que permite que se integren fácilmente con otros componentes sin generar conflictos.
+
+        h3 Átomos ligados a una molécula 
+        p Esto lo veremos con más claridad en el siguiente capítulo cuando veamos moléculas, pero no está de más mencionarlo aquí.
+        p En algunos casos, un átomo puede ser tan específico para una molécula particular que pierde su relevancia fuera de ese contexto. Cuando esto ocurre, se puede considerar ese átomo como un elemento estrechamente ligado a la molécula y, en lugar de usar el prefijo a-, se le asigna el prefijo m- para indicar su pertenencia específica a esa molécula.
+
+        p Por ejemplo, si un botón es parte integral y exclusivo de un formulario específico, se le podría asignar la clase m-form__btn en lugar de a-btn, señalando que este botón está pensado para usarse solo dentro del contexto de m-form y no en otras partes del diseño.            
+
+        h3 ¿Que cosas añadimos en esta carpeta?
+        p Los átomos ya son elementos con más entidad, podemos tener átomos de tipografía, cajas que encierran contenido, botones, etc. Veamos algunos átomos que suelen ir.
+
+        p
+            strong box.css
+
+        div: pre: code.language-css 
+            |.box {
+            |  padding: 1.63rem;
+            |  background: var(--bg-box);
+            |  border-radius: 0.37rem;
+            |  color: var(--text-white);
+            |}
+
+        p
+            strong btn.css
+        div: pre: code.language-css 
+            | .btn {
+            |  display: inline-block;
+            |  padding: 0.75rem 1.87rem;
+            |  border: none;
+            |  border-radius: 0.3rem;
+            |  cursor: pointer;
+            |  font-size: var(--fz-1);
+            |  font-weight: 600;
+            |  letter-spacing: 0.03em;
+            |  text-align: center;
+            |  text-decoration: none;
+            |  text-transform: uppercase;
+            |  transition: all 0.2s;
+            |
+            | }
+            |  .btn--block {
+            |    display: block;
+            |    width: 100%;
+            |  }
+            |
+            | .btn--primary {
+            |    background: var(--primary-color);
+            |    color: var(--text-white);
+            |  }
+            |
+            |.btn--primary:hover,
+            |.btn--primary:focus{
+            |    background: var(--bg-dark-color);
+            |    color: var(--text-inverted-color);    
+            |}
+
+        p
+            strong cover-background.css
+        div: pre: code.language-css 
+            |.cover-background {
+            |  background-attachment: fixed;
+            |  background-color: var(--dark-color);
+            |  background-position: center;
+            |  background-repeat: no-repeat;
+            |  background-size: cover;
+            |  color: var(--text-inverted-color);
+            |}
+            |
+            | .cover-background--plant {
+            |    background-image: url("../../img/bg/plant.jpg");
+            |  }
+            |
+            |  .cover-background--kayak {
+            |    background-image: url("../../img/bg/kayak.jpg");
+            |  }
+        p
+            strong typography.css
+        div.has-mb: pre: code.language-css 
+            |.lead {
+            |  font-size: var(--fs-lead);
+            |  line-height: 1.65;
+            |}
+            |
+            |.title {
+            |  font-size: var(--fs-title-l);
+            |}
+
+    article(id="3" class="content")
+        h2 Prefijar clases 
+        p A veces, cuando vemos estas clases en el HTML, no es fácil saber si son objetos o átomos. Esto puede complicar la búsqueda del archivo correcto para modificarlas y dificulta entender su función. En aplicaciones grandes, puede ser útil agregar un prefijo a las clases según su tipo, para identificarlas rápidamente:
+
+        p Veamos como se veria el html sin utilizar prefijos 
+        div: pre: code.language-html 
+            |&lt;section class="container"&gt;
+            |     &lt;h1&gt;Heading 1&lt;/h1&gt;
+            |     &lt;h2&gt;Heading 2&lt;/h2&gt;
+            |     &lt;h3&gt;Heading 3&lt;/h3&gt;
+            |     &lt;p&gt;Text with a &lt;a href=""&gt;a link&lt;/a&gt;.&lt;/p&gt;
+            |&lt;/section&gt;
+            |&lt;section class="container"&gt;
+            |      &lt;h3&gt;A UI List:&lt;/h3&gt;
+            |      &lt;ul class="ui-list"&gt;
+            |        &lt;li&gt;Item 1&lt;/li&gt;
+            |        &lt;li&gt;Item 2&lt;/li&gt;
+            |        &lt;li&gt;Item 3&lt;/li&gt;
+            |      &lt;/ul&gt;
+            |      &lt;h3&gt;A horizontal List:&lt;/h3&gt;
+            |      &lt;ul class="ui-list ui-list--horizontal"&gt;
+            |        &lt;li&gt;Item 1&lt;/li&gt;
+            |        &lt;li&gt;Item 2&lt;/li&gt;
+            |        &lt;li&gt;Item 3&lt;/li&gt;
+            |      &lt;/ul&gt;
+            |&lt;/section&gt;
+            |&lt;section class="cover-background cover-background--plant"&gt;
+            |      &lt;div class="container"&gt;
+            |        &lt;h3 class="title"&gt;Atoms&lt;/h3&gt;
+            |        &lt;p class="lead"&gt;
+            |          Lorem consectetur dolor culpa nulla fugiat culpa sit velit anim
+            |          voluptate incididunt. Cupidatat excepteur eiusmod quis velit id sint
+            |          labore. Aliquip officia occaecat id pariatur anim nulla qui et minim
+            |          ullamco amet voluptate dolor non. Tempor fugiat Lorem sint incididunt
+            |          exercitation ea ad aliqua id et enim. Magna tempor id laboris ullamco
+            |          eiusmod.
+            |        &lt;/p&gt;
+            |        &lt;div class="box"&gt;
+            |          Aliqua commodo consequat velit aute excepteur duis exercitation
+            |          officia sint. Veniam id ea ea ad aute cillum deserunt excepteur.
+            |        &lt;/div&gt;
+            |        &lt;br /&gt;
+            |        &lt;button class="btn btn--primary"&gt;Primary button&lt;/button&gt;
+            |&lt;/section&gt;
+
+        p.des-code Vemos que es dificil identificar que es un átomo y que es un object, así si queremos modificar algo nos será dificil saber a que parte debemos irnos a hacer las modificaciones.
+
+        p Para aplicaciones más grandes o incluso pequeñas como sea requerido según el equipo de trabajo, podemos utilizar los siguientes prefijos.    
+
+        ul 
+            li 
+                p 
+                    strong objects
+                    | : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; o-   
+            li 
+                p 
+                    strong atoms      
+                    | : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a- 
+            li 
+                p 
+                    strong molecules
+                    | : &nbsp;&nbsp; m-   
+            li 
+                p 
+                    strong organisms
+                    | : &nbsp;&nbsp; g-   
+            li 
+                p 
+                    strong utilities
+                ul     
+                    li 
+                        p u-       
+                    li 
+                        p is-       
+                    li 
+                        p has-       
+
+        p.ts-1 Así quedaría nuestro html con prefijos
+        div: pre: code.language-html 
+            |&lt;section class="o-container"&gt;
+            |     &lt;h1&gt;Heading 1&lt;/h1&gt;
+            |     &lt;h2&gt;Heading 2&lt;/h2&gt;
+            |     &lt;h3&gt;Heading 3&lt;/h3&gt;
+            |     &lt;p&gt;Text with a &lt;a href=""&gt;a link&lt;/a&gt;.&lt;/p&gt;
+            |&lt;/section&gt;
+            |&lt;section class="o-container"&gt;
+            |      &lt;h3&gt;A UI List:&lt;/h3&gt;
+            |      &lt;ul class="o-ui-list"&gt;
+            |        &lt;li&gt;Item 1&lt;/li&gt;
+            |        &lt;li&gt;Item 2&lt;/li&gt;
+            |        &lt;li&gt;Item 3&lt;/li&gt;
+            |      &lt;/ul&gt;
+            |      &lt;h3&gt;A horizontal List:&lt;/h3&gt;
+            |      &lt;ul class="o-ui-list o-ui-list--horizontal"&gt;
+            |        &lt;li&gt;Item 1&lt;/li&gt;
+            |        &lt;li&gt;Item 2&lt;/li&gt;
+            |        &lt;li&gt;Item 3&lt;/li&gt;
+            |      &lt;/ul&gt;
+            |&lt;/section&gt;
+            |&lt;section class="a-cover-background a-cover-background--plant"&gt;
+            |      &lt;div class="o-container"&gt;
+            |        &lt;h3 class="a-title"&gt;Atoms&lt;/h3&gt;
+            |        &lt;p class="a-lead"&gt;
+            |          Lorem consectetur dolor culpa nulla fugiat culpa sit velit anim
+            |          voluptate incididunt. Cupidatat excepteur eiusmod quis velit id sint
+            |          labore. Aliquip officia occaecat id pariatur anim nulla qui et minim
+            |          ullamco amet voluptate dolor non. Tempor fugiat Lorem sint incididunt
+            |          exercitation ea ad aliqua id et enim. Magna tempor id laboris ullamco
+            |          eiusmod.
+            |        &lt;/p&gt;
+            |        &lt;div class="a-box"&gt;
+            |          Aliqua commodo consequat velit aute excepteur duis exercitation
+            |          officia sint. Veniam id ea ea ad aute cillum deserunt excepteur.
+            |        &lt;/div&gt;
+            |        &lt;br /&gt;
+            |        &lt;button class="a-btn a-btn--primary"&gt;Primary button&lt;/button&gt;
+            |&lt;/section&gt;
+
+        p.des-code Como podemos ver es muy fácil identificar los objects y elements.
+        p Así quedaría nuestro CSS con prefijos
+
+        p: strong.ts-2 Objetos prefijados CSS
+        div: pre: code.language-css 
+            | /*file container.css*/
+            | .o-container {}
+            |
+            | /*file ui-list.css*/
+            | .o-ui-list {}
+            | .o-ui-list--horizontal {}
+
+        p: strong.ts-2 Átomos prefijados CSS
+        div: pre: code.language-css 
+            |/*file box.css*/
+            |.a-box {}
+            |
+            |/*file btn.css*/
+            |.a-btn {}
+            |.a-btn--block {}
+            |.a-btn--primary {}
+            |.a-btn--primary:hover,.a-btn--primary:focus {}
+            |
+            |/*file cover-background.css*/
+            |.a-cover-background {}
+            |.a-cover-background--plant {}
+            |.a-cover-background--kayak {}
+            |
+            |/*file typography.css*/
+            |.a-lead {} 
+            |.a-title {}
+
+        p.note Esto puede crear clases largas y difíciles de leer, especialmente combinado con BEM, así que hay que valorar si vale la pena o no en función del tipo de aplicación y el equipo que tengamos.     
+
+    article(id="4" class="content")
+        h2 index.css
+        p Hasta este punto nuestro 
+            strong index.css
+            |   quedaría de la siguiente manera
+        div: pre: code.language-css 
+            | // Settings
+            | @import "settings/colors.css";
+            | @import "settings/layout.css";
+            | @import "settings/typography.css";
+            | @import "settings/z-index.css";
+            | 
+            | // Tools
+            | @import "tools/justify.css";
+            | 
+            | // Generic
+            | @import "generic/normalize.css";
+            | /*@import "generic/reset.css";*/
+            | @import "generic/box-sizing.css";
+            | 
+            | // Elements
+            | @import "elements/body.css";
+            | @import "elements/headings.css";
+            | @import "elements/img.css";
+            | @import "elements/links.css";
+            |
+            | // Atoms
+            | @import "atoms/box.css";
+            | @import "atoms/btn.css";
+            | @import "atoms/cover-background.css";
+            | @import "atoms/typography.css";
 
 append submenu 
-    -submenuLinks = [['1','Subtitulo 1'],['2','Subtitulo 2']]
+    -submenuLinks = [[1,'Objects'],[2,'Atoms'],[3,'Prefijar clases'],[4,'index.css']]
     +submenu(submenuLinks)
