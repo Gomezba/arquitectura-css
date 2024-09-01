@@ -7,13 +7,139 @@ append h1
 append content 
     article(id="1" class="content")
         h2 Subtitulo 1
+        p Si optamos por una solución CSS-in-JS, en este caso Styled Components, seguiremos una estructura muy parecida a la que hemos visto en el vídeo ATOMITCSS en aplicaciones JS. Las peculiaridades las encontraremos al usar JS en lugar de Sass o cualquier preprocesador.
 
-    article(id="2" class="content")
-        h2 Subtitulo 2
+        p Las variables de nuestra aplicación pueden seguir estando en la carpeta de estilos, pero tendremos que transformarlas a un objeto JavaScript (el plugin sass-extract-js nos permite hacerlo automáticamente). Pasando este objeto a ThemeProvider de Styled Components, nos permite que todos los componentes descendientes tengan acceso a las variables:
 
-    article(id="3" class="content")
-        h2 Subtitulo 3        
+        div: pre: code.language-javascript
+            |import { ThemeProvider } from "styled-components";
+            |
+            |const theme = require('sass-extract-loader?{"plugins": ["sass-extract-js"]}!./styles/settings/_variables.scss');
+            |
+            |function App() {
+            |  return (
+            |    &lt;ThemeProvider theme={theme}&gt;
+            |      &lt;Header /&gt;
+            |      &lt;Hero /&gt;
+            |      &lt;Courses /&gt;
+            |			&lt;Footer /&gt;
+            |    &lt;/ThemeProvider&gt;
+            |  );
+            |}
 
-append submenu 
-    -submenuLinks = [[1,'Subtitulo 1'],[2,'Subtitulo 2'],[3,'Subtitulo 3']]
-    +submenu(submenuLinks)
+        p A la hora de reutilizar código tendremos que aplicar unos métodos distintos. Styled Components nos permite extender los estilos de otro componente de la siguiente manera:
+
+        div: pre: code.language-javascript
+            |const MyComponent = styled(OtherComponent)`
+            |  font-size: 1.5rem;
+            |`;
+
+        p De esta forma, MyComponent tendrá todos los estilos de OtherComponent, además de su propio font-size. Pero como podemos imaginar, combinar más de dos componentes no es tan fácil. Una opción para reutilizar código es crear componentes de layout flexibles que no van a añadir estilos a sí mismos, sino a su descendiente:
+
+
+        div: pre: code.language-javascript
+            |import styled from "styled-components";
+            |
+            |export const Justify = styled.div.attrs((props) => ({
+            |  alignItems: props.alignItems || "center",
+            |}))`
+            |  > * {
+            |    display: flex;
+            |    flex-wrap: wrap;
+            |    align-items: ${(props) => props.alignItems};
+            |    justify-content: space-between;
+            |  }
+            |`;
+
+        p Pero vemos que cuando estos componentes necesitan mucha más configuración y reciben muchas props, nos queda el template con muchas propiedades relacionadas con CSS, cosa que dificulta la trazabilidad de los estilos:
+
+
+        div: pre: code.language-javascript
+            |&lt;Sidebar position="first-child" minWidth="60%" sidebarWidth="25rem"&gt;
+            |	&lt;Container&gt;
+            |		{ //... }
+            |  &lt;/Container&gt;
+            |&lt;/Sidebar&gt;
+
+        p En estos casos puede ser preferible reutilizar código de otra forma: al usar JavaScript, podemos también crear funciones que nos devuelvan el string de CSS con sus variables. Es lo más parecido a un mixin de Sass:
+
+        div: pre: code.language-javascript
+            |export function includeSidebar({
+            |  gap = "1rem",
+            |  sidebarPosition = "last-child",
+            |  sidebarWidth = "auto",
+            |  minWidth = "50%",
+            |}) {
+            |  return `
+            |  display: flex;
+            |  flex-wrap: wrap;
+            |  gap: ${gap};
+            |  > * {
+            |    flex-basis: ${sidebarWidth};
+            |    flex-grow: 1;
+            |  }
+            |  > ${":" + sidebarPosition} {
+            |    min-width: ${minWidth};
+            |    flex-basis: 0;
+            |    flex-grow: 999;
+            |  }
+            |`;
+            |}
+
+        p Podemos importar y usar esta función en cualquier componente, una solución que permite que la responsabilidad del estilo siga estando en la parte de CSS, es más flexible y fácil de entender:
+
+        div: pre: code.language-javascript
+            |const SubscribeContainer = styled(Container)`
+            |  ${includeSidebar({
+            |    sidebarPosition: "first-child",
+            |    minWidth: "60%",
+            |    sidebarWidth: "25rem",
+            |  })}
+            |  padding-top: ${(props) => props.theme.spacingL};
+            |  padding-bottom: 5rem;
+            |
+            |  > :first-child {
+            |    padding-right: 10vw;
+            |  }
+            |`;
+
+        p A nivel de estructura nos quedaría muy parecido a lo que hemos visto hasta ahora:
+
+        div: pre.ts-1 
+            |styles
+            |├── settings
+            |│       ├── _colors.scss
+            |│       └── _typography.scss
+            |├── generic
+            |│       ├── _normalize.scss
+            |│       └── _box-sizing.scss
+            |├── elements
+            |│       ├── _headings.scss
+            |│       ├── _images.scss
+            |│       └── _links.scss
+            |├── utilities
+            |│       ├── _typography.scss 
+            |│       └── _error.scss
+            |└── index.scss
+            |
+            |components
+            |├── common
+            |│       ├── Header.js
+            |│       └── Footer.js
+            |├── courses
+            |│       ├── Hero.js
+            |│       └── Gallery.js
+            |└── ui
+            |      ├── objects
+            |      │       ├── Container.js
+            |      │       └── UiList.js
+            |      ├── atoms
+            |      │       ├── Button.js
+            |      │       ├── Image.js
+            |      │       └── Pill.js
+            |      ├── molecules
+            |      │       ├── Card.js
+            |      │       └── Form.js
+            |      └── utils
+            |              └── includeSidebar.js  
+            |
