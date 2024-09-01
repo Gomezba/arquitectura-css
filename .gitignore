@@ -1,2 +1,9 @@
 .vscode/
 node_modules
+dev
+.browserslistrc
+gulpfile.babel.js
+package-lock.json
+package.json
+postcss.config.js
+.gitattributes
