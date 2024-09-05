@@ -176,7 +176,7 @@
 }
 
 @media (hover: hover) {
-	.cross-menu__item:hover:not(.cross-menu__item.active) .cross-menu__link {
+	.cross-menu__item:hover:not(.cross-menu__item.active) .cross-menu__link:not(.cross-menu__link.active) {
 		color: var(--color-link-hover);
 	}
 }
