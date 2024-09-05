@@ -358,9 +358,9 @@
 .ts-5,
 .ts-6 {
 	padding: var(--pd-highlight-text);
-	color: var(--color-text-dark);
 	border-radius: var(--br-small);
 	background-color: var(--bg-text-strong-1);
+	color: var(--color-text-dark) !important;
 
 	-webkit-hyphens: auto;
 	-ms-hyphens: auto;
@@ -368,7 +368,7 @@
 }
 
 .ts-1 {
-	color: var(--color-primary-text);
+	color: rgb(192, 192, 192) !important;
 }
 .ts-2 {
 	background-color: var(--bg-text-strong-2);
