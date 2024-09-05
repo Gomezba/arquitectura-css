@@ -353,6 +353,7 @@ div:has(pre code[class*='html'])::after {
 	border-radius: var(--br-small);
 	color: black;
 	font-weight: bolder;
+	z-index: var(--z1);
 }
 
 div:has(pre code[class*='jsx'])::after {
