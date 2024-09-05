@@ -128,7 +128,6 @@ img {
 	text-wrap: balance;
 	border: 1px solid var(--bg-main);
 	padding-bottom: 1em;
-	z-index: var(--z1);
 
 	@media (width > 900px) {
 		line-height: 1.1;
@@ -146,7 +145,7 @@ h1 {
 	font-weight: var(--fw-700);
 	color: var(--color-main-title);
 	top: 0;
-	z-index: var(--z2);
+	z-index: var(--z3);
 	min-height: 3.7rem;
 	max-height: max-content;
 	padding-block: 0.3em;
@@ -162,19 +161,21 @@ h2 {
 	top: var(--top-sticky-1);
 	color: var(--color-main-subtitle-1);
 	font-weight: var(--fw-600);
-	z-index: var(--z1);
+	z-index: var(--z2);
 }
 
 h3 {
 	top: var(--top-sticky-2);
 	color: var(--color-main-subtitle-2);
 	font-weight: var(--fw-500);
+	z-index: var(--z1);
 }
 
 h4 {
 	top: var(--top-sticky-3);
 	color: var(--color-main-subtitle-3);
 	font-weight: var(--fw-500);
+	z-index: var(--z1);
 
 	@media (width <= 380px) {
 		min-height: 4rem;

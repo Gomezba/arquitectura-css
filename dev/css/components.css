@@ -20,7 +20,7 @@
 	position: fixed;
 	padding: var(--pd-medium);
 	background-color: var(--color-secundary-grey);
-	z-index: var(--z3);
+	z-index: var(--z4);
 
 	@media (width > 500px) {
 		visibility: hidden;
