@@ -195,7 +195,7 @@
 	overflow-y: auto;
 	transform: translate(90%, -50%);
 	transition: transform 0.5s, background-color 0.1s;
-	z-index: var(--z1);
+	z-index: var(--z2);
 
 	@media (width > 500px) {
 		transform: translate(calc(90% + 3vw), -50%);
