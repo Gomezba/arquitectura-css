@@ -339,7 +339,6 @@
 	font-style: normal;
 	font-weight: bolder;
 	text-indent: 1em;
-	text-decoration: underline;
 }
 
 .note--warning::after {
